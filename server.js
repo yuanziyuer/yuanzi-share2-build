@@ -707,7 +707,7 @@ module.exports =
   /* eslint-disable max-len */
   /* jscs:disable maximumLineLength */
   
-  var port = exports.port = process.env.PORT || 3000;
+  var port = exports.port = process.env.PORT || 80;
   var host = exports.host = process.env.WEBSITE_HOSTNAME || 'localhost:' + port;
   
   var databaseUrl = exports.databaseUrl = process.env.DATABASE_URL || 'postgresql://demo:Lqk62xg6TBm5UhfR@demo.ctbl5itzitm4.us-east-1.rds.amazonaws.com:5432/membership01';
