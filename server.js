@@ -106,7 +106,7 @@ module.exports =
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _assets = __webpack_require__(158);
+  var _assets = __webpack_require__(159);
   
   var _assets2 = _interopRequireDefault(_assets);
   
@@ -191,7 +191,7 @@ module.exports =
                     switch (_context.prev = _context.next) {
                       case 0:
                         statusCode = 200;
-                        template = __webpack_require__(159);
+                        template = __webpack_require__(160);
                         data = { title: '', description: '', css: '', body: '', entry: _assets2.default.main.js };
   
   
@@ -265,7 +265,7 @@ module.exports =
   server.use(function (err, req, res, next) {
     // eslint-disable-line no-unused-vars
     console.log(pe.render(err)); // eslint-disable-line no-console
-    var template = __webpack_require__(161);
+    var template = __webpack_require__(162);
     var statusCode = err.status || 500;
     res.status(statusCode);
     res.send(template({
@@ -1442,7 +1442,7 @@ module.exports =
    * LICENSE.txt file in the root directory of this source tree.
    */
   
-  var baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
+  var baseUrl = 'http://www.iyuanzi.net' || 'http://test.iyuanzi.com';
   var lastFetchTask = void 0;
   var lastFetchTime = new Date(1970, 0, 1);
   var strategy = {
@@ -2063,7 +2063,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var routes = [__webpack_require__(120), __webpack_require__(124), __webpack_require__(128), __webpack_require__(132), __webpack_require__(144), __webpack_require__(148), __webpack_require__(154)]; /**
+  var routes = [__webpack_require__(120), __webpack_require__(124), __webpack_require__(128), __webpack_require__(132), __webpack_require__(145), __webpack_require__(149), __webpack_require__(155)]; /**
                                                                                                                                                                                                                        * React Starter Kit (https://www.reactstarterkit.com/)
                                                                                                                                                                                                                        *
                                                                                                                                                                                                                        * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
@@ -6149,9 +6149,9 @@ module.exports =
   
   var _Comments2 = _interopRequireDefault(_Comments);
   
-  var _CdnUrl = __webpack_require__(143);
+  var _Image = __webpack_require__(143);
   
-  var _CdnUrl2 = _interopRequireDefault(_CdnUrl);
+  var _Image2 = _interopRequireDefault(_Image);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -6267,7 +6267,7 @@ module.exports =
             _react2.default.createElement(
               'div',
               { className: _Strategy2.default.stepRight },
-              _react2.default.createElement('img', { src: _CdnUrl2.default.format(item.imgUrl) + '@1pr.jpg', alt: '' }),
+              _react2.default.createElement(_Image2.default, { src: item.imgUrl }),
               _react2.default.createElement(
                 'p',
                 null,
@@ -6310,9 +6310,9 @@ module.exports =
             _react2.default.createElement(
               'a',
               { className: _Strategy2.default.header, href: '/photos/' + item.photoId + '/view' },
-              _react2.default.createElement('img', { src: _CdnUrl2.default.format(item.content[0].img) + '@280w_280h_1pr.jpg', alt: '' })
+              _react2.default.createElement(_Image2.default, { height: '280', width: '280', src: item.content[0].img })
             ),
-            _react2.default.createElement('img', { className: _Strategy2.default.avatar, src: _CdnUrl2.default.format(item.owner.avatar) + '@56h_56w_1pr.jpg', alt: '' }),
+            _react2.default.createElement(_Image2.default, { className: _Strategy2.default.avatar, height: '56', width: '56', src: item.owner.avatar }),
             _react2.default.createElement(
               'p',
               { className: _Strategy2.default.nickname },
@@ -6434,11 +6434,11 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Strategy2.default.cover },
-        _react2.default.createElement('img', { src: _CdnUrl2.default.format(strategy.cover) + '@440h_1pr.jpg', alt: '' }),
+        _react2.default.createElement(_Image2.default, { height: '440', src: strategy.cover }),
         _react2.default.createElement(
           'div',
           { className: _Strategy2.default.avatar },
-          _react2.default.createElement('img', { src: _CdnUrl2.default.format(strategy.owner.avatar) + '@108h_108w_1pr.jpg', alt: '' }),
+          _react2.default.createElement(_Image2.default, { height: '108', width: '108', src: strategy.owner.avatar }),
           _react2.default.createElement(
             'h3',
             null,
@@ -6501,7 +6501,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "ul{list-style:none}._2DwC{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background:#fff;width:100%}._2DwC img{-o-object-fit:cover;object-fit:cover;height:220px;width:100%}._2DwC .uJCT{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}._2DwC .uJCT img{margin-top:-27px;height:54px;width:54px;border-radius:30px;border:3px solid #fff}._2DwC .uJCT h3{margin-top:10px;text-align:center;font-size:15px;color:#ff989e}._3PxW{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;background:#fff;width:100%}._3PxW p{margin:0 auto;font-size:12px;color:#999}._2c4C{background:#fff;width:100%;padding:35px 0 23px}._2c4C,._2c4C ul{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}._2c4C ul{margin:0 auto;-webkit-align-self:center;-ms-flex-item-align:center;align-self:center;-webkit-padding-start:0}._2c4C ul li{margin:0 22px;background:url(" + __webpack_require__(136) + ") no-repeat;background-size:80px;width:80px;height:80px;font-size:12px;color:#666;padding-top:15px}._2c4C ul li span{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;margin-top:10px;margin-right:8px;margin-left:8px}._2c4C ul li img{margin-left:14px;margin-top:8px;width:50px;height:8px}._3mUM{background:#fff;width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-ms-grid-column-align:center;justify-items:center}._3mUM audio{margin:0 auto;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;-ms-grid-row-align:center;align-items:center}._2puw{width:100%;background:#fff;padding:0 12px}._2puw ._1--2{background:url(" + __webpack_require__(137) + ") no-repeat;height:19px;background-size:99px 20px;color:#fff;font-size:15px;border-bottom:1px solid #fed172;padding-left:15px;text-align:left}._2puw ._5u0l ul{margin-top:25px;margin-bottom:30px;padding-right:27px}._2puw ._5u0l ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}._2puw ._5u0l ul li,._2puw ._5u0l ul li div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}._2puw ._5u0l ul li div{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}._2puw ._5u0l ul li span{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3ij- ul{margin-top:25px;padding-right:27px}._2puw ._3ij- ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}._2puw ._3ij- ul li,._2puw ._3ij- ul li div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}._2puw ._3ij- ul li div{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}._2puw ._3ij- ul li span{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3Fx7 ul{margin-top:25px;margin-bottom:30px;padding-left:25px}._2puw ._3Fx7 ul li{padding:0 10px 30px 25px;border-left:2px solid #fed271;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}._2puw ._3Fx7 ul li ._3rAk span{display:block;height:22px;width:22px;background:#fed271;color:#fff;font-size:15px;margin-left:-37px;text-align:center;border-radius:11px}._2puw ._3Fx7 ul li ._1g8R img{width:100%;border:1px solid #e5e5e5;padding:4px}._2puw ._3Fx7 ul li ._1g8R p{font-size:15px;color:#666}._29Ha{line-height:1.8;background:#fff;padding:12px}._2nWu,._29Ha,._29Ha img{width:100%}._2nWu{background:#fff;margin:10px 0;padding:10px 0 35px}._2nWu .Y3wt{margin-left:12px;font-size:15px;color:#666}._2nWu .Y3wt span:nth-child(1){color:#666}._2nWu .Y3wt span:nth-child(2){color:#999}._2nWu ul{padding:0 12px;margin-top:17px;-webkit-box-orient:horizontal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;overflow-x:auto}._2nWu ul,._2nWu ul li{display:-webkit-flex;display:-ms-flexbox;display:flex;display:-webkit-box;-webkit-box-direction:normal}._2nWu ul li{-webkit-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;border:1px solid #e5e5e5;padding:4px 4px 25px;margin:0 5px 0 0}._2nWu ul li .TevT{display:inline-block;height:140px;width:140px}._2nWu ul li .TevT img{-o-object-fit:cover;object-fit:cover;width:100%;height:100%}._2nWu ul li .uJCT{margin-top:-14px;height:28px;width:28px;border-radius:14px}._2nWu ul li ._14jh{font-size:12px;color:#666;padding:10px 0}._2nWu ul li ._1ZPp span{margin-left:5px;font-size:11px;color:#999}._2nWu ul li ._1ZPp img{height:18px;width:18px}._1Lno{margin:0 0 45px;padding:0;max-width:768px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;background-color:#fcf8f5}", ""]);
+  exports.push([module.id, "ul{list-style:none}._2DwC{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;background:#fff;width:100%}._2DwC img{-o-object-fit:cover;object-fit:cover;height:220px;width:100%}._2DwC .uJCT{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}._2DwC .uJCT img{margin-top:-27px;height:54px;width:54px;border-radius:30px;border:3px solid #fff}._2DwC .uJCT h3{margin-top:10px;text-align:center;font-size:15px;color:#ff989e}._3PxW{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;background:#fff;width:100%}._3PxW p{margin:0 auto;font-size:12px;color:#999}._2c4C{background:#fff;width:100%;padding:35px 0 23px}._2c4C,._2c4C ul{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}._2c4C ul{margin:0 auto;-webkit-align-self:center;-ms-flex-item-align:center;align-self:center;-webkit-padding-start:0}._2c4C ul li{margin:0 22px;background:url(" + __webpack_require__(136) + ") no-repeat;background-size:80px;width:80px;height:80px;font-size:12px;color:#666;padding-top:15px}._2c4C ul li span{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;margin-top:10px;margin-right:8px;margin-left:8px}._2c4C ul li img{margin-left:14px;margin-top:8px;width:50px;height:8px}._3mUM{background:#fff;width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-ms-grid-column-align:center;justify-items:center}._3mUM audio{margin:0 auto;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;-ms-grid-row-align:center;align-items:center}._2puw{width:100%;background:#fff;padding:0 12px}._2puw ._1--2{background:url(" + __webpack_require__(137) + ") no-repeat;height:19px;background-size:99px 20px;color:#fff;font-size:15px;border-bottom:1px solid #fed172;padding-left:15px;text-align:left}._2puw ._5u0l ul{margin-top:25px;margin-bottom:30px;padding-right:27px}._2puw ._5u0l ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}._2puw ._5u0l ul li,._2puw ._5u0l ul li div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}._2puw ._5u0l ul li div{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}._2puw ._5u0l ul li span{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3ij- ul{margin-top:25px;padding-right:27px}._2puw ._3ij- ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}._2puw ._3ij- ul li,._2puw ._3ij- ul li div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}._2puw ._3ij- ul li div{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}._2puw ._3ij- ul li span{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3Fx7 ul{margin-top:25px;margin-bottom:30px;padding-left:25px}._2puw ._3Fx7 ul li{padding:0 10px 30px 25px;border-left:2px solid #fed271;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row}._2puw ._3Fx7 ul li ._3rAk span{display:block;height:22px;width:22px;background:#fed271;color:#fff;font-size:15px;margin-left:-37px;text-align:center;border-radius:11px}._2puw ._3Fx7 ul li ._1g8R img{width:100%;border:1px solid #e5e5e5;padding:4px;-o-object-fit:cover;object-fit:cover}._2puw ._3Fx7 ul li ._1g8R p{font-size:15px;color:#666}._29Ha{line-height:1.8;background:#fff;padding:12px}._2nWu,._29Ha,._29Ha img{width:100%}._2nWu{background:#fff;margin:10px 0;padding:10px 0 35px}._2nWu .Y3wt{margin-left:12px;font-size:15px;color:#666}._2nWu .Y3wt span:nth-child(1){color:#666}._2nWu .Y3wt span:nth-child(2){color:#999}._2nWu ul{padding:0 12px;margin-top:17px;-webkit-box-orient:horizontal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;overflow-x:auto}._2nWu ul,._2nWu ul li{display:-webkit-flex;display:-ms-flexbox;display:flex;display:-webkit-box;-webkit-box-direction:normal}._2nWu ul li{-webkit-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;border:1px solid #e5e5e5;padding:4px 4px 25px;margin:0 5px 0 0}._2nWu ul li .TevT{display:inline-block;height:140px;width:140px}._2nWu ul li .TevT img{-o-object-fit:cover;object-fit:cover;width:100%;height:100%}._2nWu ul li .uJCT{margin-top:-14px;height:28px;width:28px;border-radius:14px}._2nWu ul li ._14jh{font-size:12px;color:#666;padding:10px 0}._2nWu ul li ._1ZPp span{margin-left:5px;font-size:11px;color:#999}._2nWu ul li ._1ZPp img{height:18px;width:18px}._1Lno{margin:0 0 45px;padding:0;max-width:768px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;background-color:#fcf8f5}", ""]);
   
   // exports
   exports.locals = {
@@ -6584,9 +6584,9 @@ module.exports =
   
   var _dateFormat2 = _interopRequireDefault(_dateFormat);
   
-  var _CdnUrl = __webpack_require__(143);
+  var _Image = __webpack_require__(143);
   
-  var _CdnUrl2 = _interopRequireDefault(_CdnUrl);
+  var _Image2 = _interopRequireDefault(_Image);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -6649,7 +6649,7 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Comment2.default.header },
-        _react2.default.createElement('img', { className: _Comment2.default.avatar, src: _CdnUrl2.default.format(data.commentUser.avatar) + '@48w_48h_1pr.jpg' })
+        _react2.default.createElement(_Image2.default, { className: _Comment2.default.avatar, height: '48', width: '48', src: data.commentUser.avatar })
       ),
       _react2.default.createElement(
         'div',
@@ -6681,7 +6681,7 @@ module.exports =
             return _react2.default.createElement(
               'li',
               { key: value },
-              _react2.default.createElement('img', { src: _CdnUrl2.default.format(value) + '@102w_102h_1pr.jpg', alt: '' })
+              _react2.default.createElement(_Image2.default, { height: '102', width: '102', src: value })
             );
           })
         )
@@ -6770,30 +6770,159 @@ module.exports =
 
 /***/ },
 /* 143 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
   'use strict';
   
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  var CdnUrl = {
-    format: function format(url) {
-      if (!url || url.length === 0) return '';
-      if (url.indexOf('http://yuanzi-dev.oss-cn-hangzhou.aliyuncs.com') !== -1) {
-        return url.replace('http://yuanzi-dev.oss-cn-hangzhou.aliyuncs.com', 'http://assets-dev.iyuanzi.net');
-      } else if (url.indexOf('http://yuanzi-beijing.oss-cn-beijing.aliyuncs.com') !== -1) {
-        return url.replace('http://yuanzi-beijing.oss-cn-beijing.aliyuncs.com', 'http://assets.iyuanzi.net');
-      } else if (url.indexOf('http://img.iyuanzi.net') !== -1) {
-        return url.replace('http://img.iyuanzi.net', 'http://assets.iyuanzi.net');
-      }
-      return url;
+  
+  var _getPrototypeOf = __webpack_require__(77);
+  
+  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+  
+  var _classCallCheck2 = __webpack_require__(78);
+  
+  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+  
+  var _createClass2 = __webpack_require__(79);
+  
+  var _createClass3 = _interopRequireDefault(_createClass2);
+  
+  var _possibleConstructorReturn2 = __webpack_require__(80);
+  
+  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+  
+  var _inherits2 = __webpack_require__(81);
+  
+  var _inherits3 = _interopRequireDefault(_inherits2);
+  
+  var _react = __webpack_require__(51);
+  
+  var _react2 = _interopRequireDefault(_react);
+  
+  var _UrlFormat = __webpack_require__(144);
+  
+  var _UrlFormat2 = _interopRequireDefault(_UrlFormat);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  var Image = function (_React$Component) {
+    (0, _inherits3.default)(Image, _React$Component);
+  
+    function Image(props) {
+      (0, _classCallCheck3.default)(this, Image);
+  
+      var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Image).call(this, props));
+  
+      var style = {
+        width: _this.props.width || '',
+        height: _this.props.height || '',
+        pr: _this.props.pr || 1
+      };
+      var urlFormat = new _UrlFormat2.default(props.src);
+      _this.state = {
+        src: urlFormat.cdn().progressive(style.pr).height(style.height).width(style.width).url()
+      };
+      _this.type = props.type || 'cover';
+      return _this;
     }
-  };
-  exports.default = CdnUrl;
+  
+    (0, _createClass3.default)(Image, [{
+      key: 'render',
+      value: function render() {
+        return _react2.default.createElement('img', { className: this.props.className, src: this.state.src });
+      }
+    }, {
+      key: 'onError',
+      value: function onError() {
+        var defaultImg = {
+          avatar: '../../default.png',
+          cover: '../../default.png'
+        };
+        this.setState({ src: defaultImg.avatar });
+      }
+    }]);
+    return Image;
+  }(_react2.default.Component);
+  
+  exports.default = Image;
 
 /***/ },
 /* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  
+  var _classCallCheck2 = __webpack_require__(78);
+  
+  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+  
+  var _createClass2 = __webpack_require__(79);
+  
+  var _createClass3 = _interopRequireDefault(_createClass2);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  var UrlFormat = function () {
+    function UrlFormat(url) {
+      (0, _classCallCheck3.default)(this, UrlFormat);
+  
+      this._url = url;
+      this.parameter = [];
+    }
+  
+    (0, _createClass3.default)(UrlFormat, [{
+      key: 'cdn',
+      value: function cdn() {
+        if (this._url.includes('http://yuanzi-dev.oss-cn-hangzhou.aliyuncs.com')) {
+          this._url = this._url.replace('http://yuanzi-dev.oss-cn-hangzhou.aliyuncs.com', 'http://assets-dev.iyuanzi.net');
+        } else if (this._url.includes('http://yuanzi-beijing.oss-cn-beijing.aliyuncs.com')) {
+          this._url = this._url.replace('http://yuanzi-beijing.oss-cn-beijing.aliyuncs.com', 'http://assets.iyuanzi.net');
+        } else if (this._url.includes('http://img.iyuanzi.net')) {
+          this._url = this._url.replace('http://img.iyuanzi.net', 'http://assets.iyuanzi.net');
+        }
+        return this;
+      }
+    }, {
+      key: 'progressive',
+      value: function progressive(pr) {
+        if (pr) this.parameter.push(pr + 'pr');
+        return this;
+      }
+    }, {
+      key: 'width',
+      value: function width(w) {
+        if (w) this.parameter.push(w + 'w');
+        return this;
+      }
+    }, {
+      key: 'height',
+      value: function height(h) {
+        if (h) this.parameter.push(h + 'h');
+        return this;
+      }
+    }, {
+      key: 'url',
+      value: function url() {
+        if (this.parameter.length === 0) {
+          return this._url;
+        }
+        return this._url + '@' + this.parameter.join('_') + '.jpg';
+      }
+    }]);
+    return UrlFormat;
+  }();
+
+  exports.default = UrlFormat;
+
+/***/ },
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -6819,7 +6948,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _Topic = __webpack_require__(145);
+  var _Topic = __webpack_require__(146);
   
   var _Topic2 = _interopRequireDefault(_Topic);
   
@@ -6873,7 +7002,7 @@ module.exports =
   }();
 
 /***/ },
-/* 145 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -6890,13 +7019,13 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Topic = __webpack_require__(146);
+  var _Topic = __webpack_require__(147);
   
   var _Topic2 = _interopRequireDefault(_Topic);
   
-  var _CdnUrl = __webpack_require__(143);
+  var _Image = __webpack_require__(143);
   
-  var _CdnUrl2 = _interopRequireDefault(_CdnUrl);
+  var _Image2 = _interopRequireDefault(_Image);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -6918,7 +7047,7 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Topic2.default.cover },
-        _react2.default.createElement('img', { src: _CdnUrl2.default.format(topic.cover) + '@694h_1pr.jpg', alt: '' })
+        _react2.default.createElement(_Image2.default, { height: '694', src: topic.cover, alt: '' })
       ),
       _react2.default.createElement(
         'div',
@@ -6991,7 +7120,7 @@ module.exports =
               _react2.default.createElement(
                 'a',
                 { href: '/strategies/' + item.strategyId + '/view' },
-                _react2.default.createElement('img', { className: _Topic2.default.cover, src: _CdnUrl2.default.format(item.cover) + '@357h_357w_1pr.jpg', alt: '' })
+                _react2.default.createElement(_Image2.default, { src: item.cover, h: '357', w: '357' })
               ),
               _react2.default.createElement(
                 'div',
@@ -7038,11 +7167,11 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Topic, _Topic2.default);
 
 /***/ },
-/* 146 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(147);
+      var content = __webpack_require__(148);
       var insertCss = __webpack_require__(86);
   
       if (typeof content === 'string') {
@@ -7055,7 +7184,7 @@ module.exports =
     
 
 /***/ },
-/* 147 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(85)();
@@ -7063,7 +7192,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._36pJ img{height:347px;width:100%;-o-object-fit:cover;object-fit:cover}.P0Ts{margin:0 auto 45px 0;padding:0;max-width:768px}._2Zor,.P0Ts{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%}._2Zor{background:#fff;padding:30px 12px 40px}._2Zor ._30vZ{font-size:18px}._2Zor ._2S8u{margin:19px 0 15px;font-size:12px}._2Zor ._2S8u span{font-size:12px;color:#999}._2Zor ._2S8u span:nth-child(2){color:#ff989e}._2Zor .hN1L{font-size:10px;color:#999}._1NDr{width:100%;padding-top:6px;background:#fcf8f5}._1NDr ._3iUr{border-left:6px solid #ff989e;height:31px;padding-left:15px}._1NDr ._3iUr span{font-size:14px}._1NDr ._3iUr span:nth-child(2){color:#999}._1NDr ul{padding:0 1.6% 20px;width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;list-style:none}._1NDr ul li{margin-top:6px;box-shadow:0 15px 10px -15px #ccc;width:49.175%;background:#fff}._1NDr ul li a{-webkit-tap-highlight-color:rgba(0,0,0,0)}._1NDr ul li a ._36pJ{width:100%}._1NDr ul li ._1Fyz{padding:0 12px 12px}._1NDr ul li ._1Fyz p{margin:6px 0}._1NDr ul li ._1Fyz ._30vZ{font-size:13px}._1NDr ul li ._1Fyz .ZJCp{color:#666;font-size:11px}._1NDr ul li ._1Fyz .ZJCp ._2S8u{color:#ff989e}._1NDr ul li ._1Fyz .hN1L{border-top:1px solid #e5e5e5}._1NDr ul li ._1Fyz .hN1L p{margin-top:9px;font-size:10px;color:#666}._1NDr ul li:nth-child(even){margin-left:1.65%}", ""]);
+  exports.push([module.id, "._36pJ img{height:347px;width:100%;-o-object-fit:cover;object-fit:cover}.P0Ts{margin:0 auto 45px 0;padding:0;max-width:768px}._2Zor,.P0Ts{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%}._2Zor{background:#fff;padding:30px 12px 40px}._2Zor ._30vZ{font-size:18px}._2Zor ._2S8u{margin:19px 0 15px;font-size:12px}._2Zor ._2S8u span{font-size:12px;color:#999}._2Zor ._2S8u span:nth-child(2){color:#ff989e}._2Zor .hN1L{font-size:10px;color:#999}._1NDr{width:100%;padding-top:6px;background:#fcf8f5}._1NDr ._3iUr{border-left:6px solid #ff989e;height:31px;padding-left:15px}._1NDr ._3iUr span{font-size:14px}._1NDr ._3iUr span:nth-child(2){color:#999}._1NDr ul{padding:0 1.6% 20px;width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;list-style:none}._1NDr ul li{margin-top:6px;box-shadow:0 15px 10px -15px #ccc;width:49.175%;background:#fff}._1NDr ul li a{-webkit-tap-highlight-color:rgba(0,0,0,0)}._1NDr ul li a img{width:100%}._1NDr ul li ._1Fyz{padding:0 12px 12px}._1NDr ul li ._1Fyz p{margin:6px 0}._1NDr ul li ._1Fyz ._30vZ{font-size:13px}._1NDr ul li ._1Fyz .ZJCp{color:#666;font-size:11px}._1NDr ul li ._1Fyz .ZJCp ._2S8u{color:#ff989e}._1NDr ul li ._1Fyz .hN1L{border-top:1px solid #e5e5e5}._1NDr ul li ._1Fyz .hN1L p{margin-top:9px;font-size:10px;color:#666}._1NDr ul li:nth-child(even){margin-left:1.65%}", ""]);
   
   // exports
   exports.locals = {
@@ -7080,7 +7209,7 @@ module.exports =
   };
 
 /***/ },
-/* 148 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7106,7 +7235,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _Event = __webpack_require__(149);
+  var _Event = __webpack_require__(150);
   
   var _Event2 = _interopRequireDefault(_Event);
   
@@ -7165,7 +7294,7 @@ module.exports =
   }();
 
 /***/ },
-/* 149 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7182,7 +7311,7 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Event = __webpack_require__(150);
+  var _Event = __webpack_require__(151);
   
   var _Event2 = _interopRequireDefault(_Event);
   
@@ -7194,7 +7323,7 @@ module.exports =
   
   var _dateFormat2 = _interopRequireDefault(_dateFormat);
   
-  var _NumberFotmat = __webpack_require__(152);
+  var _NumberFotmat = __webpack_require__(153);
   
   var _NumberFotmat2 = _interopRequireDefault(_NumberFotmat);
   
@@ -7202,9 +7331,9 @@ module.exports =
   
   var _Footer2 = _interopRequireDefault(_Footer);
   
-  var _CdnUrl = __webpack_require__(143);
+  var _Image = __webpack_require__(143);
   
-  var _CdnUrl2 = _interopRequireDefault(_CdnUrl);
+  var _Image2 = _interopRequireDefault(_Image);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -7226,8 +7355,8 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Event2.default.header },
-        _react2.default.createElement('img', { className: _Event2.default.cover, src: _CdnUrl2.default.format(event.cover) + '@440h_1pr.jpg', alt: '' }),
-        _react2.default.createElement('img', { className: _Event2.default.avatar, src: _CdnUrl2.default.format(event.owner.avatar) + '@108h_108w_1pr.jpg', alt: '' }),
+        _react2.default.createElement(_Image2.default, { className: _Event2.default.cover, height: '440', src: event.cover }),
+        _react2.default.createElement(_Image2.default, { className: _Event2.default.avatar, height: '108', width: '108', src: event.owner.avatar }),
         _react2.default.createElement(
           'p',
           { className: _Event2.default.nickname },
@@ -7342,7 +7471,7 @@ module.exports =
             return _react2.default.createElement(
               'li',
               { key: index },
-              _react2.default.createElement('img', { className: _Event2.default.avatar, src: _CdnUrl2.default.format(value.participant.avatar) + '@112h_112w_1pr.jpg', alt: '' })
+              _react2.default.createElement(_Image2.default, { key: index, className: _Event2.default.avatar, height: '112', width: '112', src: value.participant.avatar })
             );
           })
         )
@@ -7362,11 +7491,11 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Event, _Event2.default);
 
 /***/ },
-/* 150 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(151);
+      var content = __webpack_require__(152);
       var insertCss = __webpack_require__(86);
   
       if (typeof content === 'string') {
@@ -7379,7 +7508,7 @@ module.exports =
     
 
 /***/ },
-/* 151 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(85)();
@@ -7411,7 +7540,7 @@ module.exports =
   };
 
 /***/ },
-/* 152 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7420,7 +7549,7 @@ module.exports =
     value: true
   });
   
-  var _numeral = __webpack_require__(153);
+  var _numeral = __webpack_require__(154);
   
   var _numeral2 = _interopRequireDefault(_numeral);
   
@@ -7435,13 +7564,13 @@ module.exports =
   exports.default = NumeralFormat;
 
 /***/ },
-/* 153 */
+/* 154 */
 /***/ function(module, exports) {
 
   module.exports = require("numeral");
 
 /***/ },
-/* 154 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7467,7 +7596,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _Photo = __webpack_require__(155);
+  var _Photo = __webpack_require__(156);
   
   var _Photo2 = _interopRequireDefault(_Photo);
   
@@ -7520,7 +7649,7 @@ module.exports =
   }();
 
 /***/ },
-/* 155 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7537,7 +7666,7 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Photo = __webpack_require__(156);
+  var _Photo = __webpack_require__(157);
   
   var _Photo2 = _interopRequireDefault(_Photo);
   
@@ -7549,9 +7678,9 @@ module.exports =
   
   var _dateFormat2 = _interopRequireDefault(_dateFormat);
   
-  var _CdnUrl = __webpack_require__(143);
+  var _Image = __webpack_require__(143);
   
-  var _CdnUrl2 = _interopRequireDefault(_CdnUrl);
+  var _Image2 = _interopRequireDefault(_Image);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -7573,7 +7702,7 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Photo2.default.cover },
-        _react2.default.createElement('img', { src: _CdnUrl2.default.format(photo.content[0].img) + '@768h_768w_1pr.jpg', alt: '' })
+        _react2.default.createElement(_Image2.default, { height: '768', width: '768', src: photo.content[0].img })
       ),
       _react2.default.createElement(
         'div',
@@ -7581,7 +7710,7 @@ module.exports =
         _react2.default.createElement(
           'div',
           { className: _Photo2.default.header },
-          _react2.default.createElement('img', { className: _Photo2.default.avatar, src: _CdnUrl2.default.format(photo.owner.avatar) + '@82h_82w_1pr.jpg', alt: '' })
+          _react2.default.createElement(_Image2.default, { height: '82', width: '82', src: photo.owner.avatar })
         ),
         _react2.default.createElement(
           'div',
@@ -7615,11 +7744,11 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Photo, _Photo2.default);
 
 /***/ },
-/* 156 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(157);
+      var content = __webpack_require__(158);
       var insertCss = __webpack_require__(86);
   
       if (typeof content === 'string') {
@@ -7632,7 +7761,7 @@ module.exports =
     
 
 /***/ },
-/* 157 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(85)();
@@ -7640,7 +7769,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._1Nld{margin:0 0 45px;padding:0;max-width:768px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;background-color:#fcf8f5}._25cW img{height:347px;width:100%;-o-object-fit:cover;object-fit:cover}._2boW{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;width:100%;background:#fff;border-bottom:1px solid #e5e5e5}._2boW ._3nx2 ._1i7a{margin:17px 17px 0;height:41px;width:41px;border-radius:20.5px}._2boW ._3JkA p{margin:14px 0}._2boW ._3JkA .aX5j{color:#ff989e;font-size:12px}._2boW ._3JkA ._3K_D{font-size:17px;color:#666}._2boW ._3JkA .H0ny{font-size:12px;color:#999}", ""]);
+  exports.push([module.id, "._1Nld{margin:0 0 45px;padding:0;max-width:768px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;background-color:#fcf8f5}._25cW img{height:347px;width:100%;-o-object-fit:cover;object-fit:cover}._2boW{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;width:100%;background:#fff;border-bottom:1px solid #e5e5e5}._2boW ._3nx2 img{margin:17px 17px 0;height:41px;width:41px;border-radius:20.5px}._2boW ._3JkA p{margin:14px 0}._2boW ._3JkA .aX5j{color:#ff989e;font-size:12px}._2boW ._3JkA ._3K_D{font-size:17px;color:#666}._2boW ._3JkA .H0ny{font-size:12px;color:#999}", ""]);
   
   // exports
   exports.locals = {
@@ -7648,7 +7777,6 @@ module.exports =
   	"cover": "_25cW",
   	"author": "_2boW",
   	"header": "_3nx2",
-  	"avatar": "_1i7a",
   	"body": "_3JkA",
   	"nickname": "aX5j",
   	"content": "_3K_D",
@@ -7656,16 +7784,16 @@ module.exports =
   };
 
 /***/ },
-/* 158 */
+/* 159 */
 /***/ function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ },
-/* 159 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(160);
+  var jade = __webpack_require__(161);
   
   module.exports = function template(locals) {
   var buf = [];
@@ -7681,7 +7809,7 @@ module.exports =
   }
 
 /***/ },
-/* 160 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7933,10 +8061,10 @@ module.exports =
 
 
 /***/ },
-/* 161 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(160);
+  var jade = __webpack_require__(161);
   
   module.exports = function template(locals) {
   var buf = [];
