@@ -1442,7 +1442,7 @@ module.exports =
    * LICENSE.txt file in the root directory of this source tree.
    */
   
-  var baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
+  var baseUrl = 'http://www.iyuanzi.net' || 'http://test.iyuanzi.com';
   var lastFetchTask = void 0;
   var lastFetchTime = new Date(1970, 0, 1);
   var strategy = {
