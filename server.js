@@ -1442,7 +1442,7 @@ module.exports =
    * LICENSE.txt file in the root directory of this source tree.
    */
   
-  var baseUrl = 'http://www.iyuanzi.net' || 'http://test.iyuanzi.com';
+  var baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
   var lastFetchTask = void 0;
   var lastFetchTime = new Date(1970, 0, 1);
   var strategy = {
@@ -6312,7 +6312,7 @@ module.exports =
               { className: _Strategy2.default.header, href: '/photos/' + item.photoId + '/view' },
               _react2.default.createElement(_Image2.default, { height: '280', width: '280', src: item.content[0].img })
             ),
-            _react2.default.createElement(_Image2.default, { className: _Strategy2.default.avatar, height: '56', width: '56', src: item.owner.avatar }),
+            _react2.default.createElement(_Image2.default, { className: _Strategy2.default.avatar, height: '56', width: '56', src: item.owner.avatar, type: 'avatar' }),
             _react2.default.createElement(
               'p',
               { className: _Strategy2.default.nickname },
@@ -6438,7 +6438,7 @@ module.exports =
         _react2.default.createElement(
           'div',
           { className: _Strategy2.default.avatar },
-          _react2.default.createElement(_Image2.default, { height: '108', width: '108', src: strategy.owner.avatar }),
+          _react2.default.createElement(_Image2.default, { height: '108', width: '108', src: strategy.owner.avatar, type: 'avatar' }),
           _react2.default.createElement(
             'h3',
             null,
@@ -6649,7 +6649,7 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Comment2.default.header },
-        _react2.default.createElement(_Image2.default, { className: _Comment2.default.avatar, height: '48', width: '48', src: data.commentUser.avatar })
+        _react2.default.createElement(_Image2.default, { className: _Comment2.default.avatar, height: '48', width: '48', src: data.commentUser.avatar, type: 'avatar' })
       ),
       _react2.default.createElement(
         'div',
@@ -6817,13 +6817,13 @@ module.exports =
       var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Image).call(this, props));
   
       var style = {
-        width: _this.props.width || '',
-        height: _this.props.height || '',
-        pr: _this.props.pr || 1
+        width: props.width || '',
+        height: props.height || '',
+        pr: props.pr || 1
       };
       var urlFormat = new _UrlFormat2.default(props.src);
       _this.state = {
-        src: urlFormat.cdn().progressive(style.pr).height(style.height).width(style.width).url()
+        imgUrl: urlFormat.cdn().progressive(style.pr).height(style.height).width(style.width).url()
       };
       _this.type = props.type || 'cover';
       return _this;
@@ -6832,16 +6832,16 @@ module.exports =
     (0, _createClass3.default)(Image, [{
       key: 'render',
       value: function render() {
-        return _react2.default.createElement('img', { className: this.props.className, src: this.state.src });
+        return _react2.default.createElement('img', { className: this.props.className, src: this.state.imgUrl, onError: this.handleImageErrored.bind(this) });
       }
     }, {
-      key: 'onError',
-      value: function onError() {
+      key: 'handleImageErrored',
+      value: function handleImageErrored() {
         var defaultImg = {
-          avatar: '../../default.png',
-          cover: '../../default.png'
+          avatar: '../../default-avatar.png',
+          cover: '../../default-cover.png'
         };
-        this.setState({ src: defaultImg.avatar });
+        this.setState({ imgUrl: defaultImg[this.type] });
       }
     }]);
     return Image;
@@ -7356,7 +7356,7 @@ module.exports =
         'div',
         { className: _Event2.default.header },
         _react2.default.createElement(_Image2.default, { className: _Event2.default.cover, height: '440', src: event.cover }),
-        _react2.default.createElement(_Image2.default, { className: _Event2.default.avatar, height: '108', width: '108', src: event.owner.avatar }),
+        _react2.default.createElement(_Image2.default, { className: _Event2.default.avatar, height: '108', width: '108', src: event.owner.avatar, type: 'avatar' }),
         _react2.default.createElement(
           'p',
           { className: _Event2.default.nickname },
@@ -7471,7 +7471,7 @@ module.exports =
             return _react2.default.createElement(
               'li',
               { key: index },
-              _react2.default.createElement(_Image2.default, { key: index, className: _Event2.default.avatar, height: '112', width: '112', src: value.participant.avatar })
+              _react2.default.createElement(_Image2.default, { key: index, className: _Event2.default.avatar, height: '112', width: '112', src: value.participant.avatar, type: 'avatar' })
             );
           })
         )
@@ -7710,7 +7710,7 @@ module.exports =
         _react2.default.createElement(
           'div',
           { className: _Photo2.default.header },
-          _react2.default.createElement(_Image2.default, { height: '82', width: '82', src: photo.owner.avatar })
+          _react2.default.createElement(_Image2.default, { height: '82', width: '82', src: photo.owner.avatar, type: 'avatar' })
         ),
         _react2.default.createElement(
           'div',
