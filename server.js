@@ -6272,7 +6272,7 @@ module.exports =
             _react2.default.createElement(
               'div',
               { className: _Strategy2.default.stepRight },
-              _react2.default.createElement(_Image2.default, { src: item.imgUrl }),
+              item.imgUrl.length ? _react2.default.createElement(_Image2.default, { src: item.imgUrl }) : '',
               _react2.default.createElement(
                 'p',
                 null,
