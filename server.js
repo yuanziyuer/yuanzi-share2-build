@@ -106,7 +106,7 @@ module.exports =
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _assets = __webpack_require__(163);
+  var _assets = __webpack_require__(164);
   
   var _assets2 = _interopRequireDefault(_assets);
   
@@ -191,7 +191,7 @@ module.exports =
                     switch (_context.prev = _context.next) {
                       case 0:
                         statusCode = 200;
-                        template = __webpack_require__(164);
+                        template = __webpack_require__(165);
                         data = { title: '', description: '', css: '', body: '', entry: _assets2.default.main.js };
   
   
@@ -265,7 +265,7 @@ module.exports =
   server.use(function (err, req, res, next) {
     // eslint-disable-line no-unused-vars
     console.log(pe.render(err)); // eslint-disable-line no-console
-    var template = __webpack_require__(166);
+    var template = __webpack_require__(167);
     var statusCode = err.status || 500;
     res.status(statusCode);
     res.send(template({
@@ -777,11 +777,11 @@ module.exports =
   
   var _strategy2 = _interopRequireDefault(_strategy);
   
-  var _topic = __webpack_require__(44);
+  var _topic = __webpack_require__(46);
   
   var _topic2 = _interopRequireDefault(_topic);
   
-  var _event = __webpack_require__(46);
+  var _event = __webpack_require__(48);
   
   var _event2 = _interopRequireDefault(_event);
   
@@ -1462,7 +1462,12 @@ module.exports =
   
       var items = void 0;
       lastFetchTime = new Date();
-      lastFetchTask = (0, _fetch2.default)(baseUrl + '/strategies/' + path + '?version=v2').then(function (response) {
+      lastFetchTask = (0, _fetch2.default)(baseUrl + '/strategies/' + path, {
+        headers: {
+          'Accept': 'application/vnd.yuanzi.v4+json',
+          'Authorization': 'Bearer unsign'
+        }
+      }).then(function (response) {
         return response.json();
       }).then(function (data) {
         items = data;
@@ -1511,7 +1516,20 @@ module.exports =
   
   var _StepsType2 = _interopRequireDefault(_StepsType);
   
+  var _EventType = __webpack_require__(44);
+  
+  var _EventType2 = _interopRequireDefault(_EventType);
+  
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  /**
+   * React Starter Kit (https://www.reactstarterkit.com/)
+   *
+   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.txt file in the root directory of this source tree.
+   */
   
   var StrategyType = new _graphql.GraphQLObjectType({
     name: 'Strategy',
@@ -1528,22 +1546,17 @@ module.exports =
       photoCount: { type: _graphql.GraphQLInt },
       photos: { type: new _graphql.GraphQLList(_PhotoType2.default) },
       comments: { type: new _graphql.GraphQLList(_CommentType2.default) },
+      commentCount: { type: _graphql.GraphQLInt },
       materials: { type: new _graphql.GraphQLList(_MaterialType2.default) },
       tools: { type: new _graphql.GraphQLList(_ToolsType2.default) },
       steps: { type: new _graphql.GraphQLList(_StepsType2.default) },
       scope: { type: _graphql.GraphQLInt },
       consumingTime: { type: _graphql.GraphQLInt },
       degree: { type: _graphql.GraphQLInt },
-      strategyId: { type: _graphql.GraphQLString }
+      strategyId: { type: _graphql.GraphQLString },
+      events: { type: new _graphql.GraphQLList(_EventType2.default) }
     }
-  }); /**
-       * React Starter Kit (https://www.reactstarterkit.com/)
-       *
-       * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-       *
-       * This source code is licensed under the MIT license found in the
-       * LICENSE.txt file in the root directory of this source tree.
-       */
+  });
   
   exports.default = StrategyType;
 
@@ -1593,7 +1606,8 @@ module.exports =
       content: { type: new _graphql.GraphQLList(PhotoContentType) },
       praiseCount: { type: _graphql.GraphQLString },
       comments: { type: new _graphql.GraphQLList(_CommentType2.default) },
-      createdAt: { type: _graphql.GraphQLString }
+      createdAt: { type: _graphql.GraphQLString },
+      commentCount: { type: _graphql.GraphQLInt }
     }
   });
   
@@ -1716,11 +1730,100 @@ module.exports =
     value: true
   });
   
+  var _graphql = __webpack_require__(22);
+  
+  var _CommentType = __webpack_require__(40);
+  
+  var _CommentType2 = _interopRequireDefault(_CommentType);
+  
+  var _UserType = __webpack_require__(24);
+  
+  var _UserType2 = _interopRequireDefault(_UserType);
+  
+  var _ParticipantType = __webpack_require__(45);
+  
+  var _ParticipantType2 = _interopRequireDefault(_ParticipantType);
+  
+  var _StrategyType = __webpack_require__(38);
+  
+  var _StrategyType2 = _interopRequireDefault(_StrategyType);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  var EventType = new _graphql.GraphQLObjectType({
+    name: 'Event',
+    fields: {
+      owner: { type: _UserType2.default },
+      title: { type: _graphql.GraphQLString },
+      content: { type: _graphql.GraphQLString },
+      number: { type: _graphql.GraphQLString },
+      price: { type: _graphql.GraphQLString },
+      participantCount: { type: _graphql.GraphQLInt },
+      cover: { type: _graphql.GraphQLString },
+      comments: { type: new _graphql.GraphQLList(_CommentType2.default) },
+      startDate: { type: _graphql.GraphQLString },
+      endDate: { type: _graphql.GraphQLString },
+      location: { type: _graphql.GraphQLString },
+      enrollCount: { type: _graphql.GraphQLInt },
+      participants: { type: new _graphql.GraphQLList(_ParticipantType2.default) },
+      commentCount: { type: _graphql.GraphQLInt },
+      minAge: { type: _graphql.GraphQLInt },
+      maxAge: { type: _graphql.GraphQLInt },
+      minNumber: { type: _graphql.GraphQLInt }
+    }
+  }); /**
+       * React Starter Kit (https://www.reactstarterkit.com/)
+       *
+       * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+       *
+       * This source code is licensed under the MIT license found in the
+       * LICENSE.txt file in the root directory of this source tree.
+       */
+  
+  exports.default = EventType;
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  
+  var _graphql = __webpack_require__(22);
+  
+  var _UserType = __webpack_require__(24);
+  
+  var _UserType2 = _interopRequireDefault(_UserType);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  var ParticipantType = new _graphql.GraphQLObjectType({
+    name: 'Participant',
+    fields: {
+      participant: { type: _UserType2.default }
+    }
+  });
+  
+  exports.default = ParticipantType;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  
   var _fetch = __webpack_require__(34);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _TopicType = __webpack_require__(45);
+  var _TopicType = __webpack_require__(47);
   
   var _TopicType2 = _interopRequireDefault(_TopicType);
   
@@ -1754,7 +1857,12 @@ module.exports =
   
       var items = void 0;
       lastFetchTime = new Date();
-      lastFetchTask = (0, _fetch2.default)(baseUrl + '/topics/' + path + '?version=v2').then(function (response) {
+      lastFetchTask = (0, _fetch2.default)(baseUrl + '/topics/' + path, {
+        headers: {
+          'Accept': 'application/vnd.yuanzi.v4+json',
+          'Authorization': 'Bearer unsign'
+        }
+      }).then(function (response) {
         return response.json();
       }).then(function (data) {
         items = data;
@@ -1768,7 +1876,7 @@ module.exports =
   exports.default = topic;
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1813,7 +1921,7 @@ module.exports =
   exports.default = TopicType;
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1826,7 +1934,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _EventType = __webpack_require__(47);
+  var _EventType = __webpack_require__(44);
   
   var _EventType2 = _interopRequireDefault(_EventType);
   
@@ -1859,7 +1967,12 @@ module.exports =
       var path = _ref2.path;
   
       var items = void 0;
-      lastFetchTask = (0, _fetch2.default)(baseUrl + '/events/' + path + '?version=v2').then(function (response) {
+      lastFetchTask = (0, _fetch2.default)(baseUrl + '/events/' + path, {
+        headers: {
+          'Accept': 'application/vnd.yuanzi.v4+json',
+          'Authorization': 'Bearer unsign'
+        }
+      }).then(function (response) {
         return response.json();
       }).then(function (data) {
         items = data;
@@ -1871,89 +1984,6 @@ module.exports =
   };
   
   exports.default = topic;
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  
-  var _graphql = __webpack_require__(22);
-  
-  var _CommentType = __webpack_require__(40);
-  
-  var _CommentType2 = _interopRequireDefault(_CommentType);
-  
-  var _UserType = __webpack_require__(24);
-  
-  var _UserType2 = _interopRequireDefault(_UserType);
-  
-  var _ParticipantType = __webpack_require__(48);
-  
-  var _ParticipantType2 = _interopRequireDefault(_ParticipantType);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  /**
-   * React Starter Kit (https://www.reactstarterkit.com/)
-   *
-   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE.txt file in the root directory of this source tree.
-   */
-  
-  var EventType = new _graphql.GraphQLObjectType({
-    name: 'Event',
-    fields: {
-      owner: { type: _UserType2.default },
-      title: { type: _graphql.GraphQLString },
-      content: { type: _graphql.GraphQLString },
-      number: { type: _graphql.GraphQLString },
-      price: { type: _graphql.GraphQLString },
-      participantCount: { type: new _graphql.GraphQLList(_UserType2.default) },
-      cover: { type: _graphql.GraphQLString },
-      comments: { type: new _graphql.GraphQLList(_CommentType2.default) },
-      startDate: { type: _graphql.GraphQLString },
-      endDate: { type: _graphql.GraphQLString },
-      location: { type: _graphql.GraphQLString },
-      enrollCount: { type: _graphql.GraphQLInt },
-      participants: { type: new _graphql.GraphQLList(_ParticipantType2.default) }
-    }
-  });
-  
-  exports.default = EventType;
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  
-  var _graphql = __webpack_require__(22);
-  
-  var _UserType = __webpack_require__(24);
-  
-  var _UserType2 = _interopRequireDefault(_UserType);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  var ParticipantType = new _graphql.GraphQLObjectType({
-    name: 'Participant',
-    fields: {
-      participant: { type: _UserType2.default }
-    }
-  });
-  
-  exports.default = ParticipantType;
 
 /***/ },
 /* 49 */
@@ -2063,7 +2093,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var routes = [__webpack_require__(120), __webpack_require__(124), __webpack_require__(128), __webpack_require__(132), __webpack_require__(149), __webpack_require__(153), __webpack_require__(159)]; /**
+  var routes = [__webpack_require__(120), __webpack_require__(124), __webpack_require__(128), __webpack_require__(132), __webpack_require__(151), __webpack_require__(156), __webpack_require__(160)]; /**
                                                                                                                                                                                                                        * React Starter Kit (https://www.reactstarterkit.com/)
                                                                                                                                                                                                                        *
                                                                                                                                                                                                                        * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
@@ -6124,7 +6154,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               strategyId = state.path.replace('/strategies/', '').replace('/view', '');
-              query = '{\n  strategy(path: "' + strategyId + '") {\n    owner {\n      nickname\n      avatar\n    }\n    soundStory\n    title\n    subTitle\n    description\n    cover\n    tryCount\n    score\n    collectCount\n    photoCount\n    consumingTime\n    degree\n    scope\n    photos {\n      strategy\n      photoId\n      content {\n        img\n      }\n    owner {\n      nickname\n      avatar\n    }\n      praiseCount\n    }\n    materials {\n      amount\n      title\n    }\n    steps {\n      _id\n      description\n      imgUrl\n      stepId\n      timePoint\n    }\n    tools {\n      amount\n      title\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n  }\n}\n';
+              query = '{\n  strategy(path: "' + strategyId + '") {\n    owner {\n      nickname\n      avatar\n    }\n    soundStory\n    title\n    subTitle\n    description\n    cover\n    tryCount\n    score\n    collectCount\n    photoCount\n    consumingTime\n    commentCount\n    degree\n    scope\n    photos {\n      strategy\n      photoId\n      content {\n        img\n      }\n    owner {\n      nickname\n      avatar\n    }\n      praiseCount\n    }\n    materials {\n      amount\n      title\n    }\n    steps {\n      _id\n      description\n      imgUrl\n      stepId\n      timePoint\n    }\n    tools {\n      amount\n      title\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    events {\n      title\n      location\n      startDate\n      price\n      cover\n      participantCount\n    }\n  }\n}\n';
               _context.next = 4;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -6192,6 +6222,14 @@ module.exports =
   var _Audio = __webpack_require__(145);
   
   var _Audio2 = _interopRequireDefault(_Audio);
+  
+  var _dateFormat = __webpack_require__(141);
+  
+  var _dateFormat2 = _interopRequireDefault(_dateFormat);
+  
+  var _NumberFotmat = __webpack_require__(149);
+  
+  var _NumberFotmat2 = _interopRequireDefault(_NumberFotmat);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -6321,59 +6359,50 @@ module.exports =
     );
   }
   function renderPhoto(photos) {
-    if (!photos.length) {
+    if (photos.length === 0) {
       return null;
     }
     return _react2.default.createElement(
       'div',
       { className: _Strategy2.default.photos },
+      _react2.default.createElement('div', { className: _Strategy2.default.triangle }),
       _react2.default.createElement(
         'div',
-        { className: _Strategy2.default.title },
+        { className: _Strategy2.default.photo },
         _react2.default.createElement(
-          'span',
+          'p',
           null,
-          '作品  '
+          _react2.default.createElement(
+            'span',
+            null,
+            '作品'
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            '(',
+            photos.length,
+            ')'
+          )
         ),
         _react2.default.createElement(
-          'span',
+          'ul',
           null,
-          '(' + photos.length + ')'
+          photos.map(function (item, index) {
+            if (index > 4) {
+              return null;
+            }
+            return _react2.default.createElement(
+              'li',
+              { key: index },
+              _react2.default.createElement(_Image2.default, { height: '40', width: '40', src: item.content[0].img })
+            );
+          })
         )
-      ),
-      _react2.default.createElement(
-        'ul',
-        null,
-        photos.map(function (item, index) {
-          return _react2.default.createElement(
-            'li',
-            { key: index },
-            _react2.default.createElement(
-              'a',
-              { className: _Strategy2.default.header, href: '/photos/' + item.photoId + '/view' },
-              _react2.default.createElement(_Image2.default, { height: '280', width: '280', src: item.content[0].img })
-            ),
-            _react2.default.createElement(_Image2.default, { className: _Strategy2.default.avatar, height: '56', width: '56', src: item.owner.avatar, type: 'avatar' }),
-            _react2.default.createElement(
-              'p',
-              { className: _Strategy2.default.nickname },
-              item.owner.nickname
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: _Strategy2.default.praiseCount },
-              _react2.default.createElement('img', { src: '../../good.png', alt: '' }),
-              _react2.default.createElement(
-                'span',
-                null,
-                item.praiseCount
-              )
-            )
-          );
-        })
       )
     );
   }
+  
   function renderTimeCircle(consumingTime) {
     if (!consumingTime) {
       return _react2.default.createElement('noscript', null);
@@ -6462,6 +6491,77 @@ module.exports =
       _react2.default.createElement(_Audio2.default, { src: url })
     );
   }
+  function renderEvent(events) {
+    if (!events.length || events.length == 0) {
+      return null;
+    }
+    return _react2.default.createElement(
+      'div',
+      { className: _Strategy2.default.events },
+      _react2.default.createElement(
+        'div',
+        { className: _Strategy2.default.numbers },
+        _react2.default.createElement(
+          'span',
+          null,
+          '由妙招发起的活动  '
+        ),
+        _react2.default.createElement(
+          'span',
+          null,
+          '(',
+          events.length,
+          ')'
+        )
+      ),
+      _react2.default.createElement(
+        'ul',
+        null,
+        events.map(function (item, key) {
+          return _react2.default.createElement(
+            'li',
+            { key: key },
+            _react2.default.createElement(_Image2.default, { height: '132', width: '228', src: item.cover }),
+            _react2.default.createElement(
+              'div',
+              { className: _Strategy2.default.body },
+              _react2.default.createElement(
+                'p',
+                { className: _Strategy2.default.title },
+                item.title
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: _Strategy2.default.time },
+                _dateFormat2.default.commentDate(item.time)
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: _Strategy2.default.location },
+                item.location
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: _Strategy2.default.price },
+                item.price === '0' ? '免费' : _NumberFotmat2.default.money(item.price) + ' 元',
+                ' '
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: _Strategy2.default.participate },
+                item.participantCount,
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  '人参加'
+                )
+              )
+            )
+          );
+        })
+      )
+    );
+  }
   function Strategy(_ref) {
     var strategy = _ref.strategy;
   
@@ -6471,25 +6571,35 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Strategy2.default.cover },
-        _react2.default.createElement(_Image2.default, { height: '440', src: strategy.cover }),
-        _react2.default.createElement(
-          'div',
-          { className: _Strategy2.default.avatar },
-          _react2.default.createElement(_Image2.default, { height: '108', width: '108', src: strategy.owner.avatar, type: 'avatar' }),
-          _react2.default.createElement(
-            'h3',
-            null,
-            strategy.owner.nickname
-          )
-        )
+        _react2.default.createElement(_Image2.default, { width: '768', height: '768', src: strategy.cover }),
+        _react2.default.createElement('div', { className: _Strategy2.default.shadow })
       ),
       _react2.default.createElement(
         'div',
-        { className: _Strategy2.default.usedCount },
+        { className: _Strategy2.default.user },
         _react2.default.createElement(
-          'p',
+          'div',
+          { className: _Strategy2.default.avatar },
+          _react2.default.createElement(_Image2.default, { height: '50', width: '50', src: strategy.owner.avatar, type: 'avatar' })
+        ),
+        _react2.default.createElement(
+          'div',
           null,
-          strategy.tryCount + '人参与 综合各评分' + strategy.score + '分 ' + strategy.collectCount + '人收藏'
+          _react2.default.createElement(
+            'p',
+            { className: _Strategy2.default.title },
+            strategy.title
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: _Strategy2.default.nickName },
+            'by',
+            _react2.default.createElement(
+              'span',
+              null,
+              strategy.owner.nickname
+            )
+          )
         )
       ),
       renderChildFitWrap(strategy.description, strategy.consumingTime, strategy.degree, strategy.scope),
@@ -6502,8 +6612,25 @@ module.exports =
         renderMaterials(strategy.materials),
         renderSteps(strategy.description ? null : strategy.steps)
       ),
+      _react2.default.createElement(
+        'div',
+        { className: _Strategy2.default.count },
+        _react2.default.createElement(
+          'p',
+          { className: _Strategy2.default.tryCount },
+          strategy.tryCount,
+          '人参与'
+        ),
+        _react2.default.createElement(
+          'p',
+          { className: _Strategy2.default.collectCount },
+          strategy.collectCount,
+          '人收藏'
+        )
+      ),
       renderPhoto(strategy.photos),
-      _react2.default.createElement(_Comments2.default, { comments: strategy.comments })
+      renderEvent(strategy.events),
+      _react2.default.createElement(_Comments2.default, { comments: strategy.comments, commentCount: strategy.commentCount })
     );
   }
   Strategy.propTypes = {
@@ -6538,12 +6665,15 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "ul{list-style:none}._2DwC{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background:#fff;width:100%}._2DwC img{-o-object-fit:cover;object-fit:cover;height:220px;width:100%}._2DwC .uJCT{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center}._2DwC .uJCT img{margin-top:-27px;height:54px;width:54px;border-radius:30px;border:3px solid #fff}._2DwC .uJCT h3{margin-top:10px;text-align:center;font-size:15px;color:#ff989e}.Wq-A{padding:15px}._3PxW,.Wq-A{background:#fff;width:100%}._3PxW{display:-webkit-box;display:-ms-flexbox;display:flex}._3PxW p{margin:0 auto;font-size:12px;color:#999}._2c4C{background:#fff;width:100%;padding:35px 0 23px}._2c4C,._2c4C ul{display:-webkit-box;display:-ms-flexbox;display:flex}._2c4C ul{margin:0 auto;-ms-flex-item-align:center;align-self:center;-webkit-padding-start:0}._2c4C ul li{margin:0 22px;background:url(" + __webpack_require__(136) + ") no-repeat;background-size:80px;width:80px;height:80px;font-size:12px;color:#666;padding-top:15px}._2c4C ul li span{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1;flex:1;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-top:10px;margin-right:8px;margin-left:8px}._2c4C ul li img{margin-left:14px;margin-top:8px;width:50px;height:8px}._2puw{width:100%;background:#fff;padding:0 12px}._2puw ._1--2{background:url(" + __webpack_require__(137) + ") no-repeat;height:19px;background-size:99px 20px;color:#fff;font-size:15px;border-bottom:1px solid #fed172;padding-left:15px;text-align:left}._2puw ._5u0l ul{margin-top:25px;margin-bottom:30px;padding-right:27px}._2puw ._5u0l ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2puw ._5u0l ul li,._2puw ._5u0l ul li div{display:-webkit-box;display:-ms-flexbox;display:flex}._2puw ._5u0l ul li div{-webkit-box-flex:1;-ms-flex:1;flex:1}._2puw ._5u0l ul li span{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3ij- ul{margin-top:25px;padding-right:27px}._2puw ._3ij- ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2puw ._3ij- ul li,._2puw ._3ij- ul li div{display:-webkit-box;display:-ms-flexbox;display:flex}._2puw ._3ij- ul li div{-webkit-box-flex:1;-ms-flex:1;flex:1}._2puw ._3ij- ul li span{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3Fx7 ul{margin-top:25px;margin-bottom:30px;padding-left:25px}._2puw ._3Fx7 ul li{padding:0 10px 30px 25px;border-left:2px solid #fed271;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2puw ._3Fx7 ul li ._3rAk span{display:block;height:22px;width:22px;background:#fed271;color:#fff;font-size:15px;margin-left:-37px;text-align:center;border-radius:11px}._2puw ._3Fx7 ul li ._1g8R img{width:100%;border:1px solid #e5e5e5;padding:4px;-o-object-fit:cover;object-fit:cover}._2puw ._3Fx7 ul li ._1g8R p{font-size:15px;color:#666}._29Ha{line-height:1.8;background:#fff;padding:12px}._2nWu,._29Ha,._29Ha img{width:100%}._2nWu{background:#fff;margin:10px 0;padding:10px 0 35px}._2nWu .Y3wt{margin-left:12px;font-size:15px;color:#666}._2nWu .Y3wt span:nth-child(1){color:#666}._2nWu .Y3wt span:nth-child(2){color:#999}._2nWu ul{padding:0 12px;margin-top:17px;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;overflow-x:auto}._2nWu ul,._2nWu ul li{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-direction:normal}._2nWu ul li{-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border:1px solid #e5e5e5;padding:4px 4px 25px;margin:0 5px 0 0;min-width:150px}._2nWu ul li .TevT{display:inline-block;height:140px;width:140px}._2nWu ul li .TevT img{-o-object-fit:cover;object-fit:cover;width:100%;height:100%}._2nWu ul li .uJCT{margin-top:-14px;height:28px;width:28px;border-radius:14px}._2nWu ul li ._14jh{font-size:12px;color:#666;padding:10px 0}._2nWu ul li ._1ZPp span{margin-left:5px;font-size:11px;color:#999}._2nWu ul li ._1ZPp img{height:18px;width:18px}._1Lno{margin:0 0 45px;padding:0;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:100%;background-color:#fcf8f5}", ""]);
+  exports.push([module.id, "ul{list-style:none}._2DwC{position:relative;width:100%}._2DwC img{-o-object-fit:cover;object-fit:cover;width:100%}._2DwC ._1Un1{position:absolute;left:0;right:0;bottom:0;background:-webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.65)));background:-webkit-linear-gradient(transparent,rgba(0,0,0,.65));background:linear-gradient(transparent,rgba(0,0,0,.65));height:10vw}._2LCK{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;width:100%;margin-top:-27px;z-index:99}._2LCK img{border-radius:50px;border:3px solid #fff;margin-left:10px;margin-right:15px}._2LCK h3{text-align:center;font-size:15px;color:#ff989e}._2LCK .Y3wt{color:#fff;font-size:18px}._2LCK ._3S8x{margin:4.5px 0;font-size:14px}._2LCK ._3S8x span{font-size:14px;color:#999}._2LCK ._3S8x span:nth-child(2){margin-left:10px;color:#ff989e}.Wq-A{padding:15px}._3PxW,.Wq-A{background:#fff;width:100%}._3PxW{display:-webkit-box;display:-ms-flexbox;display:flex}._3PxW p{margin:0 auto;font-size:12px;color:#999}._2c4C{background:#fff;width:100%;padding:35px 0 23px}._2c4C,._2c4C ul{display:-webkit-box;display:-ms-flexbox;display:flex}._2c4C ul{margin:0 auto;-ms-flex-item-align:center;align-self:center;-webkit-padding-start:0}._2c4C ul li{margin:0 22px;background:url(" + __webpack_require__(136) + ") no-repeat;background-size:80px;width:80px;height:80px;font-size:12px;color:#666;padding-top:15px}._2c4C ul li span{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1;flex:1;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-top:10px;margin-right:8px;margin-left:8px}._2c4C ul li img{margin-left:14px;margin-top:8px;width:50px;height:8px}._2puw{width:100%;background:#fff;padding:0 12px}._2puw ._1--2{background:url(" + __webpack_require__(137) + ") no-repeat;height:19px;background-size:99px 20px;color:#fff;font-size:15px;border-bottom:1px solid #fed172;padding-left:15px;text-align:left}._2puw ._5u0l ul{margin-top:25px;margin-bottom:30px;padding-right:27px}._2puw ._5u0l ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2puw ._5u0l ul li,._2puw ._5u0l ul li div{display:-webkit-box;display:-ms-flexbox;display:flex}._2puw ._5u0l ul li div{-webkit-box-flex:1;-ms-flex:1;flex:1}._2puw ._5u0l ul li span{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3ij- ul{margin-top:25px;margin-bottom:25px;padding-right:27px}._2puw ._3ij- ul li{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2puw ._3ij- ul li,._2puw ._3ij- ul li div{display:-webkit-box;display:-ms-flexbox;display:flex}._2puw ._3ij- ul li div{-webkit-box-flex:1;-ms-flex:1;flex:1}._2puw ._3ij- ul li span{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}._2puw ._3Fx7 ul{margin-top:25px;margin-bottom:30px;padding-left:25px}._2puw ._3Fx7 ul li{padding:0 10px 30px 25px;border-left:2px solid #fed271;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2puw ._3Fx7 ul li ._3rAk span{display:block;height:22px;width:22px;background:#fed271;color:#fff;font-size:15px;margin-left:-37px;text-align:center;border-radius:11px}._2puw ._3Fx7 ul li ._1g8R img{width:100%;border:1px solid #e5e5e5;padding:4px;-o-object-fit:cover;object-fit:cover}._2puw ._3Fx7 ul li ._1g8R p{font-size:15px;color:#666}._3wH4{width:100%}._3wH4 ._2LRc{background:#f7f7f7;border-left:5px solid #ff989e;padding:9.5px 12px;font-size:15px;height:40px;color:#666}._3wH4 ._2LRc span:nth-child(2){font-size:15px;color:#999}._3wH4 ul{padding:0}._3wH4 ul li{-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;padding:13.5px 10.5px;width:100%;border-bottom:.5px solid #ededed;position:relative}._3wH4 ul li,._3wH4 ul li ._31XC{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-direction:normal}._3wH4 ul li ._31XC{margin-left:8px;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column}._3wH4 ul li ._31XC .Y3wt{font-size:14px;color:#333}._3wH4 ul li ._31XC ._1GSs,._3wH4 ul li ._31XC .QwUn{color:#999;font-size:11px}._3wH4 ul li ._31XC ._3uc0{color:#666;font-size:12px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}._3wH4 ul li ._31XC ._29PP{position:absolute;bottom:6px;right:11px;font-size:13px;color:#666}._3wH4 ul li ._31XC ._29PP span:nth-child(1){color:#ff989e;margin-right:3.5px}._3wH4 ul li img{height:66px;width:114px}._29Ha{line-height:1.8;background:#fff;padding:12px}._1Vn6,._29Ha,._29Ha img{width:100%}._1Vn6{height:20px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;margin:25px 10px;padding:0 10px}._1Vn6 p{padding-top:2px;font-size:11px;background:#ededed;color:#999;width:84px;border-radius:10px;text-align:center;height:20px}._1Vn6 p:nth-child(2){margin-left:10px}._2nWu{width:100%;padding:0 10px;margin-bottom:25px}._2nWu ._2Q9c{margin-left:22px;width:0;height:0;border-left:15.6px solid transparent;border-right:15.6px solid transparent;border-bottom:20px solid #ededed}._2nWu ._11Nk{height:67px;background:#ededed;width:100%;padding:13.5px 10px;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}._2nWu ._11Nk,._2nWu ._11Nk ul{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2nWu ._11Nk ul li{margin-left:5px;height:40px;width:40px}._2nWu ._11Nk ul li img{height:100%;width:100%}._2nWu ._11Nk p{margin-top:10px;font-size:15px;color:#666}._2nWu ._11Nk p span:nth-child(2){color:#999}._1Lno{margin:0 0 45px;padding:0;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:100%}", ""]);
   
   // exports
   exports.locals = {
   	"cover": "_2DwC",
-  	"avatar": "uJCT",
+  	"shadow": "_1Un1",
+  	"user": "_2LCK",
+  	"title": "Y3wt",
+  	"nickName": "_3S8x",
   	"player": "Wq-A",
   	"usedCount": "_3PxW",
   	"childFitWrap": "_2c4C",
@@ -6554,12 +6684,18 @@ module.exports =
   	"steps": "_3Fx7",
   	"stepLeft": "_3rAk",
   	"stepRight": "_1g8R",
+  	"events": "_3wH4",
+  	"numbers": "_2LRc",
+  	"body": "_31XC",
+  	"time": "_1GSs",
+  	"location": "QwUn",
+  	"price": "_3uc0",
+  	"participate": "_29PP",
   	"content": "_29Ha",
+  	"count": "_1Vn6",
   	"photos": "_2nWu",
-  	"title": "Y3wt",
-  	"header": "TevT",
-  	"nickname": "_14jh",
-  	"praiseCount": "_1ZPp",
+  	"triangle": "_2Q9c",
+  	"photo": "_11Nk",
   	"container": "_1Lno"
   };
 
@@ -6636,6 +6772,7 @@ module.exports =
       var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Comments).call(this, props));
   
       _this.comments = props.comments;
+      _this.commentCount = props.commentCount;
       return _this;
     }
   
@@ -6660,7 +6797,7 @@ module.exports =
               'span',
               { className: _Comment2.default.count },
               '(',
-              this.comments.length,
+              this.commentCount,
               ')'
             )
           ),
@@ -6686,26 +6823,25 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Comment2.default.header },
-        _react2.default.createElement(_Image2.default, { className: _Comment2.default.avatar, height: '48', width: '48', src: data.commentUser.avatar, type: 'avatar' })
+        _react2.default.createElement(_Image2.default, { className: _Comment2.default.avatar, height: '64', width: '64', src: data.commentUser.avatar, type: 'avatar' }),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'p',
+            { className: _Comment2.default.nickname },
+            data.commentUser.nickname
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: _Comment2.default.time },
+            _dateFormat2.default.commentDate(data.createdAt)
+          )
+        )
       ),
       _react2.default.createElement(
         'div',
         { className: _Comment2.default.main },
-        _react2.default.createElement(
-          'p',
-          { className: _Comment2.default.nickname },
-          data.commentUser.nickname
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: _Comment2.default.time },
-          _react2.default.createElement('img', { src: '../../time.png', alt: '' }),
-          _react2.default.createElement(
-            'p',
-            null,
-            _dateFormat2.default.commentDate(data.createdAt)
-          )
-        ),
         _react2.default.createElement(
           'p',
           { className: _Comment2.default.content },
@@ -6718,7 +6854,7 @@ module.exports =
             return _react2.default.createElement(
               'li',
               { key: value },
-              _react2.default.createElement(_Image2.default, { height: '102', width: '102', src: value })
+              _react2.default.createElement(_Image2.default, { height: '230', width: '230', src: value })
             );
           })
         )
@@ -6753,7 +6889,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._1wUF{width:100%;background:#fff}._1wUF ._21ij{border-bottom:1px solid #e5e5e5;padding:12px;font-size:15px;color:#666}._1wUF ._21ij ._2R7v{font-size:15px;color:#999}._1wUF ul{padding:0;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;list-style:none;background:#fcf8f5}._1wUF ul,._1wUF ul li{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-display:flex;-webkit-box-direction:normal}._1wUF ul li{box-sizing:border-box;margin-bottom:10px;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;background:#fff;border-bottom:1px solid #e5e5e5;padding-bottom:18px;width:100%}._1wUF ul li p{margin:12px 0}._1wUF ul li .rHdW{min-width:48px}._1wUF ul li .rHdW ._4IxY{height:24px;width:24px;border-radius:12px;margin:12px 12px 0}._1wUF ul li ._2-MO{padding-right:12px}._1wUF ul li ._2-MO ._2JS3{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._1wUF ul li ._2-MO ._2JS3 img{height:10px;width:10px}._1wUF ul li ._2-MO ._2JS3 p{margin:-2px 5px;font-size:10px;color:#cbcbcb}._1wUF ul li ._2-MO ._2GFZ{font-size:12px;color:#666}._1wUF ul li ._2-MO ._3wc5{font-size:13px;color:#666}._1wUF ul li ._2-MO ._24VN{background:#fff;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._1wUF ul li ._2-MO ._24VN li{height:51px;width:51px;margin-left:8px}._1wUF ul li ._2-MO ._24VN li img{-o-object-fit:cover;object-fit:cover;width:100%;height:100%}._1wUF ul li ._2-MO ._24VN li:nth-child(1){margin-left:0}._1wUF ul li:nth-last-child(1){margin-bottom:0}", ""]);
+  exports.push([module.id, "._1wUF{width:100%;background:#fff}._1wUF ._21ij{background:#f7f7f7;border-left:5px solid #ff989e;padding:12px;font-size:15px;color:#666}._1wUF ._21ij ._2R7v{font-size:15px;color:#999}._1wUF ul{padding:0;list-style:none;background:#f7f7f7}._1wUF ul,._1wUF ul li{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}._1wUF ul li{background:#fff;padding:9px 10px 18.5px;width:100%;margin-bottom:5px}._1wUF ul li .rHdW{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;min-width:48px}._1wUF ul li .rHdW ._4IxY{height:32px;width:32px;border-radius:16px}._1wUF ul li .rHdW div{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;margin-left:12px}._1wUF ul li .rHdW div ._2JS3{margin:2px 0;font-size:10px;color:#cbcbcb}._1wUF ul li .rHdW div ._3wc5{font-size:13px;color:#ff989e}._1wUF ul li ._2-MO{margin-top:9px}._1wUF ul li ._2-MO ._2GFZ{font-size:12px;color:#666}._1wUF ul li ._2-MO ._24VN{background:#fff;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._1wUF ul li ._2-MO ._24VN li{height:115px;width:115px;margin-left:8px}._1wUF ul li ._2-MO ._24VN li img{-o-object-fit:cover;object-fit:cover;width:100%;height:100%}._1wUF ul li ._2-MO ._24VN li:nth-child(1){margin-left:0}._1wUF ul li:nth-last-child(1){margin-bottom:0}", ""]);
   
   // exports
   exports.locals = {
@@ -6762,10 +6898,10 @@ module.exports =
   	"count": "_2R7v",
   	"header": "rHdW",
   	"avatar": "_4IxY",
-  	"main": "_2-MO",
   	"time": "_2JS3",
-  	"content": "_2GFZ",
   	"nickname": "_3wc5",
+  	"main": "_2-MO",
+  	"content": "_2GFZ",
   	"images": "_24VN"
   };
 
@@ -6791,10 +6927,10 @@ module.exports =
   
   var DateFormat = {
     postDate: function postDate(date) {
-      return (0, _moment2.default)(date).format('LL');
+      return (0, _moment2.default)(date).format('YYYY 年 MM 月 DD 日 hh:mm');
     },
     commentDate: function commentDate(date) {
-      return (0, _moment2.default)(date).fromNow();
+      return (0, _moment2.default)(date).format('YYYY-MM-DD hh:mm');
     }
   };
   exports.default = DateFormat;
@@ -7174,6 +7310,36 @@ module.exports =
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  
+  var _numeral = __webpack_require__(150);
+  
+  var _numeral2 = _interopRequireDefault(_numeral);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  _numeral2.default.defaultFormat('￥0.00');
+  var NumeralFormat = {
+    money: function money(value) {
+      return (0, _numeral2.default)(value).format();
+    }
+  };
+  exports.default = NumeralFormat;
+
+/***/ },
+/* 150 */
+/***/ function(module, exports) {
+
+  module.exports = require("numeral");
+
+/***/ },
+/* 151 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
   exports.action = exports.path = undefined;
   
   var _regenerator = __webpack_require__(1);
@@ -7192,7 +7358,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _Topic = __webpack_require__(150);
+  var _Topic = __webpack_require__(152);
   
   var _Topic2 = _interopRequireDefault(_Topic);
   
@@ -7246,7 +7412,7 @@ module.exports =
   }();
 
 /***/ },
-/* 150 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7254,6 +7420,10 @@ module.exports =
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  
+  var _defineProperty2 = __webpack_require__(153);
+  
+  var _defineProperty3 = _interopRequireDefault(_defineProperty2);
   
   var _react = __webpack_require__(51);
   
@@ -7263,7 +7433,7 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Topic = __webpack_require__(151);
+  var _Topic = __webpack_require__(154);
   
   var _Topic2 = _interopRequireDefault(_Topic);
   
@@ -7291,48 +7461,56 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Topic2.default.cover },
-        _react2.default.createElement(_Image2.default, { height: '694', src: topic.cover, alt: '' })
+        _react2.default.createElement(_Image2.default, (0, _defineProperty3.default)({ height: '694', src: topic.cover }, 'src', topic.cover)),
+        _react2.default.createElement('div', { className: _Topic2.default.shadow })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: _Topic2.default.user },
+        _react2.default.createElement(
+          'div',
+          { className: _Topic2.default.avatar },
+          _react2.default.createElement(_Image2.default, { height: '96', width: '96', src: topic.owner.avatar })
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'p',
+            { className: _Topic2.default.title },
+            topic.title
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: _Topic2.default.nickname },
+            'by  ',
+            topic.owner.nickname
+          )
+        )
       ),
       _react2.default.createElement(
         'div',
         { className: _Topic2.default.content },
         _react2.default.createElement(
           'p',
-          { className: _Topic2.default.title },
-          ' ',
-          topic.title
-        ),
-        _react2.default.createElement(
-          'p',
-          { className: _Topic2.default.nickname },
-          '来自: ',
-          _react2.default.createElement(
-            'span',
-            null,
-            topic.owner.nickname
-          )
-        ),
-        _react2.default.createElement(
-          'p',
-          { className: _Topic2.default.count },
-          _react2.default.createElement(
-            'span',
-            null,
-            topic.viewCount
-          ),
-          '人看过    ',
-          _react2.default.createElement(
-            'span',
-            null,
-            topic.collectCount,
-            '人收藏'
-          )
-        ),
-        _react2.default.createElement(
-          'p',
-          { className: _Topic2.default.content },
+          null,
           ' ',
           topic.subTitle
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: _Topic2.default.count },
+        _react2.default.createElement(
+          'p',
+          null,
+          '111人参加'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          topic.collectCount,
+          '人收藏'
         )
       ),
       _react2.default.createElement(
@@ -7386,14 +7564,12 @@ module.exports =
                 ),
                 _react2.default.createElement(
                   'div',
-                  { className: _Topic2.default.count },
+                  { className: _Topic2.default.participate },
                   _react2.default.createElement(
                     'p',
                     null,
                     item.tryCount,
-                    '人参与 / ',
-                    item.score,
-                    '分 '
+                    '人参与'
                   )
                 )
               )
@@ -7411,11 +7587,17 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Topic, _Topic2.default);
 
 /***/ },
-/* 151 */
+/* 153 */
+/***/ function(module, exports) {
+
+  module.exports = require("babel-runtime/helpers/defineProperty");
+
+/***/ },
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(152);
+      var content = __webpack_require__(155);
       var insertCss = __webpack_require__(86);
   
       if (typeof content === 'string') {
@@ -7428,7 +7610,7 @@ module.exports =
     
 
 /***/ },
-/* 152 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(85)();
@@ -7436,24 +7618,28 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._36pJ img{height:347px;width:100%;-o-object-fit:cover;object-fit:cover}.P0Ts{margin:0 auto 45px 0;padding:0;max-width:768px}._2Zor,.P0Ts{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:100%}._2Zor{background:#fff;padding:30px 12px 40px}._2Zor ._30vZ{font-size:18px}._2Zor ._2S8u{margin:19px 0 15px;font-size:12px}._2Zor ._2S8u span{font-size:12px;color:#999}._2Zor ._2S8u span:nth-child(2){color:#ff989e}._2Zor .hN1L{font-size:10px;color:#999}._1NDr{width:100%;padding-top:6px;background:#fcf8f5}._1NDr ._3iUr{border-left:6px solid #ff989e;height:31px;padding-left:15px}._1NDr ._3iUr span{font-size:14px}._1NDr ._3iUr span:nth-child(2){color:#999}._1NDr ul{padding:0 1.6% 20px;width:100%;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;list-style:none}._1NDr ul li{margin-top:6px;box-shadow:0 15px 10px -15px #ccc;width:49.175%;background:#fff}._1NDr ul li a{-webkit-tap-highlight-color:rgba(0,0,0,0)}._1NDr ul li a img{width:100%}._1NDr ul li ._1Fyz{padding:0 12px 12px}._1NDr ul li ._1Fyz p{margin:6px 0}._1NDr ul li ._1Fyz ._30vZ{font-size:13px}._1NDr ul li ._1Fyz .ZJCp{color:#666;font-size:11px}._1NDr ul li ._1Fyz .ZJCp ._2S8u{color:#ff989e}._1NDr ul li ._1Fyz .hN1L{border-top:1px solid #e5e5e5}._1NDr ul li ._1Fyz .hN1L p{margin-top:9px;font-size:10px;color:#666}._1NDr ul li:nth-child(even){margin-left:1.65%}", ""]);
+  exports.push([module.id, "._36pJ{position:relative}._36pJ img{width:100%;-o-object-fit:cover;object-fit:cover}._36pJ ._1ERD{position:absolute;left:0;right:0;bottom:0;background:-webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.65)));background:-webkit-linear-gradient(transparent,rgba(0,0,0,.65));background:linear-gradient(transparent,rgba(0,0,0,.65));height:10vw}.MK-0{z-index:999;margin-top:-26.5px;padding:0 10px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.MK-0 .cbfF img{height:50px;width:50px;border:3px solid #fff;border-radius:25px;margin-right:15px}.MK-0 ._30vZ{font-size:18px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;color:#fff}.MK-0 ._2S8u{margin:4.5px 0;font-size:14px}.MK-0 ._2S8u span{font-size:14px;color:#999}.MK-0 ._2S8u span:nth-child(2){color:#ff989e}.hN1L{width:100%;height:20px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;padding:0 10px;margin-bottom:41px}.hN1L p{display:inline-block;padding-top:2px;font-size:11px;background:#ededed;color:#999;width:84px;border-radius:10px;text-align:center;height:20px}.hN1L p:nth-child(2){margin-left:10px}.P0Ts{margin:0 auto 45px 0;padding:0;max-width:768px}._2Zor,.P0Ts{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;width:100%}._2Zor{background:#fff;padding:30px 12px 40px;-webkit-box-align:center;-ms-flex-align:center;align-items:center}._1NDr{width:100%;padding-top:6px;background:#f7f7f7}._1NDr ._3iUr{border-left:6px solid #ff989e;height:31px;padding-left:15px}._1NDr ._3iUr span{font-size:14px}._1NDr ._3iUr span:nth-child(2){color:#999}._1NDr ul{padding:0 1.6% 20px;width:100%;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;list-style:none}._1NDr ul li{margin-top:6px;box-shadow:0 15px 10px -15px #ccc;width:49.175%;background:#fff}._1NDr ul li a{-webkit-tap-highlight-color:rgba(0,0,0,0)}._1NDr ul li a img{width:100%}._1NDr ul li ._1Fyz{padding:0 12px 12px}._1NDr ul li ._1Fyz p{margin:6px 0}._1NDr ul li ._1Fyz ._30vZ{font-size:13px}._1NDr ul li ._1Fyz .ZJCp{color:#666;font-size:11px}._1NDr ul li ._1Fyz .ZJCp ._2S8u{color:#ff989e}._1NDr ul li ._1Fyz ._2Gzc{border-top:.5px solid #e5e5e5}._1NDr ul li ._1Fyz ._2Gzc p{margin-top:9px;font-size:10px;color:#666}._1NDr ul li:nth-child(even){margin-left:1.65%}", ""]);
   
   // exports
   exports.locals = {
   	"cover": "_36pJ",
-  	"container": "P0Ts",
-  	"content": "_2Zor",
+  	"shadow": "_1ERD",
+  	"user": "MK-0",
+  	"avatar": "cbfF",
   	"title": "_30vZ",
   	"nickname": "_2S8u",
   	"count": "hN1L",
+  	"container": "P0Ts",
+  	"content": "_2Zor",
   	"strategies": "_1NDr",
   	"strategiesCount": "_3iUr",
   	"main": "_1Fyz",
-  	"by": "ZJCp"
+  	"by": "ZJCp",
+  	"participate": "_2Gzc"
   };
 
 /***/ },
-/* 153 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7479,7 +7665,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _Event = __webpack_require__(154);
+  var _Event = __webpack_require__(157);
   
   var _Event2 = _interopRequireDefault(_Event);
   
@@ -7498,7 +7684,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               eventId = state.path.replace('/events/', '').replace('/view', '');
-              query = '{\n  event(path: "' + eventId + '") {\n    title\n    cover\n    startDate\n    endDate\n    content\n    enrollCount\n    location\n    enrollCount\n    number\n    price\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    participants {\n      participant {\n        avatar\n        nickname\n        userId\n      }\n    }\n    owner {\n      avatar\n      nickname\n    }\n  }\n}\n';
+              query = '{\n  event(path: "' + eventId + '") {\n    title\n    cover\n    startDate\n    endDate\n    content\n    maxAge\n    minAge\n    minNumber\n    number\n    enrollCount\n    location\n    enrollCount\n    number\n    price\n    commentCount\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    participants {\n      participant {\n        avatar\n        nickname\n        userId\n      }\n    }\n    owner {\n      avatar\n      nickname\n    }\n    strategy {\n      title\n      strategyId\n    }\n  }\n}\n';
               /*
               * number 需要报名人数
               * enrollCount 已报名人数
@@ -7538,7 +7724,7 @@ module.exports =
   }();
 
 /***/ },
-/* 154 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7555,7 +7741,7 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Event = __webpack_require__(155);
+  var _Event = __webpack_require__(158);
   
   var _Event2 = _interopRequireDefault(_Event);
   
@@ -7567,7 +7753,7 @@ module.exports =
   
   var _dateFormat2 = _interopRequireDefault(_dateFormat);
   
-  var _NumberFotmat = __webpack_require__(157);
+  var _NumberFotmat = __webpack_require__(149);
   
   var _NumberFotmat2 = _interopRequireDefault(_NumberFotmat);
   
@@ -7598,13 +7784,28 @@ module.exports =
       { className: _Event2.default.container },
       _react2.default.createElement(
         'div',
-        { className: _Event2.default.header },
-        _react2.default.createElement(_Image2.default, { className: _Event2.default.cover, height: '440', src: event.cover }),
-        _react2.default.createElement(_Image2.default, { className: _Event2.default.avatar, height: '108', width: '108', src: event.owner.avatar, type: 'avatar' }),
+        { className: _Event2.default.cover },
+        _react2.default.createElement(_Image2.default, { className: _Event2.default.cover, height: '450', src: event.cover }),
+        _react2.default.createElement('div', { className: _Event2.default.shadow })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: _Event2.default.user },
+        _react2.default.createElement(_Image2.default, { className: _Event2.default.avatar, height: '100', width: '100', src: event.owner.avatar, type: 'avatar' }),
         _react2.default.createElement(
-          'p',
-          { className: _Event2.default.nickname },
-          event.owner.nickname
+          'div',
+          null,
+          _react2.default.createElement(
+            'p',
+            { className: _Event2.default.title },
+            event.title
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: _Event2.default.nickname },
+            'by  ',
+            event.owner.nickname
+          )
         )
       ),
       _react2.default.createElement(
@@ -7613,11 +7814,11 @@ module.exports =
         _react2.default.createElement(
           'div',
           { className: _Event2.default.startDate },
-          _react2.default.createElement('img', { src: '../../icon_triangle.png', alt: '' }),
+          _react2.default.createElement('img', { src: '../../icon_time.png', alt: '' }),
           _react2.default.createElement(
             'span',
             { className: _Event2.default.title },
-            '开始时间:'
+            '开始时间'
           ),
           _react2.default.createElement(
             'span',
@@ -7628,11 +7829,11 @@ module.exports =
         _react2.default.createElement(
           'div',
           { className: _Event2.default.endDate },
-          _react2.default.createElement('img', { src: '../../icon_triangle.png', alt: '' }),
+          _react2.default.createElement('img', { src: '../../icon_time.png', alt: '' }),
           _react2.default.createElement(
             'span',
             { className: _Event2.default.title },
-            '结束时间:'
+            '结束时间'
           ),
           _react2.default.createElement(
             'span',
@@ -7642,12 +7843,30 @@ module.exports =
         ),
         _react2.default.createElement(
           'div',
-          { className: _Event2.default.location },
-          _react2.default.createElement('img', { src: '../../icon_triangle.png', alt: '' }),
+          { className: _Event2.default.age },
+          _react2.default.createElement('img', { src: '../../icon_age.png', alt: '' }),
           _react2.default.createElement(
             'span',
             { className: _Event2.default.title },
-            '地  点:'
+            '适合年纪'
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: _Event2.default.value },
+            event.minAge,
+            ' - ',
+            event.maxAge,
+            '岁'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: _Event2.default.location },
+          _react2.default.createElement('img', { src: '../../icon_mark.png', alt: '' }),
+          _react2.default.createElement(
+            'span',
+            { className: _Event2.default.title },
+            '活动地点'
           ),
           _react2.default.createElement(
             'span',
@@ -7658,11 +7877,11 @@ module.exports =
         _react2.default.createElement(
           'div',
           { className: _Event2.default.number },
-          _react2.default.createElement('img', { src: '../../icon_triangle.png', alt: '' }),
+          _react2.default.createElement('img', { src: '../../icon_count.png', alt: '' }),
           _react2.default.createElement(
             'span',
             { className: _Event2.default.title },
-            '人  数:'
+            '人数限制'
           ),
           _react2.default.createElement(
             'span',
@@ -7674,11 +7893,11 @@ module.exports =
         _react2.default.createElement(
           'div',
           { className: _Event2.default.price },
-          _react2.default.createElement('img', { src: '../../icon_triangle.png', alt: '' }),
+          _react2.default.createElement('img', { src: '../../icon_pluse.png', alt: '' }),
           _react2.default.createElement(
             'span',
             { className: _Event2.default.title },
-            '价  格:'
+            '活动价格'
           ),
           _react2.default.createElement(
             'span',
@@ -7691,41 +7910,70 @@ module.exports =
       _react2.default.createElement('div', { className: _Event2.default.content, dangerouslySetInnerHTML: { __html: event.content } }),
       _react2.default.createElement(
         'div',
-        { className: _Event2.default.participants },
+        { className: _Event2.default.strategy },
+        _react2.default.createElement('div', { className: _Event2.default.triangle }),
         _react2.default.createElement(
           'div',
-          { className: _Event2.default.participantsCount },
+          { className: _Event2.default.content },
           _react2.default.createElement(
-            'span',
+            'p',
             null,
-            '参加活动  '
+            '来自妙招：'
           ),
           _react2.default.createElement(
-            'span',
-            { className: _Event2.default.count },
-            '(',
-            event.participants.length,
-            ')'
+            'div',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '/strategies/' + event.strategy.strategyId + '/view' },
+              event.strategy.title
+            ),
+            _react2.default.createElement('img', { src: '../../icon_next_grey.png' })
           )
-        ),
-        _react2.default.createElement(
-          'ul',
-          null,
-          event.participants.map(function (value, index) {
-            return _react2.default.createElement(
-              'li',
-              { key: index },
-              _react2.default.createElement(_Image2.default, { key: index, className: _Event2.default.avatar, height: '112', width: '112', src: value.participant.avatar, type: 'avatar' })
-            );
-          })
         )
       ),
+      renderParticipants(event.participants),
       _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_Comments2.default, { comments: event.comments })
+        _react2.default.createElement(_Comments2.default, { comments: event.comments, commentCount: event.commentCount })
       ),
       _react2.default.createElement(_Footer2.default, null)
+    );
+  }
+  function renderParticipants(participants) {
+    if (!participants.length || participants.length == 0) {
+      return null;
+    }
+    return _react2.default.createElement(
+      'div',
+      { className: _Event2.default.participants },
+      _react2.default.createElement(
+        'p',
+        null,
+        '参与活动',
+        _react2.default.createElement(
+          'span',
+          null,
+          '(',
+          participants.length,
+          ')'
+        )
+      ),
+      _react2.default.createElement(
+        'ul',
+        null,
+        participants.map(function (item, key) {
+          if (key > 3) {
+            return null;
+          }
+          return _react2.default.createElement(
+            'li',
+            { key: key },
+            _react2.default.createElement(_Image2.default, { height: '64', width: '64', src: item.participant.avatar })
+          );
+        })
+      )
     );
   }
   
@@ -7735,11 +7983,11 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Event, _Event2.default);
 
 /***/ },
-/* 155 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(156);
+      var content = __webpack_require__(159);
       var insertCss = __webpack_require__(86);
   
       if (typeof content === 'string') {
@@ -7752,7 +8000,7 @@ module.exports =
     
 
 /***/ },
-/* 156 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(85)();
@@ -7760,61 +8008,33 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._3g6o{margin:0 0 45px;padding:0;width:100%;background:#fcf8f5;max-width:768px}._1V_N{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background:#fff}._1V_N ._3_4u{-o-object-fit:cover;object-fit:cover;height:220px;width:100%}._1V_N ._37HN{margin-top:-27px;height:54px;width:54px;border-radius:30px;border:3px solid #fff}._1V_N ._1MaT{margin-top:10px;text-align:center;font-size:15px;color:#ff989e}._36-d{background:#fff;padding:12px}._36-d ._1i5M,._36-d ._3j99,._36-d ._25TK,._36-d .teJM,._36-d .YMWt{margin:12px 0}._36-d ._1i5M img,._36-d ._3j99 img,._36-d ._25TK img,._36-d .teJM img,._36-d .YMWt img{width:13px;height:18px;margin-right:15px}._36-d ._1i5M ._3StE,._36-d ._3j99 ._3StE,._36-d ._25TK ._3StE,._36-d .teJM ._3StE,._36-d .YMWt ._3StE{width:51px;font-size:12px;color:#666}._36-d ._1i5M ._1KIr,._36-d ._3j99 ._1KIr,._36-d ._25TK ._1KIr,._36-d .teJM ._1KIr,._36-d .YMWt ._1KIr{font-size:12px;color:#999;margin-left:8px}._36-d ._3j99 ._1KIr{font-size:12px;margin-left:8px;color:#ff989e}._2a12{background:#fff;line-height:1.8;width:100%;padding:15px 12px}._2a12 img{height:100%;width:100%}._2Gde{background:#fff;padding-bottom:37px;margin-top:10px;margin-bottom:10px}._2Gde ._310g{font-size:15px;padding-top:18px;padding-left:12px;padding-bottom:28px;color:#666}._2Gde ._310g ._3TTE{color:#999}._2Gde ul{overflow-x:auto;padding:0;list-style:none;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;display:-webkit-box}._2Gde ul li{margin-left:15px}._2Gde ul li ._37HN{width:56px;height:56px;border-radius:28px}", ""]);
+  exports.push([module.id, "._3g6o{margin:0 0 45px;padding:0;width:100%;background:#fff;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}._3_4u{position:relative}._3_4u img{-o-object-fit:cover;object-fit:cover;height:225px;width:100%}._3_4u .ak8Q{position:absolute;bottom:0;left:0;right:0;background:-webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.65)));background:-webkit-linear-gradient(transparent,rgba(0,0,0,.65));background:linear-gradient(transparent,rgba(0,0,0,.65));height:10vw}.yRxb{z-index:999;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;margin-top:-25px;padding:0 10px}.yRxb ._37HN{height:50px;width:50px;border-radius:25px;border:3px solid #fff}.yRxb div{margin-left:15px}.yRxb div ._1MaT{margin-top:10px;font-size:15px;color:#ff989e}.yRxb div ._1MaT span:nth-child(1){color:#666;margin-right:10px}.yRxb div ._3StE{color:#fff;font-size:18px}._36-d{background:#fff;padding:12px}._36-d ._1i5M img,._36-d ._2dz4 img,._36-d ._3j99 img,._36-d ._25TK img,._36-d .teJM img,._36-d .YMWt img{width:17px;height:17px;margin-right:15px}._36-d ._1i5M ._3StE,._36-d ._2dz4 ._3StE,._36-d ._3j99 ._3StE,._36-d ._25TK ._3StE,._36-d .teJM ._3StE,._36-d .YMWt ._3StE{width:51px;font-size:12px;color:#666;line-height:30pt}._36-d ._1i5M ._1KIr,._36-d ._2dz4 ._1KIr,._36-d ._3j99 ._1KIr,._36-d ._25TK ._1KIr,._36-d .teJM ._1KIr,._36-d .YMWt ._1KIr{font-size:12px;color:#999;margin-left:22px}._2a12{background:#fff;line-height:1.8;width:100%;padding:15px 12px}._2a12 img{height:100%;width:100%}._1lG4{padding:0 10px}._1lG4 ._34i2{margin-left:22px;width:0;height:0;border-left:15.6px solid transparent;border-right:15.6px solid transparent;border-bottom:20px solid #ededed}._1lG4 ._2a12{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;height:67px;background:#ededed;padding:23px 10px}._1lG4 ._2a12 p{font-size:15px;color:#666}._1lG4 ._2a12 a{text-decoration:none;color:#999;font-size:14px}._1lG4 ._2a12 img{margin-left:10px;width:9px;height:15.5px}._2Gde{width:100%;background:#fff;height:91px;padding:35px 20px;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}._2Gde,._2Gde ul{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._2Gde ul{list-style:none;margin-right:31px}._2Gde ul li{width:32px;height:32px}._2Gde ul li img{border-radius:16px;width:100%;height:100%}", ""]);
   
   // exports
   exports.locals = {
   	"container": "_3g6o",
-  	"header": "_1V_N",
   	"cover": "_3_4u",
+  	"shadow": "ak8Q",
+  	"user": "yRxb",
   	"avatar": "_37HN",
   	"nickname": "_1MaT",
+  	"title": "_3StE",
   	"info": "_36-d",
   	"startDate": "teJM",
   	"endDate": "_25TK",
+  	"age": "_2dz4",
   	"location": "_1i5M",
   	"number": "YMWt",
   	"price": "_3j99",
-  	"title": "_3StE",
   	"value": "_1KIr",
   	"content": "_2a12",
-  	"participants": "_2Gde",
-  	"participantsCount": "_310g",
-  	"count": "_3TTE"
+  	"strategy": "_1lG4",
+  	"triangle": "_34i2",
+  	"participants": "_2Gde"
   };
 
 /***/ },
-/* 157 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  
-  var _numeral = __webpack_require__(158);
-  
-  var _numeral2 = _interopRequireDefault(_numeral);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  _numeral2.default.defaultFormat('￥0.00');
-  var NumeralFormat = {
-    money: function money(value) {
-      return (0, _numeral2.default)(value).format();
-    }
-  };
-  exports.default = NumeralFormat;
-
-/***/ },
-/* 158 */
-/***/ function(module, exports) {
-
-  module.exports = require("numeral");
-
-/***/ },
-/* 159 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7840,7 +8060,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _Photo = __webpack_require__(160);
+  var _Photo = __webpack_require__(161);
   
   var _Photo2 = _interopRequireDefault(_Photo);
   
@@ -7859,7 +8079,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               photoId = state.path.replace('/photos/', '').replace('/view', '');
-              query = '{\n  photo(path: "' + photoId + '") {\n    owner {\n      nickname\n      avatar\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      content\n      createdAt\n      commentId\n      images\n    }\n    createdAt\n    content {\n         desc\n         img\n    }\n  }\n}';
+              query = '{\n  photo(path: "' + photoId + '") {\n  commentCount\n    owner {\n      nickname\n      avatar\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      content\n      createdAt\n      commentId\n      images\n    }\n    createdAt\n    content {\n         desc\n         img\n    }\n  }\n}';
               _context.next = 4;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -7893,7 +8113,7 @@ module.exports =
   }();
 
 /***/ },
-/* 160 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -7910,7 +8130,7 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Photo = __webpack_require__(161);
+  var _Photo = __webpack_require__(162);
   
   var _Photo2 = _interopRequireDefault(_Photo);
   
@@ -7977,7 +8197,7 @@ module.exports =
           )
         )
       ),
-      _react2.default.createElement(_Comments2.default, { comments: photo.comments })
+      _react2.default.createElement(_Comments2.default, { comments: photo.comments, commentCount: photo.commentCount })
     );
   }
   
@@ -7988,11 +8208,11 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Photo, _Photo2.default);
 
 /***/ },
-/* 161 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(162);
+      var content = __webpack_require__(163);
       var insertCss = __webpack_require__(86);
   
       if (typeof content === 'string') {
@@ -8005,7 +8225,7 @@ module.exports =
     
 
 /***/ },
-/* 162 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(85)();
@@ -8028,16 +8248,16 @@ module.exports =
   };
 
 /***/ },
-/* 163 */
+/* 164 */
 /***/ function(module, exports) {
 
   module.exports = require("./assets");
 
 /***/ },
-/* 164 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(165);
+  var jade = __webpack_require__(166);
   
   module.exports = function template(locals) {
   var buf = [];
@@ -8053,7 +8273,7 @@ module.exports =
   }
 
 /***/ },
-/* 165 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -8305,10 +8525,10 @@ module.exports =
 
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(165);
+  var jade = __webpack_require__(166);
   
   module.exports = function template(locals) {
   var buf = [];
