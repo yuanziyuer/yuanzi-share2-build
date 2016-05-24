@@ -2032,7 +2032,12 @@ module.exports =
   
       var items = void 0;
       lastFetchTime = new Date();
-      lastFetchTask = (0, _fetch2.default)(baseUrl + '/photos/' + path + '?version=v2').then(function (response) {
+      lastFetchTask = (0, _fetch2.default)(baseUrl + '/photos/' + path + '?version=v2', {
+        headers: {
+          'Accept': 'application/vnd.yuanzi.v4+json',
+          'Authorization': 'Bearer unsign'
+        }
+      }).then(function (response) {
         return response.json();
       }).then(function (data) {
         items = data;
