@@ -1769,7 +1769,15 @@ module.exports =
       commentCount: { type: _graphql.GraphQLInt },
       minAge: { type: _graphql.GraphQLInt },
       maxAge: { type: _graphql.GraphQLInt },
-      minNumber: { type: _graphql.GraphQLInt }
+      minNumber: { type: _graphql.GraphQLInt },
+      strategy: { type: new _graphql.GraphQLObjectType({
+          name: 'StrategySimple',
+          fields: {
+            owner: { type: _UserType2.default },
+            title: { type: _graphql.GraphQLString },
+            strategyId: { type: _graphql.GraphQLString }
+          }
+        }) }
     }
   }); /**
        * React Starter Kit (https://www.reactstarterkit.com/)
@@ -7689,7 +7697,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               eventId = state.path.replace('/events/', '').replace('/view', '');
-              query = '{\n  event(path: "' + eventId + '") {\n    title\n    cover\n    startDate\n    endDate\n    content\n    maxAge\n    minAge\n    minNumber\n    number\n    enrollCount\n    location\n    enrollCount\n    number\n    price\n    commentCount\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    participants {\n      participant {\n        avatar\n        nickname\n        userId\n      }\n    }\n    owner {\n      avatar\n      nickname\n    }\n    strategy {\n      title\n      strategyId\n    }\n  }\n}\n';
+              query = '{\n  event(path: "' + eventId + '") {\n    strategy {\n      title\n      strategyId\n    }\n    title\n    cover\n    startDate\n    endDate\n    content\n    maxAge\n    minAge\n    minNumber\n    number\n    enrollCount\n    location\n    enrollCount\n    number\n    price\n    commentCount\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    participants {\n      participant {\n        avatar\n        nickname\n        userId\n      }\n    }\n    owner {\n      avatar\n      nickname\n    }\n  }\n}\n';
               /*
               * number 需要报名人数
               * enrollCount 已报名人数
