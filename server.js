@@ -5075,14 +5075,14 @@ module.exports =
     return _react2.default.createElement(
       'div',
       { className: _Footer2.default.container },
-      _react2.default.createElement('img', { className: _Footer2.default.logo, src: '../../iconyuanzi.png', alt: '' }),
+      _react2.default.createElement('img', { className: _Footer2.default.logo, src: '../../iconYuanzi@2x.png', alt: '' }),
       _react2.default.createElement(
         'div',
         { className: _Footer2.default.desc },
         _react2.default.createElement(
           'p',
           { className: _Footer2.default.title },
-          '元子育儿'
+          _react2.default.createElement('img', { src: '../../iconLogo@2x.png', alt: '' })
         ),
         _react2.default.createElement(
           'p',
@@ -5093,7 +5093,7 @@ module.exports =
       _react2.default.createElement(
         'a',
         { href: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.iyuanzi.app' },
-        _react2.default.createElement('img', { src: '../../btndownload.png', alt: '' })
+        _react2.default.createElement('img', { src: '../../btnDownload@2x.png', alt: '' })
       )
     );
   }
@@ -5126,7 +5126,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._29jY{background:#333;color:#fff}._3-6F{position:fixed;left:auto;display:-webkit-box;display:-ms-flexbox;display:flex;bottom:0;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;max-width:768px;height:45px;width:100%;background:#ff989e;padding:6px 35px}._3-6F ._3jzW{height:33px;width:33px}._3-6F ._25bw{margin-left:8px}._3-6F ._25bw ._1972{color:#fff;font-size:15px;text-align:left}._3-6F ._25bw ._3n8J{color:#fff;font-size:11px;text-align:left}._3-6F a{margin-top:4px;right:34px;position:absolute}._3-6F a img{width:75px;height:25px}._2wXL{color:hsla(0,0%,100%,.5)}._1Sxe,.YD4V{color:hsla(0,0%,100%,.3)}._2wXL,.wQJK{padding:2px 5px;font-size:1em}.wQJK,.wQJK:active,.wQJK:visited{color:hsla(0,0%,100%,.6);text-decoration:none}.wQJK:hover{color:#fff}", ""]);
+  exports.push([module.id, "._29jY{background:#333;color:#fff}._3-6F{position:fixed;left:auto;display:-webkit-box;display:-ms-flexbox;display:flex;bottom:0;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;max-width:768px;height:49px;width:100%;background:#ff989e;padding:6px 35px}._3-6F ._3jzW{height:40px;width:40px}._3-6F ._25bw{margin-left:8px}._3-6F ._25bw ._1972{color:#fff;font-size:15px;text-align:left}._3-6F ._25bw ._1972 img{width:64px}._3-6F ._25bw ._3n8J{color:#fff;font-size:11px;text-align:left}._3-6F a{margin-top:4px;right:34px;position:absolute}._3-6F a img{width:75px;height:30px}._2wXL{color:hsla(0,0%,100%,.5)}._1Sxe,.YD4V{color:hsla(0,0%,100%,.3)}._2wXL,.wQJK{padding:2px 5px;font-size:1em}.wQJK,.wQJK:active,.wQJK:visited{color:hsla(0,0%,100%,.6);text-decoration:none}.wQJK:hover{color:#fff}", ""]);
   
   // exports
   exports.locals = {
@@ -6360,11 +6360,7 @@ module.exports =
               'div',
               { className: _Strategy2.default.stepRight },
               item.imgUrl.length ? _react2.default.createElement(_Image2.default, { src: item.imgUrl }) : '',
-              _react2.default.createElement(
-                'p',
-                null,
-                item.description
-              )
+              _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: item.description } })
             )
           );
         })
@@ -6578,6 +6574,7 @@ module.exports =
   function Strategy(_ref) {
     var strategy = _ref.strategy;
   
+    console.log(strategy);
     return _react2.default.createElement(
       'div',
       { className: _Strategy2.default.container },
