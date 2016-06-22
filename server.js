@@ -4163,7 +4163,9 @@ module.exports =
               launchApp = 'iyuanzi://' + type + '?id=' + id;
             }
   
-            if (this.props.os == 'iOS') {}
+            if (this.props.os == 'iOS') {
+              launchApp = 'iyuanzi://' + type + '/' + id;
+            }
           }
         }
         return !this.props.error ? _react2.default.createElement(
