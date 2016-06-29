@@ -5352,7 +5352,7 @@ module.exports =
     return _react2.default.createElement(
       'div',
       { className: _Footer2.default.container },
-      _react2.default.createElement('img', { className: _Footer2.default.logo, src: '../../iconYuanzi.png', alt: '' }),
+      _react2.default.createElement('img', { className: _Footer2.default.logo, src: '../../iconyuanzi.png', alt: '' }),
       _react2.default.createElement(
         'div',
         { className: _Footer2.default.desc },
