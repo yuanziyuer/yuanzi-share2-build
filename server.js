@@ -1861,7 +1861,6 @@ module.exports =
    */
   
   var baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
-  
   var lastFetchTask = void 0;
   var lastFetchTime = new Date(1970, 0, 1);
   var topic = {
@@ -7188,7 +7187,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._1wUF{width:100%;background:#fff}._1wUF ._21ij{background:#f7f7f7;border-left:5px solid #ff989e;padding:12px;font-size:15px;color:#666}._1wUF ._21ij ._2R7v{font-size:15px;color:#999}._1wUF ul{padding:0;list-style:none;background:#f7f7f7}._1wUF ul,._1wUF ul li{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}._1wUF ul li{background:#fff;padding:9px 10px 18.5px;width:100%;margin-bottom:5px}._1wUF ul li .rHdW{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;min-width:48px}._1wUF ul li .rHdW ._4IxY{height:32px;width:32px;border-radius:16px}._1wUF ul li .rHdW div{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;margin-left:12px}._1wUF ul li .rHdW div ._2JS3{margin:2px 0;font-size:10px;color:#cbcbcb}._1wUF ul li .rHdW div ._3wc5{font-size:13px;color:#ff989e}._1wUF ul li ._2-MO{margin-top:9px}._1wUF ul li ._2-MO ._2GFZ{font-size:12px;color:#666}._1wUF ul li ._2-MO ._24VN{background:#fff;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._1wUF ul li ._2-MO ._24VN li{height:115px;width:115px;margin-left:8px}._1wUF ul li ._2-MO ._24VN li img{-o-object-fit:cover;object-fit:cover;width:100%;height:100%}._1wUF ul li ._2-MO ._24VN li:nth-child(1){margin-left:0}._1wUF ul li:nth-last-child(1){margin-bottom:0}", ""]);
+  exports.push([module.id, "._1wUF{width:100%;background:#fff}._1wUF ._21ij{background:#f7f7f7;border-left:5px solid #ff989e;padding:12px;font-size:15px;color:#666}._1wUF ._21ij ._2R7v{font-size:15px;color:#999}._1wUF ul{padding:0;list-style:none;background:#f7f7f7}._1wUF ul,._1wUF ul li{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}._1wUF ul li{background:#fff;padding:9px 10px 18.5px;width:100%;margin-bottom:5px}._1wUF ul li .rHdW{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;min-width:48px}._1wUF ul li .rHdW ._4IxY{height:32px;width:32px;border-radius:16px}._1wUF ul li .rHdW div{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;margin-left:12px}._1wUF ul li .rHdW div ._2JS3{margin:2px 0;font-size:10px;color:#cbcbcb}._1wUF ul li .rHdW div ._3wc5{font-size:13px;color:#ff989e}._1wUF ul li ._2-MO{margin-top:9px;overflow:hidden}._1wUF ul li ._2-MO ._2GFZ{font-size:12px;color:#666}._1wUF ul li ._2-MO ._24VN{background:#fff;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}._1wUF ul li ._2-MO ._24VN li{height:115px;width:115px;margin-left:8px}._1wUF ul li ._2-MO ._24VN li img{-o-object-fit:cover;object-fit:cover;width:100%;height:100%}._1wUF ul li ._2-MO ._24VN li:nth-child(1){margin-left:0}._1wUF ul li:nth-last-child(1){margin-bottom:0}", ""]);
   
   // exports
   exports.locals = {
@@ -7226,10 +7225,10 @@ module.exports =
   
   var DateFormat = {
     postDate: function postDate(date) {
-      return (0, _moment2.default)(date).format('YYYY 年 MM 月 DD 日 hh:mm');
+      return (0, _moment2.default)(date).format('YYYY 年 MM 月 DD 日 HH:mm');
     },
     commentDate: function commentDate(date) {
-      return (0, _moment2.default)(date).format('YYYY-MM-DD hh:mm');
+      return (0, _moment2.default)(date).format('YYYY-MM-DD HH:mm ');
     }
   };
   exports.default = DateFormat;
@@ -7618,7 +7617,6 @@ module.exports =
   
   var obj = __webpack_require__(156);
   _numeral2.default.language('chs', obj);
-  console.log(obj);
   var NumeralFormat = {
     money: function money(value) {
       return '￥' + (0, _numeral2.default)(value).format('0,0.00');
@@ -7696,6 +7694,8 @@ module.exports =
             case 7:
               _ref = _context.sent;
               data = _ref.data;
+  
+              console.log(data);
               title = data.topic.title;
   
               state.context.onSetMeta('og:type', 'article');
@@ -7706,7 +7706,7 @@ module.exports =
               state.context.onSetTitle(title);
               return _context.abrupt('return', _react2.default.createElement(_Topic2.default, { topic: data.topic }));
   
-            case 17:
+            case 18:
             case 'end':
               return _context.stop();
           }
@@ -7811,13 +7811,14 @@ module.exports =
         _react2.default.createElement(
           'p',
           null,
-          '111人参加'
+          topic.viewCount,
+          ' 人参加'
         ),
         _react2.default.createElement(
           'p',
           null,
           topic.collectCount,
-          '人收藏'
+          ' 人收藏'
         )
       ),
       _react2.default.createElement(
