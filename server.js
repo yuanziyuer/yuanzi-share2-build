@@ -8943,7 +8943,7 @@ module.exports =
         _react2.default.createElement(
           'span',
           { style: { color: '#ff989e' } },
-          podcast.userScore
+          podcast.userScore > 0 ? podcast.userScore : 9.9
         ),
         ' 分'
       ),
@@ -8957,12 +8957,7 @@ module.exports =
           '课程概述'
         )
       ),
-      _react2.default.createElement(
-        'p',
-        null,
-        ' ',
-        podcast.content
-      ),
+      _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: podcast.content.replace(/\n/g, "<br />") } }),
       _react2.default.createElement(
         'div',
         { className: _Podcast2.default.podcastsCount },
@@ -8978,12 +8973,7 @@ module.exports =
         _react2.default.createElement('img', { className: _Podcast2.default.lecturerAvatarCover, width: '80', height: '80', src: podcast.lecturerAvatar + "@20-15bl.jpg" }),
         _react2.default.createElement('img', { className: _Podcast2.default.lecturerAvatar, width: '80', height: '80', src: podcast.lecturerAvatar })
       ),
-      _react2.default.createElement(
-        'p',
-        null,
-        ' ',
-        podcast.lecturerIntroduction
-      )
+      _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: podcast.lecturerIntroduction.replace(/\n/g, "<br />") } })
     );
   }
   Podcast.propTypes = {
