@@ -164,7 +164,6 @@ module.exports =
   
   server.get('/login/wechat', _passport2.default.authenticate('wechat'));
   server.get('/login/wechat/return', function (req, res) {
-    console.log(res);
     res.redirect('/');
   });
   
@@ -640,12 +639,17 @@ module.exports =
     name: 'wechat',
     appSecret: _config.auth.wechat.secret,
     client: 'wechat',
-    callbackURL: 'http://share-dev.iyuanzi.com/login/wechat/return',
+    callbackURL: function callbackURL(req) {
+      console.log(req);
+      return 'http://share-dev.iyuanzi.com/login/wechat/return';
+    },
     scope: 'snsapi_userinfo',
-    state: 'login'
-  }, function (accessToken, refreshToken, profile, done) {
+    state: 'login',
+    passReqToCallback: true
+  }, function (req, accessToken, refreshToken, profile, done) {
     console.log(profile);
-    return done(err, profile);
+  
+    return done(null, profile);
   }));
   
   exports.default = _passport2.default;
