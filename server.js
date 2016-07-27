@@ -164,6 +164,7 @@ module.exports =
   
   server.get('/login/wechat', _passport2.default.authenticate('wechat'));
   server.get('/login/wechat/return', function (req, res) {
+    console.log(res);
     res.redirect('/');
   });
   
@@ -183,10 +184,11 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcast*', function (req, res, next) {
-    console.log(req);
     console.log('callback url = ', 'http://' + req.headers.host + req.path);
-    var callback = 'http://' + req.headers.host + req.path;
-    _passport2.default.authenticate('wechat', { callbackURL: callback })(req, res, next);
+    _passport2.default.authenticate('wechat', {
+      session: false,
+      callbackURL: 'http://' + req.headers.host + req.path
+    })(req, res, next);
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
       return _regenerator2.default.wrap(function _callee2$(_context2) {
@@ -466,7 +468,7 @@ module.exports =
   
   var _passportFacebook = __webpack_require__(15);
   
-  var _passportWechat = __webpack_require__(16);
+  var _passportWeixin = __webpack_require__(16);
   
   var _db = __webpack_require__(17);
   
@@ -639,13 +641,14 @@ module.exports =
    * https://github.com/membership/membership.db/tree/master/postgres
    */
   
-  _passport2.default.use(new _passportWechat.Strategy({
-    appID: _config.auth.wechat.id,
+  _passport2.default.use('wechat', new _passportWeixin.Strategy({
+    clientID: _config.auth.wechat.id,
     name: 'wechat',
-    appSecret: _config.auth.wechat.secret,
-    client: 'wechat',
+    clientSecret: _config.auth.wechat.secret,
+    callbackURL: 'http://share-dev.iyuanzi.com/login/wechat/return',
+    authorizationURL: 'https://open.weixin.qq.com/connect/oauth2/authorize',
     scope: 'snsapi_userinfo',
-    state: 'login'
+    requireState: false
   }, function (accessToken, refreshToken, profile, done) {
     console.log(profile);
     return done(null, profile);
@@ -669,7 +672,7 @@ module.exports =
 /* 16 */
 /***/ function(module, exports) {
 
-  module.exports = require("passport-wechat");
+  module.exports = require("passport-weixin");
 
 /***/ },
 /* 17 */
