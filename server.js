@@ -164,7 +164,6 @@ module.exports =
   
   server.get('/login/wechat', _passport2.default.authenticate('wechat'));
   server.get('/login/wechat/return', function (req, res) {
-    console.log(req.path());
     res.redirect('/');
   });
   
@@ -185,8 +184,8 @@ module.exports =
   // -----------------------------------------------------------------------------
   server.get('/podcast*', function (req, res, next) {
     console.log(req);
-    console.log('callback url = ', 'http://' + req.headers.host + '/' + req.path);
-    var callback = 'http://' + req.headers.host + '/' + req.path;
+    console.log('callback url = ', 'http://' + req.headers.host + req.path);
+    var callback = 'http://' + req.headers.host + req.path;
     _passport2.default.authenticate('wechat', { callbackURL: callback })(req, res, next);
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
@@ -645,11 +644,9 @@ module.exports =
     name: 'wechat',
     appSecret: _config.auth.wechat.secret,
     client: 'wechat',
-    callbackURL: 'http://share-dev.iyuanzi.com/login/wechat/return',
     scope: 'snsapi_userinfo',
-    state: 'login',
-    passReqToCallback: true
-  }, function (req, accessToken, refreshToken, profile, done) {
+    state: 'login'
+  }, function (accessToken, refreshToken, profile, done) {
     console.log(profile);
     return done(null, profile);
   }));
