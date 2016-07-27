@@ -638,17 +638,17 @@ module.exports =
    * https://github.com/membership/membership.db/tree/master/postgres
    */
   
-  _passport2.default.use({ passReqToCallback: true }, new _passportWechat.Strategy({
+  _passport2.default.use(new _passportWechat.Strategy({
     appID: _config.auth.wechat.id,
     name: 'wechat',
     appSecret: _config.auth.wechat.secret,
     client: 'wechat',
-    callbackURL: req.path(),
+    callbackURL: 'http://share-dev.iyuanzi.com/login/wechat/return',
     scope: 'snsapi_userinfo',
-    state: 'login'
-  }, function (accessToken, refreshToken, profile, done) {
+    state: 'login',
+    passReqToCallback: true
+  }, function (req, accessToken, refreshToken, profile, done) {
     console.log(profile);
-  
     return done(null, profile);
   }));
   
