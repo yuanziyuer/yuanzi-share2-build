@@ -184,8 +184,9 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcast*', function (req, res, next) {
-    console.log('callback url = ', 'http://' + app.locals.hostname + ':' + app.locals.port + '/' + req.path);
-    _passport2.default.authenticate('wechat', { callbackURL: req.path() })(req, res, next);
+    console.log('callback url = ', 'http://' + req.locals.hostname + ':' + req.locals.port + '/' + req.path);
+    var callback = 'http://' + req.locals.hostname + ':' + req.locals.port + '/' + req.path;
+    _passport2.default.authenticate('wechat', { callbackURL: callback })(req, res, next);
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
       return _regenerator2.default.wrap(function _callee2$(_context2) {
