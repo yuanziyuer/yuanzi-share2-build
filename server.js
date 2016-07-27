@@ -164,6 +164,7 @@ module.exports =
   
   server.get('/login/wechat', _passport2.default.authenticate('wechat'));
   server.get('/login/wechat/return', function (req, res) {
+    console.log(req.path());
     res.redirect('/');
   });
   
@@ -182,7 +183,10 @@ module.exports =
   //
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
-  server.get('/podcast*', _passport2.default.authenticate('wechat'), function () {
+  server.get('/podcast*', function (req, res, next) {
+    console.log('callback url = ', 'http://' + app.locals.hostname + ':' + app.locals.port + '/' + req.path);
+    _passport2.default.authenticate('wechat', { callbackURL: req.path() })(req, res, next);
+  }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
@@ -634,19 +638,15 @@ module.exports =
    * https://github.com/membership/membership.db/tree/master/postgres
    */
   
-  _passport2.default.use(new _passportWechat.Strategy({
+  _passport2.default.use({ passReqToCallback: true }, new _passportWechat.Strategy({
     appID: _config.auth.wechat.id,
     name: 'wechat',
     appSecret: _config.auth.wechat.secret,
     client: 'wechat',
-    callbackURL: function callbackURL(req) {
-      console.log(req);
-      return 'http://share-dev.iyuanzi.com/login/wechat/return';
-    },
+    callbackURL: req.path(),
     scope: 'snsapi_userinfo',
-    state: 'login',
-    passReqToCallback: true
-  }, function (req, accessToken, refreshToken, profile, done) {
+    state: 'login'
+  }, function (accessToken, refreshToken, profile, done) {
     console.log(profile);
   
     return done(null, profile);
