@@ -677,13 +677,15 @@ module.exports =
         dynamicCode: ""
       }
     };
+    console.log(user);
+    console.log((0, _stringify2.default)(user));
     (0, _fetch2.default)(baseUrl + '/oauth/register', {
       headers: {
         'Accept': 'application/vnd.yuanzi.v4+json',
         'Authorization': 'Bearer unsign'
       },
       method: 'POST',
-      body: (0, _stringify2.default)(user)
+      body: user
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
