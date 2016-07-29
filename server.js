@@ -9434,7 +9434,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               podcastId = state.path.replace('/podcasts/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '", token: "unsign") {\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n  }\n}\n';
+              query = '{\n  podcast(path: "' + podcastId + '", token: "unsign") {\n    podcastId\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n  }\n}\n';
               _context.next = 4;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -9519,14 +9519,14 @@ module.exports =
       'div',
       { className: _Podcast2.default.container },
       _react2.default.createElement(
-        'a',
-        { href: '/podcastdetail/' + podcast.podcastId + '/view' },
+        'div',
+        { className: _Podcast2.default.cover },
         _react2.default.createElement(
-          'div',
-          { className: _Podcast2.default.cover },
-          _react2.default.createElement(_Image2.default, { width: '768', height: '200', src: podcast.cover }),
-          _react2.default.createElement('div', { className: _Podcast2.default.shadow })
-        )
+          'a',
+          { href: '/podcastdetail/' + podcast.podcastId + '/view' },
+          _react2.default.createElement(_Image2.default, { width: '768', height: '200', src: podcast.cover })
+        ),
+        _react2.default.createElement('div', { className: _Podcast2.default.shadow })
       ),
       _react2.default.createElement(
         'h3',
