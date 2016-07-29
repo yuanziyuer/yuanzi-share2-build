@@ -9555,7 +9555,7 @@ module.exports =
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(state);
+              console.log(undefined);
               token = state.context.user.accessToken;
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber   \n  }\n}\n';
