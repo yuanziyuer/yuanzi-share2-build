@@ -667,9 +667,11 @@ module.exports =
       userId: profile._json.unionid || profile._json.openid,
       nickname: profile.displayName,
       avatar: profile.profileUrl,
+      clientId: 'ios',
       account: {
         username: profile._json.unionid || profile._json.openid,
-        password: profile._json.unionid || profile._json.openid
+        password: profile._json.unionid || profile._json.openid,
+        plaltform: 'weixin'
       }
     };
     console.log(user);
