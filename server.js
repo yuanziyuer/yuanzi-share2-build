@@ -232,14 +232,16 @@ module.exports =
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
+                          data.accessToken = req.user;
                         });
   
                       case 8:
   
+                        console.log(data);
                         res.status(statusCode);
                         res.send(template(data));
   
-                      case 10:
+                      case 11:
                       case 'end':
                         return _context.stop();
                     }
@@ -671,10 +673,10 @@ module.exports =
       account: {
         username: profile._json.unionid || profile._json.openid,
         password: profile._json.unionid || profile._json.openid,
-        platform: 'weixin'
+        platform: 'weixin',
+        dynamicCode: ''
       }
     };
-    console.log(user);
     (0, _fetch2.default)(baseUrl + '/oauth/register', {
       headers: {
         'Accept': 'application/vnd.yuanzi.v4+json',
@@ -686,7 +688,7 @@ module.exports =
       return response.json();
     }).then(function (data) {
       console.log(data);
-      return done(null, profile);
+      return done(null, data);
     });
   }));
   
@@ -2370,7 +2372,7 @@ module.exports =
   
   var baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
   var lastFetchTask = void 0;
-  
+  var lastFetchTime = new Date(1970, 0, 1);
   var topic = {
     type: _PodcastType2.default,
     args: {
@@ -2387,7 +2389,7 @@ module.exports =
       lastFetchTask = (0, _fetch2.default)(baseUrl + '/podcasts/' + path, {
         headers: {
           'Accept': 'application/vnd.yuanzi.v4+json',
-          'Authorization': 'Bearer ' + token || 'unsign'
+          'Authorization': 'Bearer ' + token
         }
       }).then(function (response) {
         return response.json();
@@ -2438,7 +2440,8 @@ module.exports =
       startDate: { type: _graphql.GraphQLString },
       enrollCount: { type: _graphql.GraphQLInt },
       userScore: { type: _graphql.GraphQLString },
-      roomNumber: { type: _graphql.GraphQLString }
+      roomNumber: { type: _graphql.GraphQLString },
+      joined: { type: _graphql.GraphQLBoolean }
     }
   }); /**
        * React Starter Kit (https://www.reactstarterkit.com/)
@@ -9299,7 +9302,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               podcastId = state.path.replace('/podcasts/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '") {\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n  }\n}\n';
+              query = '{\n  podcast(path: "' + podcastId + '", token: "5Ipy2uQGJeAWrFPITB+ojHcTy1V5oxkXV7lor/Bzmks=") {\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n  }\n}\n';
               _context.next = 4;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -9820,7 +9823,7 @@ module.exports =
   var jade_mixins = {};
   var jade_interp;
   ;var locals_for_with = (locals || {});(function (body, css, description, entry, title, trackingId) {
-  buf.push("<!DOCTYPE html><html lang=\"\" class=\"no-js\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><title>" + (jade.escape(null == (jade_interp = title) ? "" : jade_interp)) + "</title><meta name=\"description\"" + (jade.attr("description", description, true, true)) + "><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\"><style id=\"css\">" + (null == (jade_interp = css) ? "" : jade_interp) + "</style></head><body><div id=\"app\">" + (null == (jade_interp = body) ? "" : jade_interp) + "</div><script" + (jade.attr("src", entry, true, true)) + "></script><script>window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;\nga('create','" + (jade.escape((jade_interp = trackingId) == null ? '' : jade_interp)) + "','auto');ga('send','pageview')</script>");
+  buf.push("<!DOCTYPE html><html lang=\"\" class=\"no-js\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><title>" + (jade.escape(null == (jade_interp = title) ? "" : jade_interp)) + "</title><meta name=\"description\"" + (jade.attr("description", description, true, true)) + "><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\"><style id=\"css\">" + (null == (jade_interp = css) ? "" : jade_interp) + "</style></head><body><div id=\"app\">" + (null == (jade_interp = body) ? "" : jade_interp) + "</div><script>window.appData = appData</script><script" + (jade.attr("src", entry, true, true)) + "></script><script>window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;\nga('create','" + (jade.escape((jade_interp = trackingId) == null ? '' : jade_interp)) + "','auto');ga('send','pageview')</script>");
   if ( trackingId)
   {
   buf.push("<script src=\"https://www.google-analytics.com/analytics.js\" async defer></script>");
