@@ -674,7 +674,7 @@ module.exports =
         username: profile._json.unionid || profile._json.openid,
         password: profile._json.unionid || profile._json.openid,
         platform: 'weixin',
-        dynamicCode: ''
+        dynamicCode: ""
       }
     };
     (0, _fetch2.default)(baseUrl + '/oauth/register', {
