@@ -106,7 +106,7 @@ module.exports =
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _assets = __webpack_require__(185);
+  var _assets = __webpack_require__(189);
   
   var _assets2 = _interopRequireDefault(_assets);
   
@@ -202,7 +202,7 @@ module.exports =
                     switch (_context.prev = _context.next) {
                       case 0:
                         statusCode = 200;
-                        template = __webpack_require__(186);
+                        template = __webpack_require__(190);
                         data = { title: '', description: '', css: '', body: '', entry: _assets2.default.main.js };
   
   
@@ -281,7 +281,7 @@ module.exports =
                     switch (_context3.prev = _context3.next) {
                       case 0:
                         statusCode = 200;
-                        template = __webpack_require__(186);
+                        template = __webpack_require__(190);
                         data = { title: '', description: '', css: '', body: '', entry: _assets2.default.main.js };
   
   
@@ -355,7 +355,7 @@ module.exports =
   server.use(function (err, req, res, next) {
     // eslint-disable-line no-unused-vars
     console.log(pe.render(err)); // eslint-disable-line no-console
-    var template = __webpack_require__(188);
+    var template = __webpack_require__(192);
     var statusCode = err.status || 500;
     res.status(statusCode);
     res.send(template({
@@ -2616,7 +2616,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var routes = [__webpack_require__(128), __webpack_require__(132), __webpack_require__(136), __webpack_require__(140), __webpack_require__(160), __webpack_require__(164), __webpack_require__(168), __webpack_require__(172), __webpack_require__(176), __webpack_require__(180), __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./routes/podcastDetail\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))]; /**
+  var routes = [__webpack_require__(128), __webpack_require__(132), __webpack_require__(136), __webpack_require__(140), __webpack_require__(160), __webpack_require__(164), __webpack_require__(168), __webpack_require__(172), __webpack_require__(176), __webpack_require__(180), __webpack_require__(184)]; /**
                                                                                                                                                                                                                                                                                                                                                   * React Starter Kit (https://www.reactstarterkit.com/)
                                                                                                                                                                                                                                                                                                                                                   *
                                                                                                                                                                                                                                                                                                                                                   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
@@ -9510,17 +9510,352 @@ module.exports =
   };
 
 /***/ },
-/* 184 */,
-/* 185 */
-/***/ function(module, exports) {
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
 
-  module.exports = require("./assets");
+  'use strict';
+  
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.action = exports.path = undefined;
+  
+  var _regenerator = __webpack_require__(1);
+  
+  var _regenerator2 = _interopRequireDefault(_regenerator);
+  
+  var _stringify = __webpack_require__(14);
+  
+  var _stringify2 = _interopRequireDefault(_stringify);
+  
+  var _asyncToGenerator2 = __webpack_require__(2);
+  
+  var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+  
+  var _react = __webpack_require__(59);
+  
+  var _react2 = _interopRequireDefault(_react);
+  
+  var _PodcastDetail = __webpack_require__(185);
+  
+  var _PodcastDetail2 = _interopRequireDefault(_PodcastDetail);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  /**
+   * Created by diwu on 3/12/16.
+   */
+  
+  var path = exports.path = '/podcastdetail/*';
+  var action = exports.action = function () {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state, t) {
+      var token, podcastId, query, response, _ref, data, baseUrl, res, _ref2, d;
+  
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              console.log('111');
+              console.log(t);
+              token = state.context.accessToken;
+              podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
+              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber   \n  }\n}\n';
+              _context.next = 7;
+              return fetch('/graphql?query=' + query);
+  
+            case 7:
+              response = _context.sent;
+              _context.next = 10;
+              return response.json();
+  
+            case 10:
+              _ref = _context.sent;
+              data = _ref.data;
+              baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
+              _context.next = 15;
+              return fetch(baseUrl + '/orders', {
+                headers: {
+                  'Accept': 'application/vnd.yuanzi.v4+json',
+                  'Authorization': 'Bearer ' + token,
+                  'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: (0, _stringify2.default)({
+                  podcastId: podcastId,
+                  orderCount: 1
+                })
+              });
+  
+            case 15:
+              res = _context.sent;
+              _context.next = 18;
+              return res.json();
+  
+            case 18:
+              _ref2 = _context.sent;
+              d = _ref2.d;
+  
+              console.log(d);
+              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.roomNumber }));
+  
+            case 22:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+    return function action(_x, _x2) {
+      return ref.apply(this, arguments);
+    };
+  }();
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  
+  var _getPrototypeOf = __webpack_require__(85);
+  
+  var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+  
+  var _classCallCheck2 = __webpack_require__(86);
+  
+  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+  
+  var _createClass2 = __webpack_require__(87);
+  
+  var _createClass3 = _interopRequireDefault(_createClass2);
+  
+  var _possibleConstructorReturn2 = __webpack_require__(88);
+  
+  var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+  
+  var _inherits2 = __webpack_require__(89);
+  
+  var _inherits3 = _interopRequireDefault(_inherits2);
+  
+  var _react = __webpack_require__(59);
+  
+  var _react2 = _interopRequireDefault(_react);
+  
+  var _withStyles = __webpack_require__(97);
+  
+  var _withStyles2 = _interopRequireDefault(_withStyles);
+  
+  var _PodcastDetail = __webpack_require__(186);
+  
+  var _PodcastDetail2 = _interopRequireDefault(_PodcastDetail);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  var Realtime = __webpack_require__(188).Realtime; /**
+                                                          * React Starter Kit (https://www.reactstarterkit.com/)
+                                                          *
+                                                          * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                          *
+                                                          * This source code is licensed under the MIT license found in the
+                                                          * LICENSE.txt file in the root directory of this source tree.
+                                                          */
+  
+  var realtime = new Realtime({
+    appId: 'cbz3iy9f47mvirszhhfepphoyocm1uorzrps7w9tsb71h3ix',
+    region: 'cn' });
+  
+  // 美国节点为 "us"
+  
+  var Podcast = function (_Component) {
+    (0, _inherits3.default)(Podcast, _Component);
+  
+    function Podcast(props, context) {
+      (0, _classCallCheck3.default)(this, Podcast);
+  
+      var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Podcast).call(this, props, context));
+  
+      _this.state = { messages: [] };
+      return _this;
+    }
+  
+    (0, _createClass3.default)(Podcast, [{
+      key: 'changeVoice',
+      value: function changeVoice(item) {
+        this.setState({ audioUrl: item });
+        this.refs.audio.play();
+      }
+    }, {
+      key: 'renderItem',
+      value: function renderItem(item) {
+        var message = item._lcattrs;
+        return _react2.default.createElement(
+          'div',
+          { key: message.id, className: _PodcastDetail2.default.message },
+          _react2.default.createElement('img', { className: _PodcastDetail2.default.avatar,
+            src: message.avatar.replace('http://static.qunzhibo.com/', 'http://static.qunkefu.com/')
+          }),
+          _react2.default.createElement(
+            'div',
+            { style: { display: 'flex', flexDirection: 'column', marginLeft: 10 } },
+            _react2.default.createElement(
+              'span',
+              { className: _PodcastDetail2.default.name },
+              message.nickname
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: _PodcastDetail2.default.time },
+              message.time
+            ),
+            this.renderMessage(message)
+          )
+        );
+      }
+    }, {
+      key: 'renderMessage',
+      value: function renderMessage(item) {
+        if (item.type == 'image') {
+          return _react2.default.createElement(
+            'div',
+            { className: _PodcastDetail2.default.content },
+            _react2.default.createElement('img', { src: item.message.replace('http://static.qunzhibo.com/', 'http://static.qunkefu.com/'), alt: '' })
+          );
+        } else if (item.type == 'voice') {
+          return _react2.default.createElement(
+            'div',
+            { className: _PodcastDetail2.default.content, onClick: this.changeVoice.bind(this, item.message) },
+            _react2.default.createElement('i', { key: item.message }),
+            _react2.default.createElement(
+              'var',
+              null,
+              '15'
+            )
+          );
+        } else if (item.type == 'link') {
+          return _react2.default.createElement(
+            'div',
+            { className: _PodcastDetail2.default.content },
+            _react2.default.createElement(
+              'a',
+              { href: item.message },
+              item.message
+            )
+          );
+        } else {
+          return _react2.default.createElement(
+            'div',
+            { className: _PodcastDetail2.default.content },
+            item.message
+          );
+        }
+      }
+    }, {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        var self = this;
+        realtime.createIMClient('Jerry').then(function (jerry) {
+          var query = jerry.getQuery();
+          return query.equalTo('name', 'podcast_' + self.props.podcastId).find().then(function (conversations) {
+            return conversations[0];
+          }).catch(console.error.bind(console));
+        }).then(function (conversation) {
+          conversation.queryMessages({
+            limit: 999 }). // limit 取值范围 1~1000，默认 20
+          then(function (messages) {
+            self.setState({ messages: messages });
+          }).catch(console.error.bind(console));
+        });
+      }
+    }, {
+      key: 'createItems',
+      value: function createItems(items) {
+        var output = [];
+        for (var i = 0; i < items.length; i++) {
+          output.push(this.renderItem(items[i]));
+        }return output;
+      }
+    }, {
+      key: 'render',
+      value: function render() {
+  
+        return _react2.default.createElement(
+          'div',
+          { className: _PodcastDetail2.default.container },
+          _react2.default.createElement('audio', { className: 'player', ref: 'audio', src: this.state.audioUrl }),
+          this.createItems(this.state.messages)
+        );
+      }
+    }]);
+    return Podcast;
+  }(_react.Component);
+  
+  Podcast.propTypes = {};
+  
+  exports.default = (0, _withStyles2.default)(Podcast, _PodcastDetail2.default);
 
 /***/ },
 /* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(187);
+  
+      var content = __webpack_require__(187);
+      var insertCss = __webpack_require__(94);
+  
+      if (typeof content === 'string') {
+        content = [[module.id, content, '']];
+      }
+  
+      module.exports = content.locals || {};
+      module.exports._getCss = function() { return content.toString(); };
+      module.exports._insertCss = insertCss.bind(null, content);
+    
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(93)();
+  // imports
+  
+  
+  // module
+  exports.push([module.id, "._1hrp{margin:0 0 45px;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:left;-ms-flex-align:left;align-items:left;width:100%;padding:10px;background-color:#f7f7f7}._2RKn{background:#fff}._1OU6{overflow-y:auto;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;margin-right:10px}._1OU6,.D5lR{-webkit-box-direction:normal}.D5lR{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;min-height:80px;margin:10px}.D5lR.CXI1 img{float:left;cursor:pointer;margin-right:10px}.D5lR .Coxb{font-size:12px;color:#cbcbcb;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-top:15px}._1hX5{padding:5px 10px;background-color:#fff;display:inline-table;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-radius:6px;position:relative;margin-top:5px}._1hX5:after{border-width:13px;margin-top:0;content:\"\";position:absolute;top:10px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;left:-.6rem;border-right:12px solid #fff}._1hX5:after,._1hX5:before{content:\" \";height:0;width:0;position:absolute;pointer-events:none;right:100%;border-right-color:#fff}._1_P7{font-size:12px;margin:0;color:#666;cursor:pointer;line-height:12px}._1sHW{width:32px;height:32px;min-width:32px;border-radius:50%}._1nqT{font-size:12px;color:#cbcbcb;line-height:12px;font-weight:lighter;margin-top:5px}._1crN{font-style:italic;margin:0 0 0 80px}", ""]);
+  
+  // exports
+  exports.locals = {
+  	"container": "_1hrp",
+  	"chat": "_2RKn",
+  	"chat-history": "_1OU6",
+  	"message": "D5lR",
+  	"left": "CXI1",
+  	"groupBy": "Coxb",
+  	"content": "_1hX5",
+  	"name": "_1_P7",
+  	"avatar": "_1sHW",
+  	"time": "_1nqT",
+  	"chat-feedback": "_1crN"
+  };
+
+/***/ },
+/* 188 */
+/***/ function(module, exports) {
+
+  module.exports = require("leancloud-realtime");
+
+/***/ },
+/* 189 */
+/***/ function(module, exports) {
+
+  module.exports = require("./assets");
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+  var jade = __webpack_require__(191);
   
   module.exports = function template(locals) {
   var buf = [];
@@ -9536,7 +9871,7 @@ module.exports =
   }
 
 /***/ },
-/* 187 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -9788,10 +10123,10 @@ module.exports =
 
 
 /***/ },
-/* 188 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(187);
+  var jade = __webpack_require__(191);
   
   module.exports = function template(locals) {
   var buf = [];
