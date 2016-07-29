@@ -184,9 +184,6 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
-    if (req.isAuthenticated()) {
-      next();
-    }
     _passport2.default.authenticate('wechat', {
       session: false,
       callbackURL: 'http://' + req.headers.host + req.path
@@ -228,16 +225,19 @@ module.exports =
                             return statusCode = 404;
                           }
                         };
-                        _context.next = 8;
+  
+  
+                        console.log(req.user);
+  
+                        _context.next = 9;
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
                           data.appData = req.user;
                         });
   
-                      case 8:
+                      case 9:
   
-                        console.log(req.user);
                         res.status(statusCode);
                         res.send(template(data));
   
