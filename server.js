@@ -183,7 +183,7 @@ module.exports =
   //
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
-  server.get('/podcastdetial*', function (req, res, next) {
+  server.get('/podcastdetail*', function (req, res, next) {
     if (req.isAuthenticated()) {
       next();
     }
