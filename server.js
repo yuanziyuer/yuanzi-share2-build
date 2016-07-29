@@ -183,7 +183,7 @@ module.exports =
   //
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
-  server.get('/podcast*', function (req, res, next) {
+  server.get('/podcastdetial*', function (req, res, next) {
     if (req.isAuthenticated()) {
       next();
     }
@@ -9303,7 +9303,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               podcastId = state.path.replace('/podcasts/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '", token: "5Ipy2uQGJeAWrFPITB+ojHcTy1V5oxkXV7lor/Bzmks=") {\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n  }\n}\n';
+              query = '{\n  podcast(path: "' + podcastId + '", token: "unsign") {\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n  }\n}\n';
               _context.next = 4;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -9315,8 +9315,6 @@ module.exports =
             case 7:
               _ref = _context.sent;
               data = _ref.data;
-  
-              console.log(data);
               title = data.podcast.title;
   
               state.context.onSetMeta('og:type', 'podcast');
@@ -9326,7 +9324,7 @@ module.exports =
               state.context.onSetTitle(title);
               return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: data.podcast }));
   
-            case 17:
+            case 16:
             case 'end':
               return _context.stop();
           }
@@ -9531,6 +9529,10 @@ module.exports =
   
   var _regenerator2 = _interopRequireDefault(_regenerator);
   
+  var _stringify = __webpack_require__(14);
+  
+  var _stringify2 = _interopRequireDefault(_stringify);
+  
   var _asyncToGenerator2 = __webpack_require__(2);
   
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -9549,18 +9551,57 @@ module.exports =
    * Created by diwu on 3/12/16.
    */
   
-  var path = exports.path = '/PodcastDetail/*';
+  var path = exports.path = '/podcastdetail/*';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var podcastId;
+      var token, podcastId, query, response, _ref, data, baseUrl, res, _ref2, d;
+  
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              token = state.context.user.accessToken;
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
-              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: podcastId }));
+              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber   \n  }\n}\n';
+              _context.next = 5;
+              return fetch('/graphql?query=' + query);
   
-            case 2:
+            case 5:
+              response = _context.sent;
+              _context.next = 8;
+              return response.json();
+  
+            case 8:
+              _ref = _context.sent;
+              data = _ref.data;
+              baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
+              _context.next = 13;
+              return fetch(baseUrl + '/orders', {
+                headers: {
+                  'Accept': 'application/vnd.yuanzi.v4+json',
+                  'Authorization': 'Bearer ' + token,
+                  'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: (0, _stringify2.default)({
+                  podcastId: podcastId,
+                  orderCount: 1
+                })
+              });
+  
+            case 13:
+              res = _context.sent;
+              _context.next = 16;
+              return res.json();
+  
+            case 16:
+              _ref2 = _context.sent;
+              d = _ref2.d;
+  
+              console.log(d);
+              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.roomNumber }));
+  
+            case 20:
             case 'end':
               return _context.stop();
           }
