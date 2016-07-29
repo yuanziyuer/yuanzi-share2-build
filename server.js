@@ -236,10 +236,12 @@ module.exports =
                         });
   
                       case 8:
+  
+                        console.log(req.user);
                         res.status(statusCode);
                         res.send(template(data));
   
-                      case 10:
+                      case 11:
                       case 'end':
                         return _context.stop();
                     }
@@ -686,8 +688,7 @@ module.exports =
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      console.log(data);
-      return done(null, data);
+      done(null, data);
     });
   }));
   
