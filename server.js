@@ -9682,9 +9682,9 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var path = exports.path = '/podcastdetail/*'; /**
-                                                 * Created by diwu on 3/12/16.
-                                                 */
+  var path = exports.path = '/podcastdetail/*/view'; /**
+                                                      * Created by diwu on 3/12/16.
+                                                      */
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
