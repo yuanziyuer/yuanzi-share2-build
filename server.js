@@ -9689,7 +9689,7 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var token, podcastId, query, response, _ref, data, q, res, _ref2, d;
+      var token, podcastId, query, response, _ref, data, q;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -9698,12 +9698,12 @@ module.exports =
               token = state.context.accessToken;
   
               if (!token) {
-                _context.next = 23;
+                _context.next = 16;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber\n  }\n}\n';
+              query = '{\n  podcast(path: "' + podcastId + '", token: "unsign") {\n    joined\n    roomNumber\n  }\n}\n';
               _context.next = 6;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -9716,31 +9716,18 @@ module.exports =
               _ref = _context.sent;
               data = _ref.data;
   
-              if (data.joined) {
-                _context.next = 20;
-                break;
+              console.log(data);
+              if (!data.joined) {
+                q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n  }\n}';
+  
+                (0, _fetch2.default)('/graphql?query=' + q);
               }
+              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber }));
   
-              q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n  }\n}';
-              _context.next = 15;
-              return (0, _fetch2.default)('/graphql?query=' + q);
-  
-            case 15:
-              res = _context.sent;
-              _context.next = 18;
-              return res.json();
-  
-            case 18:
-              _ref2 = _context.sent;
-              d = _ref2.d;
-  
-            case 20:
-              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.roomNumber }));
-  
-            case 23:
+            case 16:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 24:
+            case 17:
             case 'end':
               return _context.stop();
           }
@@ -9899,6 +9886,7 @@ module.exports =
       value: function componentDidMount() {
         var self = this;
         realtime.createIMClient('Jerry').then(function (jerry) {
+          console.log(self.props);
           var query = jerry.getQuery();
           return query.equalTo('name', self.props.podcastId).find().then(function (conversations) {
             return conversations[0];
