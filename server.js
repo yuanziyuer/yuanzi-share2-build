@@ -671,7 +671,7 @@ module.exports =
       account: {
         username: profile._json.unionid || profile._json.openid,
         password: profile._json.unionid || profile._json.openid,
-        plaltform: 'weixin'
+        platform: 'weixin'
       }
     };
     console.log(user);
@@ -683,7 +683,7 @@ module.exports =
       method: 'POST',
       body: (0, _stringify2.default)(user)
     }).then(function (response) {
-      return console.log(response);
+      return response.json();
     }).then(function (data) {
       console.log(data);
       return done(null, profile);
