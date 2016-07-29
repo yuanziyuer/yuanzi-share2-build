@@ -681,7 +681,7 @@ module.exports =
       method: 'POST',
       body: (0, _stringify2.default)(user)
     }).then(function (response) {
-      return response.json();
+      return console.log(response);
     }).then(function (data) {
       console.log(data);
       return done(null, profile);
