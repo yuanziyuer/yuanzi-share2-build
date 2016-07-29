@@ -9560,22 +9560,23 @@ module.exports =
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              console.log(state);
               token = state.context.user.accessToken;
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber   \n  }\n}\n';
-              _context.next = 5;
+              _context.next = 6;
               return fetch('/graphql?query=' + query);
   
-            case 5:
+            case 6:
               response = _context.sent;
-              _context.next = 8;
+              _context.next = 9;
               return response.json();
   
-            case 8:
+            case 9:
               _ref = _context.sent;
               data = _ref.data;
               baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
-              _context.next = 13;
+              _context.next = 14;
               return fetch(baseUrl + '/orders', {
                 headers: {
                   'Accept': 'application/vnd.yuanzi.v4+json',
@@ -9589,19 +9590,19 @@ module.exports =
                 })
               });
   
-            case 13:
+            case 14:
               res = _context.sent;
-              _context.next = 16;
+              _context.next = 17;
               return res.json();
   
-            case 16:
+            case 17:
               _ref2 = _context.sent;
               d = _ref2.d;
   
               console.log(d);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.roomNumber }));
   
-            case 20:
+            case 21:
             case 'end':
               return _context.stop();
           }
