@@ -232,16 +232,14 @@ module.exports =
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
-                          data.accessToken = req.user;
+                          data.appData = req.user;
                         });
   
                       case 8:
-  
-                        console.log(data);
                         res.status(statusCode);
                         res.send(template(data));
   
-                      case 11:
+                      case 10:
                       case 'end':
                         return _context.stop();
                     }
