@@ -663,15 +663,13 @@ module.exports =
     scope: 'snsapi_userinfo',
     requireState: false
   }, function (accessToken, refreshToken, profile, done) {
-    console.log(profile);
-  
     var user = {
-      userId: profile.unionid || profile.openid,
+      userId: profile._json.unionid || profile._json.openid,
       nickname: profile.displayName,
       avatar: profile.profileUrl,
       account: {
-        username: profile.unionid || profile.openid,
-        password: profile.unionid || profile.openid
+        username: profile._json.unionid || profile._json.openid,
+        password: profile._json.unionid || profile._json.openid
       }
     };
     console.log(user);
