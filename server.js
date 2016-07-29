@@ -98,7 +98,7 @@ module.exports =
   
   var _passport2 = _interopRequireDefault(_passport);
   
-  var _schema = __webpack_require__(22);
+  var _schema = __webpack_require__(24);
   
   var _schema2 = _interopRequireDefault(_schema);
   
@@ -184,7 +184,9 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcast*', function (req, res, next) {
-    console.log('callback url = ', 'http://' + req.headers.host + req.path);
+    if (req.isAuthenticated()) {
+      next();
+    }
     _passport2.default.authenticate('wechat', {
       session: false,
       callbackURL: 'http://' + req.headers.host + req.path
@@ -476,11 +478,30 @@ module.exports =
   
   var _config = __webpack_require__(20);
   
+  var _fetch = __webpack_require__(22);
+  
+  var _fetch2 = _interopRequireDefault(_fetch);
+  
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
   /**
    * Sign in with Facebook.
    */
+  /**
+   * React Starter Kit (https://www.reactstarterkit.com/)
+   *
+   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.txt file in the root directory of this source tree.
+   */
+  
+  /**
+   * Passport.js reference implementation.
+   * The database schema used in this sample is available at
+   * https://github.com/membership/membership.db/tree/master/postgres
+   */
+  
   _passport2.default.use(new _passportFacebook.Strategy({
     clientID: _config.auth.facebook.id,
     clientSecret: _config.auth.facebook.secret,
@@ -626,21 +647,9 @@ module.exports =
         return ref.apply(this, arguments);
       };
     }()).catch(done);
-  })); /**
-        * React Starter Kit (https://www.reactstarterkit.com/)
-        *
-        * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-        *
-        * This source code is licensed under the MIT license found in the
-        * LICENSE.txt file in the root directory of this source tree.
-        */
+  }));
   
-  /**
-   * Passport.js reference implementation.
-   * The database schema used in this sample is available at
-   * https://github.com/membership/membership.db/tree/master/postgres
-   */
-  
+  var baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
   _passport2.default.use('wechat', new _passportWeixin.Strategy({
     clientID: _config.auth.wechat.id,
     name: 'wechat',
@@ -651,7 +660,20 @@ module.exports =
     requireState: false
   }, function (accessToken, refreshToken, profile, done) {
     console.log(profile);
-    return done(null, profile);
+  
+    (0, _fetch2.default)(baseUrl + '/oauth/register', {
+      headers: {
+        'Accept': 'application/vnd.yuanzi.v4+json',
+        'Authorization': 'Bearer ' + token || 'unsign'
+      },
+      method: 'POST',
+      body: {}
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      console.log(data);
+      return done(null, profile);
+    });
   }));
   
   exports.default = _passport2.default;
@@ -872,18 +894,79 @@ module.exports =
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  exports.Response = exports.Headers = exports.Request = exports.default = undefined;
   
-  var _graphql = __webpack_require__(23);
+  var _bluebird = __webpack_require__(19);
   
-  var _me = __webpack_require__(24);
+  var _bluebird2 = _interopRequireDefault(_bluebird);
+  
+  var _nodeFetch = __webpack_require__(23);
+  
+  var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+  
+  var _config = __webpack_require__(20);
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  _nodeFetch2.default.Promise = _bluebird2.default; /**
+                                                     * React Starter Kit (https://www.reactstarterkit.com/)
+                                                     *
+                                                     * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                     *
+                                                     * This source code is licensed under the MIT license found in the
+                                                     * LICENSE.txt file in the root directory of this source tree.
+                                                     */
+  
+  _nodeFetch.Response.Promise = _bluebird2.default;
+  
+  function localUrl(url) {
+    if (url.startsWith('//')) {
+      return 'https:' + url;
+    }
+  
+    if (url.startsWith('http')) {
+      return url;
+    }
+  
+    return 'http://' + _config.host + url;
+  }
+  
+  function localFetch(url, options) {
+    return (0, _nodeFetch2.default)(localUrl(url), options);
+  }
+  
+  exports.default = localFetch;
+  exports.Request = _nodeFetch.Request;
+  exports.Headers = _nodeFetch.Headers;
+  exports.Response = _nodeFetch.Response;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+  module.exports = require("node-fetch");
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  
+  var _graphql = __webpack_require__(25);
+  
+  var _me = __webpack_require__(26);
   
   var _me2 = _interopRequireDefault(_me);
   
-  var _content = __webpack_require__(26);
+  var _content = __webpack_require__(28);
   
   var _content2 = _interopRequireDefault(_content);
   
-  var _news = __webpack_require__(34);
+  var _news = __webpack_require__(36);
   
   var _news2 = _interopRequireDefault(_news);
   
@@ -945,13 +1028,13 @@ module.exports =
   exports.default = schema;
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports) {
 
   module.exports = require("graphql");
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -960,7 +1043,7 @@ module.exports =
     value: true
   });
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -988,7 +1071,7 @@ module.exports =
   exports.default = me;
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -997,7 +1080,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var UserType = new _graphql.GraphQLObjectType({
     name: 'User',
@@ -1019,7 +1102,7 @@ module.exports =
   exports.default = UserType;
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1028,7 +1111,7 @@ module.exports =
     value: true
   });
   
-  var _getIterator2 = __webpack_require__(27);
+  var _getIterator2 = __webpack_require__(29);
   
   var _getIterator3 = _interopRequireDefault(_getIterator2);
   
@@ -1040,7 +1123,7 @@ module.exports =
   
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
   
-  var _assign = __webpack_require__(28);
+  var _assign = __webpack_require__(30);
   
   var _assign2 = _interopRequireDefault(_assign);
   
@@ -1187,7 +1270,7 @@ module.exports =
     };
   }();
   
-  var _fs = __webpack_require__(29);
+  var _fs = __webpack_require__(31);
   
   var _fs2 = _interopRequireDefault(_fs);
   
@@ -1197,21 +1280,21 @@ module.exports =
   
   var _bluebird2 = _interopRequireDefault(_bluebird);
   
-  var _jade = __webpack_require__(30);
+  var _jade = __webpack_require__(32);
   
   var _jade2 = _interopRequireDefault(_jade);
   
-  var _frontMatter = __webpack_require__(31);
+  var _frontMatter = __webpack_require__(33);
   
   var _frontMatter2 = _interopRequireDefault(_frontMatter);
   
-  var _markdownIt = __webpack_require__(32);
+  var _markdownIt = __webpack_require__(34);
   
   var _markdownIt2 = _interopRequireDefault(_markdownIt);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
-  var _ContentType = __webpack_require__(33);
+  var _ContentType = __webpack_require__(35);
   
   var _ContentType2 = _interopRequireDefault(_ContentType);
   
@@ -1313,43 +1396,43 @@ module.exports =
   exports.default = content;
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/core-js/get-iterator");
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-runtime/core-js/object/assign");
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports) {
 
   module.exports = require("fs");
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports) {
 
   module.exports = require("jade");
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports) {
 
   module.exports = require("front-matter");
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports) {
 
   module.exports = require("markdown-it");
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1358,7 +1441,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var ContentType = new _graphql.GraphQLObjectType({
     name: 'Content',
@@ -1380,7 +1463,7 @@ module.exports =
   exports.default = ContentType;
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1389,9 +1472,9 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -1450,67 +1533,6 @@ module.exports =
   exports.default = news;
 
 /***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.Response = exports.Headers = exports.Request = exports.default = undefined;
-  
-  var _bluebird = __webpack_require__(19);
-  
-  var _bluebird2 = _interopRequireDefault(_bluebird);
-  
-  var _nodeFetch = __webpack_require__(36);
-  
-  var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
-  
-  var _config = __webpack_require__(20);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  _nodeFetch2.default.Promise = _bluebird2.default; /**
-                                                     * React Starter Kit (https://www.reactstarterkit.com/)
-                                                     *
-                                                     * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                     *
-                                                     * This source code is licensed under the MIT license found in the
-                                                     * LICENSE.txt file in the root directory of this source tree.
-                                                     */
-  
-  _nodeFetch.Response.Promise = _bluebird2.default;
-  
-  function localUrl(url) {
-    if (url.startsWith('//')) {
-      return 'https:' + url;
-    }
-  
-    if (url.startsWith('http')) {
-      return url;
-    }
-  
-    return 'http://' + _config.host + url;
-  }
-  
-  function localFetch(url, options) {
-    return (0, _nodeFetch2.default)(localUrl(url), options);
-  }
-  
-  exports.default = localFetch;
-  exports.Request = _nodeFetch.Request;
-  exports.Headers = _nodeFetch.Headers;
-  exports.Response = _nodeFetch.Response;
-
-/***/ },
-/* 36 */
-/***/ function(module, exports) {
-
-  module.exports = require("node-fetch");
-
-/***/ },
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1520,7 +1542,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var NewsItemType = new _graphql.GraphQLObjectType({
     name: 'NewsItem',
@@ -1552,7 +1574,7 @@ module.exports =
     value: true
   });
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -1560,7 +1582,7 @@ module.exports =
   
   var _StrategyType2 = _interopRequireDefault(_StrategyType);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -1617,7 +1639,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var _PhotoType = __webpack_require__(40);
   
@@ -1627,7 +1649,7 @@ module.exports =
   
   var _CommentType2 = _interopRequireDefault(_CommentType);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -1697,13 +1719,13 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var _CommentType = __webpack_require__(41);
   
   var _CommentType2 = _interopRequireDefault(_CommentType);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -1750,9 +1772,9 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -1790,7 +1812,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var MaterialType = new _graphql.GraphQLObjectType({
     name: 'Material',
@@ -1811,7 +1833,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var ToolsType = new _graphql.GraphQLObjectType({
     name: 'Tool',
@@ -1832,7 +1854,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var StepsType = new _graphql.GraphQLObjectType({
     name: 'Step',
@@ -1857,13 +1879,13 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var _CommentType = __webpack_require__(41);
   
   var _CommentType2 = _interopRequireDefault(_CommentType);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -1927,9 +1949,9 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -1954,7 +1976,7 @@ module.exports =
     value: true
   });
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -1962,7 +1984,7 @@ module.exports =
   
   var _TopicType2 = _interopRequireDefault(_TopicType);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -2019,13 +2041,13 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var _StrategyType = __webpack_require__(39);
   
   var _StrategyType2 = _interopRequireDefault(_StrategyType);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -2064,7 +2086,7 @@ module.exports =
     value: true
   });
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -2072,7 +2094,7 @@ module.exports =
   
   var _EventType2 = _interopRequireDefault(_EventType);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -2129,7 +2151,7 @@ module.exports =
     value: true
   });
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -2137,7 +2159,7 @@ module.exports =
   
   var _PhotoType2 = _interopRequireDefault(_PhotoType);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -2194,7 +2216,7 @@ module.exports =
     value: true
   });
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -2202,7 +2224,7 @@ module.exports =
   
   var _ArticleType2 = _interopRequireDefault(_ArticleType);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -2260,13 +2282,13 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var _CommentType = __webpack_require__(41);
   
   var _CommentType2 = _interopRequireDefault(_CommentType);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -2303,7 +2325,7 @@ module.exports =
     value: true
   });
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -2311,7 +2333,7 @@ module.exports =
   
   var _PodcastType2 = _interopRequireDefault(_PodcastType);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -2328,22 +2350,24 @@ module.exports =
   
   var baseUrl = process.env.URL_PRODUCTION || 'http://test.iyuanzi.com';
   var lastFetchTask = void 0;
-  var lastFetchTime = new Date(1970, 0, 1);
+  
   var topic = {
     type: _PodcastType2.default,
     args: {
-      path: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) }
+      path: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) },
+      token: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) }
     },
     resolve: function resolve(_ref, _ref2) {
       var request = _ref.request;
       var path = _ref2.path;
+      var token = _ref2.token;
   
       var items = void 0;
       lastFetchTime = new Date();
       lastFetchTask = (0, _fetch2.default)(baseUrl + '/podcasts/' + path, {
         headers: {
           'Accept': 'application/vnd.yuanzi.v4+json',
-          'Authorization': 'Bearer unsign'
+          'Authorization': 'Bearer ' + token || 'unsign'
         }
       }).then(function (response) {
         return response.json();
@@ -2368,13 +2392,13 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var _CommentType = __webpack_require__(41);
   
   var _CommentType2 = _interopRequireDefault(_CommentType);
   
-  var _UserType = __webpack_require__(25);
+  var _UserType = __webpack_require__(27);
   
   var _UserType2 = _interopRequireDefault(_UserType);
   
@@ -2436,7 +2460,7 @@ module.exports =
     value: true
   });
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -2444,7 +2468,7 @@ module.exports =
   
   var _PodcastsType2 = _interopRequireDefault(_PodcastsType);
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
@@ -2499,7 +2523,7 @@ module.exports =
     value: true
   });
   
-  var _graphql = __webpack_require__(23);
+  var _graphql = __webpack_require__(25);
   
   var _PodcastType = __webpack_require__(54);
   
@@ -2551,7 +2575,7 @@ module.exports =
   
   var _Router2 = _interopRequireDefault(_Router);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -3048,7 +3072,7 @@ module.exports =
   
   var _isIterable3 = _interopRequireDefault(_isIterable2);
   
-  var _getIterator2 = __webpack_require__(27);
+  var _getIterator2 = __webpack_require__(29);
   
   var _getIterator3 = _interopRequireDefault(_getIterator2);
   
@@ -4822,7 +4846,7 @@ module.exports =
 
   'use strict';
   
-  var _assign = __webpack_require__(28);
+  var _assign = __webpack_require__(30);
   
   var _assign2 = _interopRequireDefault(_assign);
   
@@ -4834,7 +4858,7 @@ module.exports =
   
   var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
   
-  var _getIterator2 = __webpack_require__(27);
+  var _getIterator2 = __webpack_require__(29);
   
   var _getIterator3 = _interopRequireDefault(_getIterator2);
   
@@ -6650,7 +6674,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -7876,7 +7900,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -8176,7 +8200,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -8578,7 +8602,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -8792,7 +8816,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -9011,7 +9035,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -9238,7 +9262,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _fetch = __webpack_require__(35);
+  var _fetch = __webpack_require__(22);
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
@@ -10011,7 +10035,7 @@ module.exports =
       throw err;
     }
     try {
-      str = str || __webpack_require__(29).readFileSync(filename, 'utf8')
+      str = str || __webpack_require__(31).readFileSync(filename, 'utf8')
     } catch (ex) {
       rethrow(err, null, lineno)
     }
