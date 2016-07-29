@@ -184,6 +184,7 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
+    console.log('http://' + req.headers.host + req.path);
     _passport2.default.authenticate('wechat', {
       session: false,
       callbackURL: 'http://' + req.headers.host + req.path
