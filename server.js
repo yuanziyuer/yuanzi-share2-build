@@ -10271,7 +10271,7 @@ module.exports =
           _react2.default.createElement(
             'div',
             { className: _ChatVideo2.default.content },
-            _react2.default.createElement(_reactVideojs2.default, { ref: 'audio',
+            _react2.default.createElement(_reactVideojs2.default, { ref: 'audio', width: '250px', height: '200px',
               src: this.props.videoUrl,
               type: 'video/mp4'
             })
