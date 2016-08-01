@@ -44,7 +44,6 @@
     "react-routing": "0.0.7",
     "react-videojs": "0.0.3",
     "source-map-support": "0.4.0",
-    "video.js": "^5.10.7",
     "whatwg-fetch": "0.11.0"
   },
   "devDependencies": {

@@ -9532,13 +9532,13 @@ module.exports =
       _react2.default.createElement(
         'div',
         { className: _Podcast2.default.cover },
+        _react2.default.createElement(_Image2.default, { width: '768', height: '200', src: podcast.cover }),
         _react2.default.createElement(
-          'a',
-          { href: '/podcastdetail/' + podcast.podcastId + '/view' },
-          _react2.default.createElement(_Image2.default, { width: '768', height: '200', src: podcast.cover }),
+          'div',
+          { className: _Podcast2.default.startLesson },
           _react2.default.createElement(
-            'div',
-            { className: _Podcast2.default.startLesson },
+            'a',
+            { href: '/podcastdetail/' + podcast.podcastId + '/view', style: { height: '225px' } },
             _react2.default.createElement('img', { src: '../../btnStart@2x.png', style: { width: '50%' } })
           )
         ),
@@ -9756,7 +9756,11 @@ module.exports =
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
             case 17:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
+              return _context.abrupt('return', _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement('img', { src: '../../loading.gif', alt: '' })
+              ));
   
             case 18:
             case 'end':
@@ -9937,15 +9941,19 @@ module.exports =
           });
           var query = jerry.getQuery();
           return query.equalTo('name', self.props.podcastId).find().then(function (conversations) {
-            return conversations[0];
+            if (conversations[0]) {
+              return conversations[0];
+            }
           }).catch(console.error.bind(console));
         }).then(function (conversation) {
-          self.setState({ conversationId: conversation.id });
-          conversation.queryMessages({
-            limit: 999 }). // limit 取值范围 1~1000，默认 20
-          then(function (messages) {
-            self.setState({ messages: messages });
-          }).catch(console.error.bind(console));
+          if (conversation) {
+            self.setState({ conversationId: conversation.id });
+            conversation.queryMessages({
+              limit: 999 }). // limit 取值范围 1~1000，默认 20
+            then(function (messages) {
+              self.setState({ messages: messages });
+            }).catch(console.error.bind(console));
+          }
         });
   
         this.refs.audio.onended = function () {
@@ -9988,7 +9996,11 @@ module.exports =
           'div',
           { className: _PodcastDetail2.default.container },
           _react2.default.createElement('audio', { className: 'player', ref: 'audio', src: this.state.audioUrl }),
-          this.createItems(this.state.messages)
+          this.state.messages.length > 0 ? this.createItems(this.state.messages) : _react2.default.createElement(
+            'div',
+            { className: _PodcastDetail2.default.loading },
+            _react2.default.createElement('img', { src: '../../loading.gif', alt: '' })
+          )
         );
       }
     }]);
@@ -10025,7 +10037,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._1hrp{margin:0 0 45px;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:left;-ms-flex-align:left;align-items:left;width:100%;padding:10px;background-color:#f7f7f7}._2RKn{background:#fff}._1OU6{overflow-y:auto;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;margin-right:10px}._1OU6,.D5lR{-webkit-box-direction:normal}.D5lR{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;min-height:80px;margin:10px}.D5lR.CXI1 img{float:left;cursor:pointer;margin-right:10px}.D5lR .Coxb{font-size:12px;color:#cbcbcb;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-top:15px}._1hX5{padding:5px 10px;background-color:#fff;display:inline-table;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-radius:6px;position:relative;margin-top:5px}._1hX5:after{border-width:13px;margin-top:0;content:\"\";position:absolute;top:10px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;left:-.6rem;border-right:12px solid #fff}._1hX5:after,._1hX5:before{content:\" \";height:0;width:0;position:absolute;pointer-events:none;right:100%;border-right-color:#fff}._1_P7{font-size:12px;margin:0;color:#666;cursor:pointer;line-height:12px}._1sHW{width:32px;height:32px;min-width:32px;border-radius:50%}._1nqT{font-size:12px;color:#cbcbcb;line-height:12px;font-weight:lighter;margin-top:5px}._1crN{font-style:italic;margin:0 0 0 80px}._1U2j{width:40px;top:20px;z-index:0;left:-40px}._1U2j ul{padding:0 2px 0 10px;margin:0;list-style:none;display:-webkit-box;display:-ms-flexbox;display:flex}._1U2j ul ._1eHG{position:relative;display:block;margin:5px 0;height:4px;border-radius:3px;background:#ccc}._1U2j ul ._1eHG:nth-of-type(3){height:9%}._1U2j ul ._1eHG:nth-of-type(2){height:27%}._1U2j ul ._1eHG:nth-of-type(1){height:51%}", ""]);
+  exports.push([module.id, "._1hrp{margin:0 0 45px;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:left;-ms-flex-align:left;align-items:left;width:100%;padding:10px;background-color:#f7f7f7}._2RKn{background:#fff}._1OU6{overflow-y:auto;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;margin-right:10px}._1OU6,.D5lR{-webkit-box-direction:normal}.D5lR{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;min-height:80px;margin:10px}.D5lR.CXI1 img{float:left;cursor:pointer;margin-right:10px}.D5lR .Coxb{font-size:12px;color:#cbcbcb;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-top:15px}._1hX5{padding:5px 10px;background-color:#fff;display:inline-table;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-radius:6px;position:relative;margin-top:5px}._1hX5:after{border-width:13px;margin-top:0;content:\"\";position:absolute;top:10px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;left:-.6rem;border-right:12px solid #fff}._1hX5:after,._1hX5:before{content:\" \";height:0;width:0;position:absolute;pointer-events:none;right:100%;border-right-color:#fff}._1_P7{font-size:12px;margin:0;color:#666;cursor:pointer;line-height:12px}._1sHW{width:32px;height:32px;min-width:32px;border-radius:50%}._1nqT{font-size:12px;color:#cbcbcb;line-height:12px;font-weight:lighter;margin-top:5px}._1crN{font-style:italic;margin:0 0 0 80px}._1U2j{width:40px;top:20px;z-index:0;left:-40px}._1U2j ul{padding:0 2px 0 10px;margin:0;list-style:none;display:-webkit-box;display:-ms-flexbox;display:flex}._1U2j ul ._1eHG{position:relative;display:block;margin:5px 0;height:4px;border-radius:3px;background:#ccc}._1U2j ul ._1eHG:nth-of-type(3){height:9%}._1U2j ul ._1eHG:nth-of-type(2){height:27%}._1U2j ul ._1eHG:nth-of-type(1){height:51%}._-iX7{height:90vh;text-align:center;-ms-flex-item-align:center;align-self:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}._-iX7 img{width:120px}", ""]);
   
   // exports
   exports.locals = {
@@ -10041,7 +10053,8 @@ module.exports =
   	"time": "_1nqT",
   	"chat-feedback": "_1crN",
   	"volume": "_1U2j",
-  	"listvol": "_1eHG"
+  	"listvol": "_1eHG",
+  	"loading": "_-iX7"
   };
 
 /***/ },
@@ -10147,8 +10160,8 @@ module.exports =
             { className: _ChatVoice2.default.content },
             _react2.default.createElement(
               'div',
-              { style: { width: this.state.duration / 2 + 'vw', minHeight: '34px' } },
-              _react2.default.createElement('img', { src: this.state.isPlay ? this.state.images : '../../voice3@2x.png', alt: '' }),
+              { style: { width: this.state.duration / 2 + 'vw', minHeight: '24px' } },
+              _react2.default.createElement('img', { src: this.state.isPlay ? this.state.images : '../../voice3@2x.png', alt: '', style: { height: '24px' } }),
               _react2.default.createElement('audio', { ref: 'audio', src: this.props.audioUrl })
             )
           ),
@@ -10191,7 +10204,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._10Q2{padding:5px 10px;background-color:#fff;display:inline-table;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-radius:6px;position:relative;margin-top:5px}._10Q2:after{border-width:13px;margin-top:0;content:\"\";position:absolute;top:10px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;left:-.6rem;border-right:12px solid #fff}._10Q2:after,._10Q2:before{content:\" \";height:0;width:0;position:absolute;pointer-events:none;right:100%;border-right-color:#fff}._1GE3{-ms-flex-item-align:end;align-self:flex-end;font-size:11px;margin-left:10px}", ""]);
+  exports.push([module.id, "._10Q2{padding:5px 10px;background-color:#fff;display:inline-table;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-radius:6px;position:relative;margin-top:5px;border:1px solid #ededed}._10Q2:after{border-width:13px;margin-top:0;content:\"\";position:absolute;top:10px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;left:-.6rem;border-right:12px solid #fff}._10Q2:after,._10Q2:before{content:\" \";height:0;width:0;position:absolute;pointer-events:none;right:100%;border-right-color:#fff}._1GE3{-ms-flex-item-align:end;align-self:flex-end;font-size:11px;margin-left:10px}", ""]);
   
   // exports
   exports.locals = {
