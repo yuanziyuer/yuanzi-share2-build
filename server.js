@@ -9608,10 +9608,10 @@ module.exports =
         _react2.default.createElement('img', { className: _Podcast2.default.lecturerAvatar, width: '80', height: '80', src: podcast.lecturerAvatar })
       ),
       _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: podcast.lecturerIntroduction.replace(/\n/g, "<br />") } }),
-      _react2.default.createElement('hr', { style: { borderTop: '5px solid #ededed' } }),
+      _react2.default.createElement('hr', { style: { borderTop: '5px solid #ededed', width: '100%' } }),
       _react2.default.createElement(
         'a',
-        { href: '/podcasts' },
+        { href: '/podcasts', style: { width: '100%' } },
         _react2.default.createElement(
           'div',
           { style: { height: '50px', width: '100%', textAlign: 'center', marginTop: '20px', fontSize: '15px' } },
