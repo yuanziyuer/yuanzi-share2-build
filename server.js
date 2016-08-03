@@ -228,22 +228,19 @@ module.exports =
                             return statusCode = 404;
                           }
                         };
-  
-  
-                        console.log((0, _stringify2.default)(req.user));
-                        _context.next = 9;
+                        _context.next = 8;
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
                           data.appData = (0, _stringify2.default)(req.user);
                         });
   
-                      case 9:
+                      case 8:
   
                         res.status(statusCode);
                         res.send(template(data));
   
-                      case 11:
+                      case 10:
                       case 'end':
                         return _context.stop();
                     }
@@ -9725,8 +9722,6 @@ module.exports =
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(state.context.appData);
-  
               if (!(state.context.appData && state.context.appData.length > 0)) {
                 _context.next = 25;
                 break;
@@ -9734,6 +9729,8 @@ module.exports =
   
               data = state.context.appData.replace(/&quot;/g, '"');
               appData = JSON.parse(data);
+  
+              console.log(appData);
               token = appData.access_token;
               userId = appData.userId;
   
