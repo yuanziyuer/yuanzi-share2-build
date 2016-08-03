@@ -9715,35 +9715,35 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var userId, token, podcastId, query, response, _ref, data, q;
+      var appData, token, userId, podcastId, query, response, _ref, data, q;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              // let appData = JSON.parse(state.context.appData);
-              // let token = appData.access_token;
-              // let userId = appData.userId;
+              appData = JSON.parse(state.context.appData);
+              token = appData.access_token;
+              userId = appData.userId;
   
-              userId = 'none';
-              token = 'unsign';
+              // let userId = 'none';
+              // let token = 'unsign';
   
               if (!token) {
-                _context.next = 16;
+                _context.next = 17;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 7;
+              _context.next = 8;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 7:
+            case 8:
               response = _context.sent;
-              _context.next = 10;
+              _context.next = 11;
               return response.json();
   
-            case 10:
+            case 11:
               _ref = _context.sent;
               data = _ref.data;
   
@@ -9754,10 +9754,10 @@ module.exports =
               }
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-            case 16:
+            case 17:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 17:
+            case 18:
             case 'end':
               return _context.stop();
           }
@@ -9904,7 +9904,7 @@ module.exports =
         } else if (item.type == 'link') {
           return _react2.default.createElement(
             'div',
-            { className: _PodcastDetail2.default.content, style: { width: '100%', display: 'block', wordWrap: 'break-word' } },
+            { className: _PodcastDetail2.default.content, style: { width: '100%', display: 'block', wordBreak: 'break-word' } },
             _react2.default.createElement(
               'a',
               { href: item.message },
