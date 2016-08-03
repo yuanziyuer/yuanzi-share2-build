@@ -4769,9 +4769,13 @@ module.exports =
   var App = function (_Component) {
     (0, _inherits3.default)(App, _Component);
   
-    function App() {
+    function App(props, context) {
       (0, _classCallCheck3.default)(this, App);
-      return (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(App).apply(this, arguments));
+  
+      var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(App).call(this, props, context));
+  
+      _this.state = { link: 'http://app.mi.com/detail/76839?ref=search' };
+      return _this;
     }
   
     (0, _createClass3.default)(App, [{
@@ -4784,6 +4788,49 @@ module.exports =
           onSetMeta: context.onSetMeta || _emptyFunction2.default,
           onPageNotFound: context.onPageNotFound || _emptyFunction2.default
         };
+      }
+    }, {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        var _this2 = this;
+  
+        console.log(this.props);
+        if (this.props.window) {
+          (function () {
+            var launchApp = "http://app.mi.com/detail/76839?ref=search";
+            if (_this2.props.path) {
+              var type = _this2.props.path.split('/')[1];
+              var id = _this2.props.path.split('/')[2];
+              if (_this2.props.os) {
+                if (_this2.props.os == 'AndroidOS') {
+                  launchApp = 'iyuanzi://' + type + '?id=' + id;
+                }
+                if (_this2.props.os == 'iOS') {
+                  launchApp = 'iyuanzi://' + type + '/' + id;
+                }
+              }
+            }
+            var self = _this2;
+  
+            setTimeout(function () {
+              if (self.props.os) {
+                if (self.props.os == 'AndroidOS') {
+                  launchApp = "http://app.mi.com/detail/76839?ref=search"; //play store URL.
+                }
+                if (self.props.os == 'iOS') {
+                  launchApp = "https://itunes.apple.com/us/app/yuan-zi-yu-er-qin-zi-zao-jiao/id896513476?ls=1&mt=8"; //play store URL.
+                }
+  
+                self.setState({
+                  link: launchApp
+                });
+              }
+            }, 25);
+            _this2.setState({
+              link: launchApp
+            });
+          })();
+        }
       }
     }, {
       key: 'componentWillMount',
@@ -4811,48 +4858,16 @@ module.exports =
   
     }, {
       key: 'directLink',
-      value: function directLink() {
-        var _this2 = this;
-  
-        if (this.props.window) {
-          (function () {
-            var launchApp = "http://app.mi.com/detail/76839?ref=search";
-            if (_this2.props.path) {
-              var type = _this2.props.path.split('/')[1];
-              var id = _this2.props.path.split('/')[2];
-              if (_this2.props.os) {
-                if (_this2.props.os == 'AndroidOS') {
-                  launchApp = 'iyuanzi://' + type + '?id=' + id;
-                }
-                if (_this2.props.os == 'iOS') {
-                  launchApp = 'iyuanzi://' + type + '/' + id;
-                }
-              }
-            }
-            var self = _this2;
-  
-            setTimeout(function () {
-              if (self.props.os) {
-                if (self.props.os == 'AndroidOS') {
-                  self.props.window.location = "http://app.mi.com/detail/76839?ref=search"; //play store URL.
-                }
-                if (self.props.os == 'iOS') {
-                  self.props.window.location = "https://itunes.apple.com/us/app/yuan-zi-yu-er-qin-zi-zao-jiao/id896513476?ls=1&mt=8"; //play store URL.
-                }
-              }
-            }, 25);
-            _this2.props.window.location = launchApp;
-          })();
-        }
-      }
+      value: function directLink() {}
     }, {
       key: 'render',
       value: function render() {
+        console.log(this.state);
         return !this.props.error ? _react2.default.createElement(
           'div',
           { className: _App2.default.root },
           this.props.children,
-          _react2.default.createElement(_Footer2.default, { launchApp: this.directLink.bind(this) })
+          _react2.default.createElement(_Footer2.default, { link: this.state.link })
         ) : this.props.children;
       }
     }]);
@@ -5750,8 +5765,9 @@ module.exports =
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
   function Footer(_ref) {
-    var launchApp = _ref.launchApp;
+    var link = _ref.link;
   
+    console.log(link);
     return _react2.default.createElement(
       'div',
       { className: _Footer2.default.container },
@@ -5772,7 +5788,7 @@ module.exports =
       ),
       _react2.default.createElement(
         'a',
-        { onClick: launchApp },
+        { href: link },
         _react2.default.createElement('img', { src: '../../btnDownload@2x.png', alt: '' })
       )
     );
