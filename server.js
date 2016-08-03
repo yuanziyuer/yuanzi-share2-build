@@ -9743,7 +9743,7 @@ module.exports =
               console.log(state.context.appData);
   
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 24;
+                _context.next = 25;
                 break;
               }
   
@@ -9753,21 +9753,23 @@ module.exports =
               userId = appData.userId;
   
               if (!token) {
-                _context.next = 23;
+                _context.next = 24;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 11;
+  
+              console.log(query);
+              _context.next = 12;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 11:
+            case 12:
               response = _context.sent;
-              _context.next = 14;
+              _context.next = 15;
               return response.json();
   
-            case 14:
+            case 15:
               _ref = _context.sent;
               _data = _ref.data;
   
@@ -9781,13 +9783,13 @@ module.exports =
               state.context.onSetMeta('og:title', _data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
   
-            case 23:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
-  
             case 24:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
             case 25:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 26:
             case 'end':
               return _context.stop();
           }
