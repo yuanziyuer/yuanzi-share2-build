@@ -187,7 +187,7 @@ module.exports =
   //
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
-  server.get('/podcast11111detail*', function (req, res, next) {
+  server.get('/podcastdetail*', function (req, res, next) {
     console.log('http://' + req.headers.host + req.path);
     _passport2.default.authenticate('wechat', {
       session: false,
@@ -9756,11 +9756,7 @@ module.exports =
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
             case 16:
-              return _context.abrupt('return', _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement('img', { src: '../../loading.gif', alt: '' })
-              ));
+              return _context.abrupt('return', _react2.default.createElement('div', null));
   
             case 17:
             case 'end':
@@ -9861,13 +9857,11 @@ module.exports =
     (0, _createClass3.default)(Podcast, [{
       key: 'changeVoice',
       value: function changeVoice(item) {
-        console.log('call change');
         this.setState({ audioUrl: item });
         this.refs.audio.pause();
         var self = this;
         setTimeout(function () {
           self.refs.audio.play();
-          console.log('play new');
         }, 150);
       }
     }, {
@@ -9882,7 +9876,7 @@ module.exports =
           }),
           _react2.default.createElement(
             'div',
-            { style: { display: 'flex', flexDirection: 'column', marginLeft: 10 } },
+            { style: { display: 'flex', flexDirection: 'column', marginLeft: 10, maxWidth: '90%' } },
             _react2.default.createElement(
               'span',
               { className: _PodcastDetail2.default.name },
@@ -9911,7 +9905,7 @@ module.exports =
         } else if (item.type == 'link') {
           return _react2.default.createElement(
             'div',
-            { className: _PodcastDetail2.default.content },
+            { className: _PodcastDetail2.default.content, style: { width: '100%', display: 'block', wordWrap: 'break-word' } },
             _react2.default.createElement(
               'a',
               { href: item.message },
@@ -9919,7 +9913,7 @@ module.exports =
             )
           );
         } else if (item.type == 'video') {
-          return _react2.default.createElement(_ChatVideo2.default, { videoUrl: item.message });
+          return _react2.default.createElement(_ChatVideo2.default, { videoUrl: item.message.replace('http://static.qunzhibo.com/', 'http://static.qunkefu.com/') });
         } else {
           return _react2.default.createElement(
             'div',
@@ -9999,7 +9993,12 @@ module.exports =
           this.state.messages.length > 0 ? this.createItems(this.state.messages) : _react2.default.createElement(
             'div',
             { className: _PodcastDetail2.default.loading },
-            _react2.default.createElement('div', { className: _PodcastDetail2.default.sprite })
+            _react2.default.createElement('div', { className: _PodcastDetail2.default.sprite }),
+            _react2.default.createElement(
+              'p',
+              null,
+              '加载中'
+            )
           )
         );
       }
@@ -10037,7 +10036,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._1hrp{margin:0 0 45px;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:left;-ms-flex-align:left;align-items:left;width:100%;padding:10px;background-color:#f7f7f7}._2RKn{background:#fff}._1OU6{overflow-y:auto;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;margin-right:10px}._1OU6,.D5lR{-webkit-box-direction:normal}.D5lR{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;min-height:80px;margin:10px}.D5lR.CXI1 img{float:left;cursor:pointer;margin-right:10px}.D5lR .Coxb{font-size:12px;color:#cbcbcb;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-top:15px}._1hX5{padding:5px 10px;background-color:#fff;display:inline-table;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-radius:6px;position:relative;margin-top:5px}._1hX5:after{border-width:13px;margin-top:0;content:\"\";position:absolute;top:10px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;left:-.6rem;border-right:12px solid #fff}._1hX5:after,._1hX5:before{content:\" \";height:0;width:0;position:absolute;pointer-events:none;right:100%;border-right-color:#fff}._1_P7{font-size:12px;margin:0;color:#666;cursor:pointer;line-height:12px}._1sHW{width:32px;height:32px;min-width:32px;border-radius:50%}._1nqT{font-size:12px;color:#cbcbcb;line-height:12px;font-weight:lighter;margin-top:5px}._1crN{font-style:italic;margin:0 0 0 80px}._1U2j{width:40px;top:20px;z-index:0;left:-40px}._1U2j ul{padding:0 2px 0 10px;margin:0;list-style:none;display:-webkit-box;display:-ms-flexbox;display:flex}._1U2j ul ._1eHG{position:relative;display:block;margin:5px 0;height:4px;border-radius:3px;background:#ccc}._1U2j ul ._1eHG:nth-of-type(3){height:9%}._1U2j ul ._1eHG:nth-of-type(2){height:27%}._1U2j ul ._1eHG:nth-of-type(1){height:51%}._-iX7{height:90vh;text-align:center;-ms-flex-item-align:center;align-self:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}._-iX7 ._18uQ{width:150px;height:150px;background-image:url('/loadingsh.png');-webkit-animation:xBDL 2s steps(16) infinite;animation:xBDL 2s steps(16) infinite}@-webkit-keyframes xBDL{0%{background-position:0}to{background-position:-4800px}}@keyframes xBDL{0%{background-position:0}to{background-position:-4800px}}", ""]);
+  exports.push([module.id, "._1hrp{margin:0 0 45px;max-width:768px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:left;-ms-flex-align:left;align-items:left;width:100%;padding:10px;background-color:#f7f7f7}._2RKn{background:#fff}._1OU6{overflow-y:auto;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;margin-right:10px}._1OU6,.D5lR{-webkit-box-direction:normal}.D5lR{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;min-height:80px;margin:10px}.D5lR.CXI1 img{float:left;cursor:pointer;margin-right:10px}.D5lR .Coxb{font-size:12px;color:#cbcbcb;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin-top:15px}._1hX5{padding:5px 10px;background-color:#fff;display:inline-table;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;border-radius:6px;position:relative;margin-top:5px}._1hX5:after{border-width:13px;margin-top:0;content:\"\";position:absolute;top:10px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;left:-.6rem;border-right:12px solid #fff}._1hX5:after,._1hX5:before{content:\" \";height:0;width:0;position:absolute;pointer-events:none;right:100%;border-right-color:#fff}._1_P7{font-size:12px;margin:0;color:#666;cursor:pointer;line-height:12px}._1sHW{width:32px;height:32px;min-width:32px;border-radius:50%}._1nqT{font-size:12px;color:#cbcbcb;line-height:12px;font-weight:lighter;margin-top:5px}._1crN{font-style:italic;margin:0 0 0 80px}._1U2j{width:40px;top:20px;z-index:0;left:-40px}._1U2j ul{padding:0 2px 0 10px;margin:0;list-style:none;display:-webkit-box;display:-ms-flexbox;display:flex}._1U2j ul ._1eHG{position:relative;display:block;margin:5px 0;height:4px;border-radius:3px;background:#ccc}._1U2j ul ._1eHG:nth-of-type(3){height:9%}._1U2j ul ._1eHG:nth-of-type(2){height:27%}._1U2j ul ._1eHG:nth-of-type(1){height:51%}._-iX7{height:90vh;text-align:center;-ms-flex-item-align:center;align-self:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}._-iX7 ._18uQ{width:150px;height:150px;background-image:url('/loadingsh.png');-webkit-animation:xBDL 2s steps(16) infinite;animation:xBDL 2s steps(16) infinite}._-iX7 p{color:#666;font-size:12px}@-webkit-keyframes xBDL{0%{background-position:0}to{background-position:-4800px}}@keyframes xBDL{0%{background-position:0}to{background-position:-4800px}}", ""]);
   
   // exports
   exports.locals = {
@@ -10111,7 +10110,7 @@ module.exports =
   
       var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Audio).call(this, props));
   
-      _this.state = { isPlay: false, duration: '10%' };
+      _this.state = { isPlay: false, duration: '0' };
       return _this;
     }
   
@@ -10154,6 +10153,7 @@ module.exports =
     }, {
       key: 'render',
       value: function render() {
+        var width = this.state.duration / 2 > 5 ? this.state.duration / 2 : 5;
         return _react2.default.createElement(
           'div',
           { style: { flexDirection: 'row', display: 'flex' }, onClick: this.props.changeAudio },
@@ -10162,16 +10162,16 @@ module.exports =
             { className: _ChatVoice2.default.content },
             _react2.default.createElement(
               'div',
-              { style: { width: this.state.duration / 2 + 'vw', minHeight: '24px' } },
+              { style: { width: width + 'vw', minHeight: '24px' } },
               _react2.default.createElement('img', { src: this.state.isPlay ? this.state.images : '../../voice3@2x.png', alt: '', style: { height: '24px' } }),
               _react2.default.createElement('audio', { ref: 'audio', src: this.props.audioUrl })
             )
           ),
-          _react2.default.createElement(
+          this.state.duration > 0 ? _react2.default.createElement(
             'var',
             { className: _ChatVoice2.default.duration },
             parseInt(this.state.duration) + '″'
-          )
+          ) : ''
         );
       }
     }]);
