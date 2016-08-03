@@ -9743,7 +9743,7 @@ module.exports =
               console.log(state.context.appData);
   
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 21;
+                _context.next = 24;
                 break;
               }
   
@@ -9753,12 +9753,12 @@ module.exports =
               userId = appData.userId;
   
               if (!token) {
-                _context.next = 20;
+                _context.next = 23;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber\n  }\n}\n';
+              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
               _context.next = 11;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -9771,20 +9771,23 @@ module.exports =
               _ref = _context.sent;
               _data = _ref.data;
   
-              if (!_data.joined) {
+              console.log(_data);
+              if (!_data.podcast.joined) {
                 q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n  }\n}';
   
                 (0, _fetch2.default)('/graphql?query=' + q);
               }
+              state.context.onSetMeta('title', _data.podcast.title);
+              state.context.onSetMeta('og:title', _data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
   
-            case 20:
+            case 23:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 21:
+            case 24:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 22:
+            case 25:
             case 'end':
               return _context.stop();
           }
