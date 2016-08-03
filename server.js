@@ -228,19 +228,22 @@ module.exports =
                             return statusCode = 404;
                           }
                         };
-                        _context.next = 8;
+  
+  
+                        console.log((0, _stringify2.default)(req.user));
+                        _context.next = 9;
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
                           data.appData = (0, _stringify2.default)(req.user);
                         });
   
-                      case 8:
+                      case 9:
   
                         res.status(statusCode);
                         res.send(template(data));
   
-                      case 10:
+                      case 11:
                       case 'end':
                         return _context.stop();
                     }
@@ -701,7 +704,6 @@ module.exports =
       data = (0, _assign2.default)(data, {
         userId: profile._json.unionid || profile._json.openid
       });
-      console.log(data);
       done(null, data);
     });
   }));
@@ -9723,29 +9725,32 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               console.log(state.context.appData);
+  
+              if (!(state.context.appData && state.context.appData.length > 0)) {
+                _context.next = 20;
+                break;
+              }
+  
               appData = JSON.parse(state.context.appData);
               token = appData.access_token;
               userId = appData.userId;
   
-              // let userId = 'none';
-              // let token = 'unsign';
-  
               if (!token) {
-                _context.next = 18;
+                _context.next = 19;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 9;
+              _context.next = 10;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 9:
+            case 10:
               response = _context.sent;
-              _context.next = 12;
+              _context.next = 13;
               return response.json();
   
-            case 12:
+            case 13:
               _ref = _context.sent;
               data = _ref.data;
   
@@ -9756,10 +9761,13 @@ module.exports =
               }
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-            case 18:
+            case 19:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 19:
+            case 20:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 21:
             case 'end':
               return _context.stop();
           }
