@@ -9718,7 +9718,7 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var appData, token, userId, podcastId, query, response, _ref, data, q;
+      var data, appData, token, userId, podcastId, query, response, _ref, _data, q;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
@@ -9727,47 +9727,48 @@ module.exports =
               console.log(state.context.appData);
   
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 20;
+                _context.next = 21;
                 break;
               }
   
+              data = state.context.appData.replace(/&quot;/g, '"');
               appData = JSON.parse(state.context.appData);
               token = appData.access_token;
               userId = appData.userId;
   
               if (!token) {
-                _context.next = 19;
+                _context.next = 20;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 10;
+              _context.next = 11;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 10:
+            case 11:
               response = _context.sent;
-              _context.next = 13;
+              _context.next = 14;
               return response.json();
   
-            case 13:
+            case 14:
               _ref = _context.sent;
-              data = _ref.data;
+              _data = _ref.data;
   
-              if (!data.joined) {
+              if (!_data.joined) {
                 q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n  }\n}';
   
                 (0, _fetch2.default)('/graphql?query=' + q);
               }
-              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
-  
-            case 19:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
+              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
   
             case 20:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
             case 21:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 22:
             case 'end':
               return _context.stop();
           }
