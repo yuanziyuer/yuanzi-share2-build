@@ -9732,7 +9732,7 @@ module.exports =
               }
   
               data = state.context.appData.replace(/&quot;/g, '"');
-              appData = JSON.parse(state.context.appData);
+              appData = JSON.parse(data);
               token = appData.access_token;
               userId = appData.userId;
   
