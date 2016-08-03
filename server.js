@@ -9721,6 +9721,7 @@ module.exports =
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              console.log(state.context.appData);
               appData = JSON.parse(state.context.appData);
               token = appData.access_token;
               userId = appData.userId;
@@ -9729,21 +9730,21 @@ module.exports =
               // let token = 'unsign';
   
               if (!token) {
-                _context.next = 17;
+                _context.next = 18;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 8;
+              _context.next = 9;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 8:
+            case 9:
               response = _context.sent;
-              _context.next = 11;
+              _context.next = 12;
               return response.json();
   
-            case 11:
+            case 12:
               _ref = _context.sent;
               data = _ref.data;
   
@@ -9754,10 +9755,10 @@ module.exports =
               }
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-            case 17:
+            case 18:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 18:
+            case 19:
             case 'end':
               return _context.stop();
           }
