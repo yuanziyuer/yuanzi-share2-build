@@ -674,6 +674,7 @@ module.exports =
     scope: 'snsapi_userinfo',
     requireState: false
   }, function (accessToken, refreshToken, profile, done) {
+    console.log(profile);
     var user = {
       userId: profile._json.unionid || profile._json.openid,
       nickname: profile.displayName,
