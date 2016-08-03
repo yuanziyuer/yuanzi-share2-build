@@ -701,6 +701,7 @@ module.exports =
       data = (0, _assign2.default)(data, {
         userId: profile._json.unionid || profile._json.openid
       });
+      console.log(data);
       done(null, data);
     });
   }));
