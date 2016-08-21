@@ -9838,7 +9838,7 @@ module.exports =
                         }
   
                         return _context2.delegateYield(_regenerator2.default.mark(function _callee() {
-                          var podcastId, query, response, _ref, data, q, paymentQuery, charge;
+                          var podcastId, query, response, _ref, data, q, _ref2, d, paymentQuery, charge;
   
                           return _regenerator2.default.wrap(function _callee$(_context) {
                             while (1) {
@@ -9864,13 +9864,19 @@ module.exports =
   
                                 case 12:
                                   response = _context.sent;
+                                  _context.next = 15;
+                                  return response.json();
+  
+                                case 15:
+                                  _ref2 = _context.sent;
+                                  d = _ref2.d;
   
                                   console.log(response);
-                                  paymentQuery = '{\n          payment(orderId: "' + response.orderId + '", token: "' + token + '", ) {\n    podcastId\n  }\n        }';
-                                  _context.next = 17;
+                                  paymentQuery = '{\n          payment(orderId: "' + d.orderId + '", token: "' + token + '", ) {\n    podcastId\n  }\n        }';
+                                  _context.next = 21;
                                   return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
   
-                                case 17:
+                                case 21:
                                   charge = _context.sent;
   
                                   charge = (0, _assign2.default)(charge, { extra: { open_id: appData } });
@@ -9896,7 +9902,7 @@ module.exports =
                                     }
                                   });
   
-                                case 21:
+                                case 25:
                                 case 'end':
                                   return _context.stop();
                               }
