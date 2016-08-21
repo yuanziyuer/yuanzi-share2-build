@@ -2783,27 +2783,19 @@ module.exports =
   
   var _graphql = __webpack_require__(27);
   
-  var _PaymentType = __webpack_require__(61);
-  
-  var _PaymentType2 = _interopRequireDefault(_PaymentType);
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-  
-  /**
-   * React Starter Kit (https://www.reactstarterkit.com/)
-   *
-   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE.txt file in the root directory of this source tree.
-   */
-  
-  var p = new _PaymentType2.default({
+  var p = new _graphql.GraphQLObjectType({
     name: 'Payment',
     fields: {
       orderId: { type: _graphql.GraphQLString }
     }
-  });
+  }); /**
+       * React Starter Kit (https://www.reactstarterkit.com/)
+       *
+       * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+       *
+       * This source code is licensed under the MIT license found in the
+       * LICENSE.txt file in the root directory of this source tree.
+       */
   
   exports.default = p;
 
