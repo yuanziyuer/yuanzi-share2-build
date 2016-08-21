@@ -9864,19 +9864,21 @@ module.exports =
   
                                 case 12:
                                   response = _context.sent;
-                                  _context.next = 15;
+  
+                                  console.log(response);
+                                  _context.next = 16;
                                   return response.json();
   
-                                case 15:
+                                case 16:
                                   _ref2 = _context.sent;
                                   d = _ref2.d;
   
                                   console.log(d);
                                   paymentQuery = '{\n          payment(orderId: "' + d.orderId + '", token: "' + token + '", ) {\n    podcastId\n  }\n        }';
-                                  _context.next = 21;
+                                  _context.next = 22;
                                   return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
   
-                                case 21:
+                                case 22:
                                   charge = _context.sent;
   
                                   charge = (0, _assign2.default)(charge, { extra: { open_id: appData } });
@@ -9902,7 +9904,7 @@ module.exports =
                                     }
                                   });
   
-                                case 25:
+                                case 26:
                                 case 'end':
                                   return _context.stop();
                               }
