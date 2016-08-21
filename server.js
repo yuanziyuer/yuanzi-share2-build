@@ -2654,7 +2654,6 @@ module.exports =
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log(data);
         return data;
       });
     }
@@ -9872,7 +9871,7 @@ module.exports =
                                   _ref2 = _context.sent;
                                   d = _ref2.d;
   
-                                  console.log(response);
+                                  console.log(d);
                                   paymentQuery = '{\n          payment(orderId: "' + d.orderId + '", token: "' + token + '", ) {\n    podcastId\n  }\n        }';
                                   _context.next = 21;
                                   return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
