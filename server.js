@@ -166,10 +166,12 @@ module.exports =
     res.redirect('/');
   });
   
-  server.get('/login/wechat', _passport2.default.authenticate('wechat'));
-  server.get('/login/wechat/return', function (req, res) {
-    res.redirect('/');
-  });
+  // server.get('/login/wechat', passport.authenticate('wechat'));
+  // server.get('/login/wechat/return',
+  //   (req, res) => {
+  //     res.redirect('/');
+  //   }
+  // );
   
   //
   // Register API middleware
@@ -699,7 +701,8 @@ module.exports =
       return response.json();
     }).then(function (data) {
       data = (0, _assign2.default)(data, {
-        userId: profile._json.unionid || profile._json.openid
+        userId: profile._json.unionid || profile._json.openid,
+        openId: profile._json.openid
       });
       done(null, data);
     });
@@ -2686,7 +2689,7 @@ module.exports =
   var PodcastType = new _graphql.GraphQLObjectType({
     name: 'Order',
     fields: {
-      podcastId: { type: _graphql.GraphQLString }
+      orderId: { type: _graphql.GraphQLString }
     }
   }); /**
        * React Starter Kit (https://www.reactstarterkit.com/)
@@ -2742,12 +2745,14 @@ module.exports =
     type: _PaymentType2.default,
     args: {
       orderId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) },
-      token: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) }
+      token: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) },
+      openId: { type: new _graphql.GraphQLNonNull(_graphql.GraphQLString) }
     },
     resolve: function resolve(_ref, _ref2) {
       var request = _ref.request;
       var orderId = _ref2.orderId;
       var token = _ref2.token;
+      var openId = _ref2.openId;
   
       token = token.replace(/ /g, '+');
       return (0, _fetch2.default)(baseUrl + '/payment', {
@@ -2759,7 +2764,8 @@ module.exports =
         method: 'POST',
         body: (0, _stringify2.default)({
           orderId: orderId,
-          channel: 'wx_pub'
+          channel: 'wx_pub',
+          openId: openId
         })
       }).then(function (response) {
         return response.json();
@@ -9780,10 +9786,6 @@ module.exports =
   
   var _regenerator2 = _interopRequireDefault(_regenerator);
   
-  var _assign = __webpack_require__(15);
-  
-  var _assign2 = _interopRequireDefault(_assign);
-  
   var _asyncToGenerator2 = __webpack_require__(3);
   
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -9821,7 +9823,7 @@ module.exports =
               }
   
               return _context3.delegateYield(_regenerator2.default.mark(function _callee2() {
-                var data, appData, token, userId, _ret2;
+                var data, appData, token, userId, openId, _ret2;
   
                 return _regenerator2.default.wrap(function _callee2$(_context2) {
                   while (1) {
@@ -9831,9 +9833,10 @@ module.exports =
                         appData = JSON.parse(data);
                         token = appData.access_token;
                         userId = appData.userId;
+                        openId = appData.openId;
   
                         if (!token) {
-                          _context2.next = 11;
+                          _context2.next = 12;
                           break;
                         }
   
@@ -9858,7 +9861,7 @@ module.exports =
                                   _ref = _context.sent;
                                   data = _ref.data;
                                   // if(!data.podcast.joined) {
-                                  q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    podcastId\n  }\n}';
+                                  q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
                                   _context.next = 12;
                                   return (0, _fetch2.default)('/graphql?query=' + q);
   
@@ -9874,14 +9877,14 @@ module.exports =
                                   d = _ref2.d;
   
                                   console.log(d);
-                                  paymentQuery = '{\n          payment(orderId: "' + d.orderId + '", token: "' + token + '", ) {\n    podcastId\n  }\n        }';
+                                  paymentQuery = '{\n          payment(orderId: "' + d.orderId + '", token: "' + token + '", openId: "' + openId + '" ) {\n    podcastId\n  }\n        }';
                                   _context.next = 22;
                                   return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
   
                                 case 22:
                                   charge = _context.sent;
   
-                                  charge = (0, _assign2.default)(charge, { extra: { open_id: appData } });
+                                  console.log(charge);
                                   pingpp.createPayment(charge, function (result, err) {
                                     if (result == "success") {
                                       console.log(result);
@@ -9910,28 +9913,28 @@ module.exports =
                               }
                             }
                           }, _callee, undefined);
-                        })(), 't0', 6);
+                        })(), 't0', 7);
   
-                      case 6:
+                      case 7:
                         _ret2 = _context2.t0;
   
                         if (!((typeof _ret2 === 'undefined' ? 'undefined' : (0, _typeof3.default)(_ret2)) === "object")) {
-                          _context2.next = 9;
+                          _context2.next = 10;
                           break;
                         }
   
                         return _context2.abrupt('return', _ret2.v);
   
-                      case 9:
-                        _context2.next = 12;
+                      case 10:
+                        _context2.next = 13;
                         break;
   
-                      case 11:
+                      case 12:
                         return _context2.abrupt('return', {
                           v: _react2.default.createElement('div', null)
                         });
   
-                      case 12:
+                      case 13:
                       case 'end':
                         return _context2.stop();
                     }
