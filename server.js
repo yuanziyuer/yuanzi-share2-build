@@ -2783,31 +2783,29 @@ module.exports =
   
   var _graphql = __webpack_require__(27);
   
-  var _CommentType = __webpack_require__(42);
+  var _PaymentType = __webpack_require__(61);
   
-  var _CommentType2 = _interopRequireDefault(_CommentType);
-  
-  var _UserType = __webpack_require__(29);
-  
-  var _UserType2 = _interopRequireDefault(_UserType);
+  var _PaymentType2 = _interopRequireDefault(_PaymentType);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var PaymentType = new PaymentType({
+  /**
+   * React Starter Kit (https://www.reactstarterkit.com/)
+   *
+   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.txt file in the root directory of this source tree.
+   */
+  
+  var p = new _PaymentType2.default({
     name: 'Payment',
     fields: {
       orderId: { type: _graphql.GraphQLString }
     }
-  }); /**
-       * React Starter Kit (https://www.reactstarterkit.com/)
-       *
-       * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-       *
-       * This source code is licensed under the MIT license found in the
-       * LICENSE.txt file in the root directory of this source tree.
-       */
+  });
   
-  exports.default = PaymentType;
+  exports.default = p;
 
 /***/ },
 /* 62 */
