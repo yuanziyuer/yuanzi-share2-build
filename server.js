@@ -110,7 +110,7 @@ module.exports =
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _assets = __webpack_require__(199);
+  var _assets = __webpack_require__(200);
   
   var _assets2 = _interopRequireDefault(_assets);
   
@@ -205,7 +205,7 @@ module.exports =
                     switch (_context.prev = _context.next) {
                       case 0:
                         statusCode = 200;
-                        template = __webpack_require__(200);
+                        template = __webpack_require__(201);
                         data = { title: '', description: '', css: '', body: '', entry: _assets2.default.main.js };
   
   
@@ -284,7 +284,7 @@ module.exports =
                     switch (_context3.prev = _context3.next) {
                       case 0:
                         statusCode = 200;
-                        template = __webpack_require__(200);
+                        template = __webpack_require__(201);
                         data = { title: '', description: '', css: '', body: '', entry: _assets2.default.main.js };
   
   
@@ -358,7 +358,7 @@ module.exports =
   server.use(function (err, req, res, next) {
     // eslint-disable-line no-unused-vars
     console.log(pe.render(err)); // eslint-disable-line no-console
-    var template = __webpack_require__(202);
+    var template = __webpack_require__(203);
     var statusCode = err.status || 500;
     res.status(statusCode);
     res.send(template({
@@ -2695,25 +2695,6 @@ module.exports =
        */
   
   exports.default = PodcastType;
-  // - podcastId : "57675ec590dd6e196d28f868"
-  // - presenter : "lisa·蓉"
-  // - lecturer : "尼古拉斯·赵四儿"
-  // - lecturerIntroduction : "<div>中暑的非洲人在泰安</div>"
-  // - lecturerAvatar : "http://assets-dev.iyuanzi.net/media/5703803d8d38ea1a1a2b058a/2016-04-05/76dd08d4-bb42-432d-8d2b-d17c35723e14"
-  // - title : "中暑的非洲人在泰安"
-  // - content : "<div>我要回南非啊呜呼哈哈哈哈哈哈哈嘎嘎嘎！！！</div>"
-  // - cover : "http://assets-dev.iyuanzi.net/media/572bae51fcba5d97493e11ef/2016-05-06/8bdff566-6c0b-4a6b-907c-4f3004bc25ab"
-  // - startDate : 2016-06-17 06:33:04 +0000
-  // - userScore : 0
-  // - comments : nil
-  // - commentCount : nil
-  // - price : 0 { ... }
-  // - joined : false
-  // - score : 10
-  // - bannerImg : "http://assets-dev.iyuanzi.net/media/570382ba8d38ea1a1a2b058b/2016-04-05/4eaa53f4-be14-4079-bb10-c9eec3af9e9b"
-  // - enrollCount : 7
-  // - status : 0 { ... }
-  // - isCollected : false { ... }
 
 /***/ },
 /* 60 */
@@ -6036,7 +6017,7 @@ module.exports =
         return _react2.default.createElement(
           'div',
           { className: _NotFoundPage2.default.container },
-          _react2.default.createElement('img', { src: './404_page_image.png', alt: '' }),
+          _react2.default.createElement('img', { src: '/404_page@2x.png', alt: '', style: { height: 'auto' } }),
           _react2.default.createElement(
             'p',
             null,
@@ -9692,6 +9673,10 @@ module.exports =
   
   var _regenerator2 = _interopRequireDefault(_regenerator);
   
+  var _assign = __webpack_require__(15);
+  
+  var _assign2 = _interopRequireDefault(_assign);
+  
   var _asyncToGenerator2 = __webpack_require__(3);
   
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -9710,20 +9695,21 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var path = exports.path = '/podcastdetail/*/view'; /**
-                                                      * Created by diwu on 3/12/16.
-                                                      */
+  var pingpp = __webpack_require__(199); /**
+                                      * Created by diwu on 3/12/16.
+                                      */
   
+  var path = exports.path = '/podcastdetail/*/view';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var data, appData, token, userId, podcastId, query, response, _ref, _data, q;
+      var data, appData, token, userId, podcastId, query, response, _ref, _data, q, _response, paymentQuery, charge;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 25;
+                _context.next = 33;
                 break;
               }
   
@@ -9735,43 +9721,67 @@ module.exports =
               userId = appData.userId;
   
               if (!token) {
-                _context.next = 24;
+                _context.next = 32;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
-  
-              console.log(query);
-              _context.next = 12;
+              _context.next = 11;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 12:
+            case 11:
               response = _context.sent;
-              _context.next = 15;
+              _context.next = 14;
               return response.json();
   
-            case 15:
+            case 14:
               _ref = _context.sent;
               _data = _ref.data;
   
-              console.log(_data);
-              if (!_data.podcast.joined) {
-                q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n  }\n}';
-  
-                (0, _fetch2.default)('/graphql?query=' + q);
+              if (_data.podcast.joined) {
+                _context.next = 27;
+                break;
               }
+  
+              q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    podcastId\n  }\n}';
+              _context.next = 20;
+              return (0, _fetch2.default)('/graphql?query=' + q);
+  
+            case 20:
+              _response = _context.sent;
+              paymentQuery = '{\n          payment(orderId: "' + _response.orderId + '", token: "' + token + '", ) {\n    podcastId\n  }\n        }';
+              _context.next = 24;
+              return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
+  
+            case 24:
+              charge = _context.sent;
+  
+              charge = (0, _assign2.default)(charge, { extra: { open_id: appData } });
+              pingpp.createPayment(charge, function (result, err) {
+                if (result == "success") {
+                  console.log(result);
+                  // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+                } else if (result == "fail") {
+                    // charge 不正确或者微信公众账号支付失败时会在此处返回
+                  } else if (result == "cancel") {
+                      // 微信公众账号支付取消支付
+                    }
+                console.log(result);
+              });
+  
+            case 27:
               state.context.onSetMeta('title', _data.podcast.title);
               state.context.onSetMeta('og:title', _data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
   
-            case 24:
+            case 32:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 25:
+            case 33:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 26:
+            case 34:
             case 'end':
               return _context.stop();
           }
@@ -10368,13 +10378,19 @@ module.exports =
 /* 199 */
 /***/ function(module, exports) {
 
-  module.exports = require("./assets");
+  module.exports = require("pingpp-js");
 
 /***/ },
 /* 200 */
+/***/ function(module, exports) {
+
+  module.exports = require("./assets");
+
+/***/ },
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(201);
+  var jade = __webpack_require__(202);
   
   module.exports = function template(locals) {
   var buf = [];
@@ -10390,7 +10406,7 @@ module.exports =
   }
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -10642,10 +10658,10 @@ module.exports =
 
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var jade = __webpack_require__(201);
+  var jade = __webpack_require__(202);
   
   module.exports = function template(locals) {
   var buf = [];
