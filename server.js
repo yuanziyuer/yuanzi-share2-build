@@ -9868,20 +9868,21 @@ module.exports =
                                 case 12:
                                   response = _context.sent;
   
+                                  console.log('get order id');
                                   console.log(response);
-                                  _context.next = 16;
+                                  _context.next = 17;
                                   return response.json();
   
-                                case 16:
+                                case 17:
                                   _ref2 = _context.sent;
                                   d = _ref2.d;
   
                                   console.log(d);
-                                  paymentQuery = '{\n          payment(orderId: "' + d.orderId + '", token: "' + token + '", openId: "' + openId + '" ) {\n    podcastId\n  }\n        }';
-                                  _context.next = 22;
+                                  paymentQuery = '{\n          payment(orderId: "' + d.order.orderId + '", token: "' + token + '", openId: "' + openId + '" ) {\n    podcastId\n  }\n        }';
+                                  _context.next = 23;
                                   return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
   
-                                case 22:
+                                case 23:
                                   charge = _context.sent;
   
                                   console.log(charge);
@@ -9907,7 +9908,7 @@ module.exports =
                                     }
                                   });
   
-                                case 26:
+                                case 27:
                                 case 'end':
                                   return _context.stop();
                               }
