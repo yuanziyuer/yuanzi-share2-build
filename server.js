@@ -9896,7 +9896,7 @@ module.exports =
                                   console.log(_data.payment);
                                   _charge = _data.payment;
   
-                                  console.log(_charge);
+                                  console.log(_charge.charge);
   
                                 case 28:
                                   pingpp.createPayment(charge, function (result, err) {
