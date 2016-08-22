@@ -204,9 +204,9 @@ module.exports =
                   },
                   method: 'POST',
                   body: (0, _stringify2.default)({
-                    orderId: '57ba9f3e56d4e672386b9d64',
+                    orderId: req.body.orderId,
                     channel: 'wx_pub',
-                    openId: 'oNjHFs0qrzR0jE9OPe8Da6xE68EA'
+                    openId: req.body.openId
                   })
                 }).then(function (response) {
                   return response.json();
@@ -9875,8 +9875,7 @@ module.exports =
               }
   
               return _context3.delegateYield(_regenerator2.default.mark(function _callee2() {
-                var data, appData, token, userId, openId, _ret2;
-  
+                var data, appData, token, userId, openId;
                 return _regenerator2.default.wrap(function _callee2$(_context2) {
                   while (1) {
                     switch (_context2.prev = _context2.next) {
@@ -9888,7 +9887,7 @@ module.exports =
                         openId = appData.openId;
   
                         if (!token) {
-                          _context2.next = 12;
+                          _context2.next = 9;
                           break;
                         }
   
@@ -9936,7 +9935,6 @@ module.exports =
                                     method: 'POST',
                                     body: (0, _stringify2.default)({
                                       orderId: d.data.order.orderId,
-                                      channel: 'wx_pub',
                                       openId: openId
                                     })
                                   });
@@ -9959,20 +9957,15 @@ module.exports =
                                       return _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId });
                                     } else if (result == "fail") {
                                       // charge 不正确或者微信公众账号支付失败时会在此处返回
+                                      return _react2.default.createElement('div', null);
                                     } else if (result == "cancel") {
-                                        // 微信公众账号支付取消支付
-                                      }
-                                    console.log(result);
-                                    console.log(err);
-                                  });
-                                  // }
-                                  return _context.abrupt('return', {
-                                    v: {
-                                      v: _react2.default.createElement('div', null)
+                                      // 微信公众账号支付取消支付
+                                      return _react2.default.createElement('div', null);
                                     }
                                   });
+                                  // }
   
-                                case 25:
+                                case 24:
                                 case 'end':
                                   return _context.stop();
                               }
@@ -9981,25 +9974,15 @@ module.exports =
                         })(), 't0', 7);
   
                       case 7:
-                        _ret2 = _context2.t0;
-  
-                        if (!((typeof _ret2 === 'undefined' ? 'undefined' : (0, _typeof3.default)(_ret2)) === "object")) {
-                          _context2.next = 10;
-                          break;
-                        }
-  
-                        return _context2.abrupt('return', _ret2.v);
-  
-                      case 10:
-                        _context2.next = 13;
+                        _context2.next = 10;
                         break;
   
-                      case 12:
+                      case 9:
                         return _context2.abrupt('return', {
                           v: _react2.default.createElement('div', null)
                         });
   
-                      case 13:
+                      case 10:
                       case 'end':
                         return _context2.stop();
                     }
