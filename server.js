@@ -114,16 +114,14 @@ module.exports =
   
   var _assets2 = _interopRequireDefault(_assets);
   
+  var _fetch = __webpack_require__(24);
+  
+  var _fetch2 = _interopRequireDefault(_fetch);
+  
   var _config = __webpack_require__(22);
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var server = global.server = (0, _express2.default)();
-  
-  //
-  // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
-  // user agent is not known.
-  // -----------------------------------------------------------------------------
   /**
    * React Starter Kit (https://www.reactstarterkit.com/)
    *
@@ -133,6 +131,12 @@ module.exports =
    * LICENSE.txt file in the root directory of this source tree.
    */
   
+  var server = global.server = (0, _express2.default)();
+  
+  //
+  // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
+  // user agent is not known.
+  // -----------------------------------------------------------------------------
   global.navigator = global.navigator || {};
   global.navigator.userAgent = global.navigator.userAgent || 'all';
   
@@ -185,6 +189,46 @@ module.exports =
     };
   }));
   
+  server.post('/payment', function () {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              try {
+                (0, _fetch2.default)('http://test.iyuanzi.com/payment', {
+                  headers: {
+                    'Accept': 'application/vnd.yuanzi.v4+json',
+                    'Authorization': 'Bearer ilbKTN26hfHRy9Uhj0VqiLPc8Zk/lt5DahGMCxY1uYk=',
+                    'Content-Type': 'application/json'
+                  },
+                  method: 'POST',
+                  body: (0, _stringify2.default)({
+                    orderId: '57ba9f3e56d4e672386b9d64',
+                    channel: 'wx_pub',
+                    openId: 'oNjHFs0qrzR0jE9OPe8Da6xE68EA'
+                  })
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return res.json(data);
+                });
+              } catch (err) {
+                next(err);
+              }
+  
+            case 1:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+    return function (_x, _x2, _x3) {
+      return ref.apply(this, arguments);
+    };
+  }());
+  
   //
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
@@ -194,17 +238,17 @@ module.exports =
       callbackURL: 'http://' + req.headers.host + req.path
     })(req, res, next);
   }, function () {
-    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
-      return _regenerator2.default.wrap(function _callee2$(_context2) {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, next) {
+      return _regenerator2.default.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _context2.prev = 0;
-              return _context2.delegateYield(_regenerator2.default.mark(function _callee() {
+              _context3.prev = 0;
+              return _context3.delegateYield(_regenerator2.default.mark(function _callee2() {
                 var statusCode, template, data, css, context;
-                return _regenerator2.default.wrap(function _callee$(_context) {
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
                   while (1) {
-                    switch (_context.prev = _context.next) {
+                    switch (_context2.prev = _context2.next) {
                       case 0:
                         statusCode = 200;
                         template = __webpack_require__(203);
@@ -230,7 +274,7 @@ module.exports =
                             return statusCode = 404;
                           }
                         };
-                        _context.next = 8;
+                        _context2.next = 8;
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
@@ -244,46 +288,46 @@ module.exports =
   
                       case 10:
                       case 'end':
-                        return _context.stop();
+                        return _context2.stop();
                     }
                   }
-                }, _callee, undefined);
+                }, _callee2, undefined);
               })(), 't0', 2);
   
             case 2:
-              _context2.next = 7;
+              _context3.next = 7;
               break;
   
             case 4:
-              _context2.prev = 4;
-              _context2.t1 = _context2['catch'](0);
+              _context3.prev = 4;
+              _context3.t1 = _context3['catch'](0);
   
-              next(_context2.t1);
+              next(_context3.t1);
   
             case 7:
             case 'end':
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, undefined, [[0, 4]]);
+      }, _callee3, undefined, [[0, 4]]);
     }));
-    return function (_x, _x2, _x3) {
+    return function (_x4, _x5, _x6) {
       return ref.apply(this, arguments);
     };
   }());
   
   server.get('*', function () {
-    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, res, next) {
-      return _regenerator2.default.wrap(function _callee4$(_context4) {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(req, res, next) {
+      return _regenerator2.default.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _context4.prev = 0;
-              return _context4.delegateYield(_regenerator2.default.mark(function _callee3() {
+              _context5.prev = 0;
+              return _context5.delegateYield(_regenerator2.default.mark(function _callee4() {
                 var statusCode, template, data, css, context;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                return _regenerator2.default.wrap(function _callee4$(_context4) {
                   while (1) {
-                    switch (_context3.prev = _context3.next) {
+                    switch (_context4.prev = _context4.next) {
                       case 0:
                         statusCode = 200;
                         template = __webpack_require__(203);
@@ -309,7 +353,7 @@ module.exports =
                             return statusCode = 404;
                           }
                         };
-                        _context3.next = 8;
+                        _context4.next = 8;
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
@@ -322,30 +366,30 @@ module.exports =
   
                       case 10:
                       case 'end':
-                        return _context3.stop();
+                        return _context4.stop();
                     }
                   }
-                }, _callee3, undefined);
+                }, _callee4, undefined);
               })(), 't0', 2);
   
             case 2:
-              _context4.next = 7;
+              _context5.next = 7;
               break;
   
             case 4:
-              _context4.prev = 4;
-              _context4.t1 = _context4['catch'](0);
+              _context5.prev = 4;
+              _context5.t1 = _context5['catch'](0);
   
-              next(_context4.t1);
+              next(_context5.t1);
   
             case 7:
             case 'end':
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, undefined, [[0, 4]]);
+      }, _callee5, undefined, [[0, 4]]);
     }));
-    return function (_x4, _x5, _x6) {
+    return function (_x7, _x8, _x9) {
       return ref.apply(this, arguments);
     };
   }());
@@ -676,7 +720,6 @@ module.exports =
     scope: 'snsapi_userinfo',
     requireState: false
   }, function (accessToken, refreshToken, profile, done) {
-    console.log(profile);
     var user = {
       userId: profile._json.unionid || profile._json.openid,
       nickname: profile.displayName,
@@ -2792,7 +2835,12 @@ module.exports =
   var p = new _graphql.GraphQLObjectType({
     name: 'Payment',
     fields: {
-      charge: { type: _graphql.GraphQLString }
+      charge: { type: new _graphql.GraphQLObjectType({
+          name: 'Charge',
+          fields: {
+            id: { type: _graphql.GraphQLString }
+          }
+        }) }
     }
   }); /**
        * React Starter Kit (https://www.reactstarterkit.com/)
@@ -9302,30 +9350,20 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var query, response, _ref, data;
-  
+      var query;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               query = '{\n  podcasts {\n     podcasts {\n      podcastId\n      title\n      cover\n      price\n      lecturer\n      lecturerIntroduction\n      lecturerAvatar\n      content\n      startDate\n      enrollCount\n      userScore\n      roomNumber\n    }\n  }\n}\n';
-              _context.next = 3;
-              return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 3:
-              response = _context.sent;
-              _context.next = 6;
-              return response.json();
-  
-            case 6:
-              _ref = _context.sent;
-              data = _ref.data;
+              // console.log(data.payment.charge))
   
               state.context.onSetMeta('og:title', '精彩课程');
               state.context.onSetMeta('title', '精彩课程');
               return _context.abrupt('return', _react2.default.createElement(_Podcasts2.default, { podcasts: data.podcasts }));
   
-            case 11:
+            case 4:
             case 'end':
               return _context.stop();
           }
@@ -9814,24 +9852,24 @@ module.exports =
   
   var path = exports.path = '/podcastdetail/*/view';
   var action = exports.action = function () {
-    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(state) {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(state) {
       var _ret;
   
-      return _regenerator2.default.wrap(function _callee3$(_context3) {
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context3.next = 5;
+                _context4.next = 5;
                 break;
               }
   
-              return _context3.delegateYield(_regenerator2.default.mark(function _callee2() {
-                var data, appData, token, userId, openId, _ret2;
+              return _context4.delegateYield(_regenerator2.default.mark(function _callee3() {
+                var data, appData, token, userId, openId, podcastId, query, response, q, _ref, _data;
   
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
                   while (1) {
-                    switch (_context2.prev = _context2.next) {
+                    switch (_context3.prev = _context3.next) {
                       case 0:
                         data = state.context.appData.replace(/&quot;/g, '"');
                         appData = JSON.parse(data);
@@ -9840,145 +9878,147 @@ module.exports =
                         openId = appData.openId;
   
                         if (!token) {
-                          _context2.next = 12;
+                          _context3.next = 23;
                           break;
                         }
   
-                        return _context2.delegateYield(_regenerator2.default.mark(function _callee() {
-                          var podcastId, query, response, q, _ref, data, paymentQuery, _ref2, _data, _charge;
-  
-                          return _regenerator2.default.wrap(function _callee$(_context) {
-                            while (1) {
-                              switch (_context.prev = _context.next) {
-                                case 0:
-                                  podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
-                                  query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
-                                  _context.next = 4;
-                                  return (0, _fetch2.default)('/graphql?query=' + query);
-  
-                                case 4:
-                                  response = _context.sent;
-  
-                                  // let { data } = await response.json();
-                                  // if(!data.podcast.joined) {
-                                  q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
-                                  _context.next = 8;
-                                  return (0, _fetch2.default)('/graphql?query=' + q);
-  
-                                case 8:
-                                  response = _context.sent;
-                                  _context.next = 11;
-                                  return response.json();
-  
-                                case 11:
-                                  _ref = _context.sent;
-                                  data = _ref.data;
-  
-                                  console.log(data);
-                                  paymentQuery = '{\n          payment(orderId: "' + data.order.orderId + '", token: "' + token + '", openId: "' + openId + '" ) {\n    charge\n  }\n        }';
-                                  _context.next = 17;
-                                  return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
-  
-                                case 17:
-                                  response = _context.sent;
-  
-                                  console.log(response);
-  
-                                  if (!response) {
-                                    _context.next = 28;
-                                    break;
-                                  }
-  
-                                  _context.next = 22;
-                                  return response.json();
-  
-                                case 22:
-                                  _ref2 = _context.sent;
-                                  _data = _ref2.data;
-  
-                                  console.log('1111');
-                                  console.log(_data.payment);
-                                  _charge = _data.payment;
-  
-                                  console.log((0, _stringify2.default)(_charge.charge));
-  
-                                case 28:
-                                  pingpp.createPayment(charge, function (result, err) {
-                                    if (result == "success") {
-                                      console.log(result);
-                                      // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-                                      state.context.onSetMeta('title', data.podcast.title);
-                                      state.context.onSetMeta('og:title', data.podcast.title);
-                                      return _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId });
-                                    } else if (result == "fail") {
-                                      // charge 不正确或者微信公众账号支付失败时会在此处返回
-                                    } else if (result == "cancel") {
-                                        // 微信公众账号支付取消支付
-                                      }
-                                    console.log(result);
-                                    console.log(err);
-                                  });
-                                  // }
-                                  return _context.abrupt('return', {
-                                    v: {
-                                      v: _react2.default.createElement('div', null)
-                                    }
-                                  });
-  
-                                case 30:
-                                case 'end':
-                                  return _context.stop();
-                              }
-                            }
-                          }, _callee, undefined);
-                        })(), 't0', 7);
-  
-                      case 7:
-                        _ret2 = _context2.t0;
-  
-                        if (!((typeof _ret2 === 'undefined' ? 'undefined' : (0, _typeof3.default)(_ret2)) === "object")) {
-                          _context2.next = 10;
-                          break;
-                        }
-  
-                        return _context2.abrupt('return', _ret2.v);
+                        podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
+                        query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
+                        _context3.next = 10;
+                        return (0, _fetch2.default)('/graphql?query=' + query);
   
                       case 10:
-                        _context2.next = 13;
-                        break;
+                        response = _context3.sent;
   
-                      case 12:
-                        return _context2.abrupt('return', {
+                        // let { data } = await response.json();
+                        // if(!data.podcast.joined) {
+                        q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
+                        _context3.next = 14;
+                        return (0, _fetch2.default)('/graphql?query=' + q);
+  
+                      case 14:
+                        response = _context3.sent;
+                        _context3.next = 17;
+                        return response.json();
+  
+                      case 17:
+                        _ref = _context3.sent;
+                        _data = _ref.data;
+  
+                        (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+                          return _regenerator2.default.wrap(function _callee2$(_context2) {
+                            while (1) {
+                              switch (_context2.prev = _context2.next) {
+                                case 0:
+                                  _context2.prev = 0;
+                                  return _context2.delegateYield(_regenerator2.default.mark(function _callee() {
+                                    var response, data;
+                                    return _regenerator2.default.wrap(function _callee$(_context) {
+                                      while (1) {
+                                        switch (_context.prev = _context.next) {
+                                          case 0:
+                                            _context.next = 2;
+                                            return (0, _fetch2.default)('/payment', {
+                                              headers: {
+                                                'Accept': 'application/vnd.yuanzi.v4+json',
+                                                'Authorization': 'Bearer ilbKTN26hfHRy9Uhj0VqiLPc8Zk/lt5DahGMCxY1uYk=',
+                                                'Content-Type': 'application/json'
+                                              },
+                                              method: 'POST',
+                                              body: (0, _stringify2.default)({
+                                                orderId: data.order.orderId,
+                                                channel: 'wx_pub',
+                                                openId: openId
+                                              })
+                                            });
+  
+                                          case 2:
+                                            response = _context.sent;
+                                            _context.next = 5;
+                                            return response.json();
+  
+                                          case 5:
+                                            data = _context.sent;
+  
+                                            console.log(data);
+                                            pingpp.createPayment(data.charge, function (result, err) {
+                                              if (result == "success") {
+                                                console.log(result);
+                                                // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+                                                state.context.onSetMeta('title', data.podcast.title);
+                                                state.context.onSetMeta('og:title', data.podcast.title);
+                                                return _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId });
+                                              } else if (result == "fail") {
+                                                // charge 不正确或者微信公众账号支付失败时会在此处返回
+                                              } else if (result == "cancel") {
+                                                  // 微信公众账号支付取消支付
+                                                }
+                                              console.log(result);
+                                              console.log(err);
+                                            });
+  
+                                          case 8:
+                                          case 'end':
+                                            return _context.stop();
+                                        }
+                                      }
+                                    }, _callee, undefined);
+                                  })(), 't0', 2);
+  
+                                case 2:
+                                  _context2.next = 7;
+                                  break;
+  
+                                case 4:
+                                  _context2.prev = 4;
+                                  _context2.t1 = _context2['catch'](0);
+  
+                                  console.log('error: ', _context2.t1);
+  
+                                case 7:
+                                case 'end':
+                                  return _context2.stop();
+                              }
+                            }
+                          }, _callee2, undefined, [[0, 4]]);
+                        }))(); // <--------- parenthesis should be like this.
+  
+                        return _context3.abrupt('return', {
                           v: _react2.default.createElement('div', null)
                         });
   
-                      case 13:
+                      case 23:
+                        return _context3.abrupt('return', {
+                          v: _react2.default.createElement('div', null)
+                        });
+  
+                      case 24:
                       case 'end':
-                        return _context2.stop();
+                        return _context3.stop();
                     }
                   }
-                }, _callee2, undefined);
+                }, _callee3, undefined);
               })(), 't0', 2);
   
             case 2:
-              _ret = _context3.t0;
+              _ret = _context4.t0;
   
               if (!((typeof _ret === 'undefined' ? 'undefined' : (0, _typeof3.default)(_ret)) === "object")) {
-                _context3.next = 5;
+                _context4.next = 5;
                 break;
               }
   
-              return _context3.abrupt('return', _ret.v);
+              return _context4.abrupt('return', _ret.v);
   
             case 5:
-              return _context3.abrupt('return', _react2.default.createElement('div', null));
+              return _context4.abrupt('return', _react2.default.createElement('div', null));
   
             case 6:
             case 'end':
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, undefined);
+      }, _callee4, undefined);
     }));
     return function action(_x) {
       return ref.apply(this, arguments);
