@@ -161,7 +161,13 @@ module.exports =
   }));
   /* jscs:enable requireCamelCaseOrUpperCaseIdentifiers */
   server.use(_passport2.default.initialize());
+  _passport2.default.serializeUser(function (user, done) {
+    done(null, user);
+  });
   
+  _passport2.default.deserializeUser(function (user, done) {
+    done(null, user);
+  });
   server.get('/login/facebook', _passport2.default.authenticate('facebook', { scope: ['email', 'user_location'], session: false }));
   server.get('/login/facebook/return', _passport2.default.authenticate('facebook', { failureRedirect: '/login', session: false }), function (req, res) {
     var expiresIn = 60 * 60 * 24 * 180; // 180 days
