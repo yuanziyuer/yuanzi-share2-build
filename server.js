@@ -9872,7 +9872,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 36;
+                _context.next = 37;
                 break;
               }
   
@@ -9883,7 +9883,7 @@ module.exports =
               openId = appData.openId;
   
               if (!token) {
-                _context.next = 35;
+                _context.next = 36;
                 break;
               }
   
@@ -9900,19 +9900,24 @@ module.exports =
             case 14:
               _ref = _context.sent;
               _data = _ref.data;
-              // if(!data.podcast.joined) {
+  
+              if (_data.podcast.joined) {
+                _context.next = 31;
+                break;
+              }
+  
               q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
-              _context.next = 19;
+              _context.next = 20;
               return (0, _fetch2.default)('/graphql?query=' + q);
   
-            case 19:
+            case 20:
               response = _context.sent;
-              _context.next = 22;
+              _context.next = 23;
               return response.json();
   
-            case 22:
+            case 23:
               d = _context.sent;
-              _context.next = 25;
+              _context.next = 26;
               return (0, _fetch2.default)('/payment', {
                 headers: {
                   'Accept': 'application/vnd.yuanzi.v4+json',
@@ -9926,12 +9931,12 @@ module.exports =
                 })
               });
   
-            case 25:
+            case 26:
               response = _context.sent;
-              _context.next = 28;
+              _context.next = 29;
               return response.json();
   
-            case 28:
+            case 29:
               charge = _context.sent;
   
               pingpp.createPayment(charge.charge, function (result, err) {
@@ -9948,18 +9953,18 @@ module.exports =
                 }
               });
   
-              // }
+            case 31:
               state.context.onSetMeta('title', _data.podcast.title);
               state.context.onSetMeta('og:title', _data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
-  
-            case 35:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
   
             case 36:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
             case 37:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 38:
             case 'end':
               return _context.stop();
           }
