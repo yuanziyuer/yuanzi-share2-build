@@ -9923,7 +9923,7 @@ module.exports =
                           },
                           method: 'POST',
                           body: (0, _stringify2.default)({
-                            orderId: d.order.orderId,
+                            orderId: d.data.order.orderId,
                             channel: 'wx_pub',
                             openId: openId
                           })
