@@ -9915,7 +9915,7 @@ module.exports =
                         _ref = _context3.sent;
                         _data = _ref.data;
   
-                        (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+                        console.log(_data)((0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
                           return _regenerator2.default.wrap(function _callee2$(_context2) {
                             while (1) {
                               switch (_context2.prev = _context2.next) {
@@ -9950,7 +9950,6 @@ module.exports =
                                           case 5:
                                             data = _context.sent;
   
-                                            console.log(data);
                                             pingpp.createPayment(data.charge, function (result, err) {
                                               if (result == "success") {
                                                 console.log(result);
@@ -9967,7 +9966,7 @@ module.exports =
                                               console.log(err);
                                             });
   
-                                          case 8:
+                                          case 7:
                                           case 'end':
                                             return _context.stop();
                                         }
@@ -9991,7 +9990,7 @@ module.exports =
                               }
                             }
                           }, _callee2, undefined, [[0, 4]]);
-                        }))(); // <--------- parenthesis should be like this.
+                        })))(_data, openId); // <--------- parenthesis should be like this.
   
                         return _context3.abrupt('return', {
                           v: _react2.default.createElement('div', null)
