@@ -9887,7 +9887,7 @@ module.exports =
                         openId = appData.openId;
   
                         if (!token) {
-                          _context.next = 28;
+                          _context.next = 29;
                           break;
                         }
   
@@ -9912,7 +9912,9 @@ module.exports =
   
                       case 17:
                         d = _context.sent;
-                        _context.next = 20;
+  
+                        console.log(d);
+                        _context.next = 21;
                         return (0, _fetch2.default)('/payment', {
                           headers: {
                             'Accept': 'application/vnd.yuanzi.v4+json',
@@ -9927,12 +9929,12 @@ module.exports =
                           })
                         });
   
-                      case 20:
+                      case 21:
                         response = _context.sent;
-                        _context.next = 23;
+                        _context.next = 24;
                         return response.json();
   
-                      case 23:
+                      case 24:
                         charge = _context.sent;
   
                         pingpp.createPayment(charge.charge, function (result, err) {
@@ -9954,12 +9956,12 @@ module.exports =
                           v: _react2.default.createElement('div', null)
                         });
   
-                      case 28:
+                      case 29:
                         return _context.abrupt('return', {
                           v: _react2.default.createElement('div', null)
                         });
   
-                      case 29:
+                      case 30:
                       case 'end':
                         return _context.stop();
                     }
