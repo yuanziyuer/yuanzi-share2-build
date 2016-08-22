@@ -10001,9 +10001,6 @@ module.exports =
               return _context3.abrupt('return', _ret.v);
   
             case 5:
-              return _context3.abrupt('return', _react2.default.createElement('div', null));
-  
-            case 6:
             case 'end':
               return _context3.stop();
           }
