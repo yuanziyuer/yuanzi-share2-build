@@ -9954,7 +9954,7 @@ module.exports =
                                       // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
                                       state.context.onSetMeta('title', data.podcast.title);
                                       state.context.onSetMeta('og:title', data.podcast.title);
-                                      return _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId });
+                                      return _react2.default.createElement(_PodcastDetail2.default, { podcastId: 'podcast_541', userId: userId });
                                     } else if (result == "fail") {
                                       // charge 不正确或者微信公众账号支付失败时会在此处返回
                                       return _react2.default.createElement('div', null);
