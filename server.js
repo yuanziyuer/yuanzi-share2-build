@@ -9915,82 +9915,87 @@ module.exports =
                         _ref = _context3.sent;
                         _data = _ref.data;
   
-                        console.log(_data)((0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-                          return _regenerator2.default.wrap(function _callee2$(_context2) {
-                            while (1) {
-                              switch (_context2.prev = _context2.next) {
-                                case 0:
-                                  _context2.prev = 0;
-                                  return _context2.delegateYield(_regenerator2.default.mark(function _callee() {
-                                    var response, data;
-                                    return _regenerator2.default.wrap(function _callee$(_context) {
-                                      while (1) {
-                                        switch (_context.prev = _context.next) {
-                                          case 0:
-                                            _context.next = 2;
-                                            return (0, _fetch2.default)('/payment', {
-                                              headers: {
-                                                'Accept': 'application/vnd.yuanzi.v4+json',
-                                                'Authorization': 'Bearer ilbKTN26hfHRy9Uhj0VqiLPc8Zk/lt5DahGMCxY1uYk=',
-                                                'Content-Type': 'application/json'
-                                              },
-                                              method: 'POST',
-                                              body: (0, _stringify2.default)({
-                                                orderId: data.order.orderId,
-                                                channel: 'wx_pub',
-                                                openId: openId
-                                              })
-                                            });
+                        console.log(_data)(function () {
+                          var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(data, openId) {
+                            return _regenerator2.default.wrap(function _callee2$(_context2) {
+                              while (1) {
+                                switch (_context2.prev = _context2.next) {
+                                  case 0:
+                                    _context2.prev = 0;
+                                    return _context2.delegateYield(_regenerator2.default.mark(function _callee() {
+                                      var response, data;
+                                      return _regenerator2.default.wrap(function _callee$(_context) {
+                                        while (1) {
+                                          switch (_context.prev = _context.next) {
+                                            case 0:
+                                              _context.next = 2;
+                                              return (0, _fetch2.default)('/payment', {
+                                                headers: {
+                                                  'Accept': 'application/vnd.yuanzi.v4+json',
+                                                  'Authorization': 'Bearer ilbKTN26hfHRy9Uhj0VqiLPc8Zk/lt5DahGMCxY1uYk=',
+                                                  'Content-Type': 'application/json'
+                                                },
+                                                method: 'POST',
+                                                body: (0, _stringify2.default)({
+                                                  orderId: data.order.orderId,
+                                                  channel: 'wx_pub',
+                                                  openId: openId
+                                                })
+                                              });
   
-                                          case 2:
-                                            response = _context.sent;
-                                            _context.next = 5;
-                                            return response.json();
+                                            case 2:
+                                              response = _context.sent;
+                                              _context.next = 5;
+                                              return response.json();
   
-                                          case 5:
-                                            data = _context.sent;
+                                            case 5:
+                                              data = _context.sent;
   
-                                            pingpp.createPayment(data.charge, function (result, err) {
-                                              if (result == "success") {
+                                              pingpp.createPayment(data.charge, function (result, err) {
+                                                if (result == "success") {
+                                                  console.log(result);
+                                                  // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+                                                  state.context.onSetMeta('title', data.podcast.title);
+                                                  state.context.onSetMeta('og:title', data.podcast.title);
+                                                  return _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId });
+                                                } else if (result == "fail") {
+                                                  // charge 不正确或者微信公众账号支付失败时会在此处返回
+                                                } else if (result == "cancel") {
+                                                    // 微信公众账号支付取消支付
+                                                  }
                                                 console.log(result);
-                                                // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-                                                state.context.onSetMeta('title', data.podcast.title);
-                                                state.context.onSetMeta('og:title', data.podcast.title);
-                                                return _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId });
-                                              } else if (result == "fail") {
-                                                // charge 不正确或者微信公众账号支付失败时会在此处返回
-                                              } else if (result == "cancel") {
-                                                  // 微信公众账号支付取消支付
-                                                }
-                                              console.log(result);
-                                              console.log(err);
-                                            });
+                                                console.log(err);
+                                              });
   
-                                          case 7:
-                                          case 'end':
-                                            return _context.stop();
+                                            case 7:
+                                            case 'end':
+                                              return _context.stop();
+                                          }
                                         }
-                                      }
-                                    }, _callee, undefined);
-                                  })(), 't0', 2);
+                                      }, _callee, undefined);
+                                    })(), 't0', 2);
   
-                                case 2:
-                                  _context2.next = 7;
-                                  break;
+                                  case 2:
+                                    _context2.next = 7;
+                                    break;
   
-                                case 4:
-                                  _context2.prev = 4;
-                                  _context2.t1 = _context2['catch'](0);
+                                  case 4:
+                                    _context2.prev = 4;
+                                    _context2.t1 = _context2['catch'](0);
   
-                                  console.log('error: ', _context2.t1);
+                                    console.log('error: ', _context2.t1);
   
-                                case 7:
-                                case 'end':
-                                  return _context2.stop();
+                                  case 7:
+                                  case 'end':
+                                    return _context2.stop();
+                                }
                               }
-                            }
-                          }, _callee2, undefined, [[0, 4]]);
-                        })))(_data, openId); // <--------- parenthesis should be like this.
+                            }, _callee2, undefined, [[0, 4]]);
+                          }));
+                          return function (_x2, _x3) {
+                            return ref.apply(this, arguments);
+                          };
+                        }())(); // <--------- parenthesis should be like this.
   
                         return _context3.abrupt('return', {
                           v: _react2.default.createElement('div', null)
