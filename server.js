@@ -9841,7 +9841,7 @@ module.exports =
                         }
   
                         return _context2.delegateYield(_regenerator2.default.mark(function _callee() {
-                          var podcastId, query, response, q, _ref, data, paymentQuery, charge;
+                          var podcastId, query, response, q, _ref, data, paymentQuery, _ref2, _data, _charge;
   
                           return _regenerator2.default.wrap(function _callee$(_context) {
                             while (1) {
@@ -9879,15 +9879,26 @@ module.exports =
                                   response = _context.sent;
   
                                   console.log(response);
-                                  _context.next = 21;
+  
+                                  if (!response) {
+                                    _context.next = 28;
+                                    break;
+                                  }
+  
+                                  _context.next = 22;
                                   return response.json();
   
-                                case 21:
-                                  data = _context.sent;
-                                  charge = data.payment;
+                                case 22:
+                                  _ref2 = _context.sent;
+                                  _data = _ref2.data;
   
-                                  console.log(data);
-                                  console.log(charge);
+                                  console.log('1111');
+                                  console.log(_data.payment);
+                                  _charge = _data.payment;
+  
+                                  console.log(_charge);
+  
+                                case 28:
                                   pingpp.createPayment(charge, function (result, err) {
                                     if (result == "success") {
                                       console.log(result);
@@ -9910,7 +9921,7 @@ module.exports =
                                     }
                                   });
   
-                                case 27:
+                                case 30:
                                 case 'end':
                                   return _context.stop();
                               }
