@@ -234,7 +234,7 @@ module.exports =
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
     _passport2.default.authenticate('wechat', {
-      session: false,
+      session: true,
       callbackURL: 'http://' + req.headers.host + req.path
     })(req, res, next);
   }, function () {
