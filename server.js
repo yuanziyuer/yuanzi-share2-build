@@ -9786,6 +9786,10 @@ module.exports =
   
   var _regenerator2 = _interopRequireDefault(_regenerator);
   
+  var _stringify = __webpack_require__(2);
+  
+  var _stringify2 = _interopRequireDefault(_stringify);
+  
   var _asyncToGenerator2 = __webpack_require__(3);
   
   var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -9896,7 +9900,7 @@ module.exports =
                                   console.log(_data.payment);
                                   _charge = _data.payment;
   
-                                  console.log(_charge.charge);
+                                  console.log((0, _stringify2.default)(_charge.charge));
   
                                 case 28:
                                   pingpp.createPayment(charge, function (result, err) {
