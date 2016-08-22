@@ -9932,7 +9932,7 @@ module.exports =
                 if (result == "success") {
                   console.log(state);
                   // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-                  state.context.window.location.reload();
+                  state.window.location.reload();
                 } else if (result == "fail") {
                   // charge 不正确或者微信公众账号支付失败时会在此处返回
                   return _react2.default.createElement('div', null);
