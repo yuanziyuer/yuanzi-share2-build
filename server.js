@@ -9884,7 +9884,7 @@ module.exports =
   
                                 case 21:
                                   data = _context.sent;
-                                  charge = data.charge;
+                                  charge = data.payment.charge;
   
                                   console.log(data);
                                   console.log(charge);
