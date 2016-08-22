@@ -9417,7 +9417,7 @@ module.exports =
                 _react2.default.createElement(
                   'p',
                   { className: _Podcasts2.default.price },
-                  item.price === '0' ? '免费' : _NumberFotmat2.default.money(item.price) + ' 元',
+                  item.price === '0' ? '免费' : _NumberFotmat2.default.money(item.price / 100) + ' 元',
                   ' '
                 ),
                 _react2.default.createElement(
@@ -9863,27 +9863,26 @@ module.exports =
   
                                 case 8:
                                   response = _context.sent;
-  
-                                  console.log('get order id');
-                                  console.log(response);
-                                  _context.next = 13;
+                                  _context.next = 11;
                                   return response.json();
   
-                                case 13:
+                                case 11:
                                   _ref = _context.sent;
                                   data = _ref.data;
   
                                   console.log(data);
                                   paymentQuery = '{\n          payment(orderId: "' + data.order.orderId + '", token: "' + token + '", openId: "' + openId + '" ) {\n    charge\n  }\n        }';
-                                  _context.next = 19;
+                                  _context.next = 17;
                                   return (0, _fetch2.default)('/graphql?query=' + paymentQuery);
   
-                                case 19:
+                                case 17:
                                   response = _context.sent;
-                                  _context.next = 22;
+  
+                                  console.log(response);
+                                  _context.next = 21;
                                   return response.json();
   
-                                case 22:
+                                case 21:
                                   data = _context.sent;
                                   charge = data.charge;
   
@@ -9911,7 +9910,7 @@ module.exports =
                                     }
                                   });
   
-                                case 28:
+                                case 27:
                                 case 'end':
                                   return _context.stop();
                               }
