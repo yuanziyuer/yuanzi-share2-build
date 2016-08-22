@@ -9350,20 +9350,30 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var query;
+      var query, response, _ref, data;
+  
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               query = '{\n  podcasts {\n     podcasts {\n      podcastId\n      title\n      cover\n      price\n      lecturer\n      lecturerIntroduction\n      lecturerAvatar\n      content\n      startDate\n      enrollCount\n      userScore\n      roomNumber\n    }\n  }\n}\n';
+              _context.next = 3;
+              return (0, _fetch2.default)('/graphql?query=' + query);
   
-              // console.log(data.payment.charge))
+            case 3:
+              response = _context.sent;
+              _context.next = 6;
+              return response.json();
+  
+            case 6:
+              _ref = _context.sent;
+              data = _ref.data;
   
               state.context.onSetMeta('og:title', '精彩课程');
               state.context.onSetMeta('title', '精彩课程');
               return _context.abrupt('return', _react2.default.createElement(_Podcasts2.default, { podcasts: data.podcasts }));
   
-            case 4:
+            case 11:
             case 'end':
               return _context.stop();
           }
