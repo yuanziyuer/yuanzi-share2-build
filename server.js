@@ -9859,14 +9859,14 @@ module.exports =
   var path = exports.path = '/podcastdetail/*/view';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var data, appData, token, userId, openId, podcastId, query, response, _ref, _data, q, d, charge, _ref2, result;
+      var data, appData, token, userId, openId, podcastId, query, response, _ref, _data, q, d, charge;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 50;
+                _context.next = 36;
                 break;
               }
   
@@ -9877,7 +9877,7 @@ module.exports =
               openId = appData.openId;
   
               if (!token) {
-                _context.next = 49;
+                _context.next = 35;
                 break;
               }
   
@@ -9927,52 +9927,33 @@ module.exports =
   
             case 28:
               charge = _context.sent;
-              _context.next = 31;
-              return pingpp.createPayment(charge.charge);
   
-            case 31:
-              _ref2 = _context.sent;
-              result = _ref2.result;
+              pingpp.createPayment(charge.charge, function (result, err) {
+                if (result == "success") {
+                  console.log(state);
+                  // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+                  state.context.window.location.reload();
+                } else if (result == "fail") {
+                  // charge 不正确或者微信公众账号支付失败时会在此处返回
+                  return _react2.default.createElement('div', null);
+                } else if (result == "cancel") {
+                  // 微信公众账号支付取消支付
+                  return _react2.default.createElement('div', null);
+                }
+              });
   
-              if (!(result == "success")) {
-                _context.next = 41;
-                break;
-              }
-  
-              console.log(result);
-              console.log(_data);
-              // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+              // }
               state.context.onSetMeta('title', _data.podcast.title);
               state.context.onSetMeta('og:title', _data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
   
-            case 41:
-              if (!(result == "fail")) {
-                _context.next = 45;
-                break;
-              }
-  
+            case 35:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 45:
-              if (!(result == "cancel")) {
-                _context.next = 47;
-                break;
-              }
-  
+            case 36:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 47:
-              _context.next = 50;
-              break;
-  
-            case 49:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
-  
-            case 50:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
-  
-            case 51:
+            case 37:
             case 'end':
               return _context.stop();
           }
