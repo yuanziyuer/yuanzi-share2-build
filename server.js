@@ -9960,7 +9960,7 @@ module.exports =
               { className: _Podcast2.default.value },
               podcast.price == 0 ? '免费' : _NumberFotmat2.default.money(podcast.price / 100)
             ),
-            feature ? "" : renderScore(podcast)
+            feature ? "" : this.renderScore(podcast)
           ),
           _react2.default.createElement(
             'div',
