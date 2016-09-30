@@ -291,7 +291,7 @@ module.exports =
                 token = req.body.token.replace(/ /g, '+');
                 // var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
   
-                (0, _fetch2.default)('http://api.iyuanzi.com/payment', {
+                (0, _fetch2.default)('http://api.iyuanzi.com/coupons', {
                   headers: {
                     'Accept': 'application/vnd.yuanzi.v4+json',
                     'Authorization': 'Bearer ' + token,
@@ -9889,7 +9889,20 @@ module.exports =
   
   var _moment2 = _interopRequireDefault(_moment);
   
+  var _Location = __webpack_require__(113);
+  
+  var _Location2 = _interopRequireDefault(_Location);
+  
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  
+  /**
+   * React Starter Kit (https://www.reactstarterkit.com/)
+   *
+   * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.txt file in the root directory of this source tree.
+   */
   
   var Podcasts = function (_Component) {
     (0, _inherits3.default)(Podcasts, _Component);
@@ -9968,15 +9981,7 @@ module.exports =
       }
     }]);
     return Podcasts;
-  }(_react.Component); /**
-                        * React Starter Kit (https://www.reactstarterkit.com/)
-                        *
-                        * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                        *
-                        * This source code is licensed under the MIT license found in the
-                        * LICENSE.txt file in the root directory of this source tree.
-                        */
-  
+  }(_react.Component);
   
   Podcasts.propTypes = {};
   
@@ -12270,7 +12275,7 @@ module.exports =
           }).then(function (json) {
             console.log('sccuess');
             console.log(json);
-            _Location2.default.pop();
+            _Location2.default.goBack();
           });
         }
       }
