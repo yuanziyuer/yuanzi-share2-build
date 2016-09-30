@@ -438,9 +438,7 @@ module.exports =
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-  
-              console.log('normal');
-              _context7.prev = 1;
+              _context7.prev = 0;
               return _context7.delegateYield(_regenerator2.default.mark(function _callee6() {
                 var statusCode, template, data, css, context;
                 return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -493,24 +491,24 @@ module.exports =
                     }
                   }
                 }, _callee6, undefined);
-              })(), 't0', 3);
+              })(), 't0', 2);
   
-            case 3:
-              _context7.next = 8;
+            case 2:
+              _context7.next = 7;
               break;
   
-            case 5:
-              _context7.prev = 5;
-              _context7.t1 = _context7['catch'](1);
+            case 4:
+              _context7.prev = 4;
+              _context7.t1 = _context7['catch'](0);
   
               next(_context7.t1);
   
-            case 8:
+            case 7:
             case 'end':
               return _context7.stop();
           }
         }
-      }, _callee7, undefined, [[1, 5]]);
+      }, _callee7, undefined, [[0, 4]]);
     }));
     return function (_x13, _x14, _x15) {
       return ref.apply(this, arguments);
@@ -6006,14 +6004,16 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var location = (0, _useQueries2.default)( false ? _createBrowserHistory2.default : _createMemoryHistory2.default)(); /**
-                                                                                                                                     * React Starter Kit (https://www.reactstarterkit.com/)
-                                                                                                                                     *
-                                                                                                                                     * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-                                                                                                                                     *
-                                                                                                                                     * This source code is licensed under the MIT license found in the
-                                                                                                                                     * LICENSE.txt file in the root directory of this source tree.
-                                                                                                                                     */
+  var location = (0, _useQueries2.default)( false ? _createBrowserHistory2.default : _createMemoryHistory2.default)({
+    forceRefresh: true
+  }); /**
+       * React Starter Kit (https://www.reactstarterkit.com/)
+       *
+       * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+       *
+       * This source code is licensed under the MIT license found in the
+       * LICENSE.txt file in the root directory of this source tree.
+       */
   
   exports.default = location;
 
