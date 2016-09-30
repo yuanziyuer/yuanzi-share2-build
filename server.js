@@ -11477,7 +11477,7 @@ module.exports =
       value: function payment() {
         var _this2 = this;
   
-        var podcastId = this.props.podcast;
+        var podcastId = this.props.podcast.podcastId;
         var coupon = this.props.coupon;
         if (coupon) {
           (0, _fetch2.default)('/paymentByCoupon', {
@@ -11489,6 +11489,8 @@ module.exports =
           }).then(function (response) {
             return response.json();
           }).then(function (json) {
+            console.log('sccuess');
+            console.log(json);
             _Location2.default.push({ pathname: '/podcasts/' + _this2.props.podcastId + '/view' });
           });
         }
