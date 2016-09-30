@@ -306,7 +306,9 @@ module.exports =
                 }).then(function (data) {
                   return res.json(data);
                 });
-              } catch (err) {}
+              } catch (err) {
+                next(err);
+              }
               try {} catch (err) {
                 next(err);
               }
@@ -327,6 +329,7 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
+    console.log("podcastdetail");
     console.log(req);
     try {
       var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
@@ -344,19 +347,13 @@ module.exports =
     }
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(req, res, next) {
-      var expiresIn, token;
       return _regenerator2.default.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              expiresIn = 60 * 60 * 24 * 180; // 180 days
-  
-              token = _jsonwebtoken2.default.sign(req.user, _config.auth.jwt.secret, { expiresIn: expiresIn });
-  
-              res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-              _context5.prev = 3;
+              _context5.prev = 0;
               return _context5.delegateYield(_regenerator2.default.mark(function _callee4() {
-                var statusCode, template, data, css, context;
+                var statusCode, template, data, css, context, expiresIn, token;
                 return _regenerator2.default.wrap(function _callee4$(_context4) {
                   while (1) {
                     switch (_context4.prev = _context4.next) {
@@ -398,32 +395,37 @@ module.exports =
                       case 8:
   
                         res.status(statusCode);
+                        expiresIn = 60 * 60 * 24 * 180; // 180 days
+  
+                        token = _jsonwebtoken2.default.sign(req.user, _config.auth.jwt.secret, { expiresIn: expiresIn });
+  
+                        res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
                         res.send(template(data));
   
-                      case 10:
+                      case 13:
                       case 'end':
                         return _context4.stop();
                     }
                   }
                 }, _callee4, undefined);
-              })(), 't0', 5);
+              })(), 't0', 2);
   
-            case 5:
-              _context5.next = 10;
+            case 2:
+              _context5.next = 7;
               break;
   
-            case 7:
-              _context5.prev = 7;
-              _context5.t1 = _context5['catch'](3);
+            case 4:
+              _context5.prev = 4;
+              _context5.t1 = _context5['catch'](0);
   
               next(_context5.t1);
   
-            case 10:
+            case 7:
             case 'end':
               return _context5.stop();
           }
         }
-      }, _callee5, undefined, [[3, 7]]);
+      }, _callee5, undefined, [[0, 4]]);
     }));
     return function (_x10, _x11, _x12) {
       return ref.apply(this, arguments);
@@ -436,7 +438,9 @@ module.exports =
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-              _context7.prev = 0;
+  
+              console.log('normal');
+              _context7.prev = 1;
               return _context7.delegateYield(_regenerator2.default.mark(function _callee6() {
                 var statusCode, template, data, css, context;
                 return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -489,24 +493,24 @@ module.exports =
                     }
                   }
                 }, _callee6, undefined);
-              })(), 't0', 2);
+              })(), 't0', 3);
   
-            case 2:
-              _context7.next = 7;
+            case 3:
+              _context7.next = 8;
               break;
   
-            case 4:
-              _context7.prev = 4;
-              _context7.t1 = _context7['catch'](0);
+            case 5:
+              _context7.prev = 5;
+              _context7.t1 = _context7['catch'](1);
   
               next(_context7.t1);
   
-            case 7:
+            case 8:
             case 'end':
               return _context7.stop();
           }
         }
-      }, _callee7, undefined, [[0, 4]]);
+      }, _callee7, undefined, [[1, 5]]);
     }));
     return function (_x13, _x14, _x15) {
       return ref.apply(this, arguments);
