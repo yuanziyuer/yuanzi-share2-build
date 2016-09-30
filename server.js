@@ -383,10 +383,7 @@ module.exports =
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
-                          try {
-                            var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
-                            data.appData = (0, _stringify2.default)(decoded);
-                          } catch (err) {}
+                          data.appData = (0, _stringify2.default)(req.user);
                         });
   
                       case 8:
