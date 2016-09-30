@@ -282,18 +282,16 @@ module.exports =
   
   server.post('/paymentByCoupon', function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, next) {
-      var decoded;
       return _regenerator2.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               try {
-                decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
-  
+                // var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
                 (0, _fetch2.default)('http://api.iyuanzi.com/payment', {
                   headers: {
                     'Accept': 'application/vnd.yuanzi.v4+json',
-                    'Authorization': 'Bearer ' + decoded.access_token,
+                    'Authorization': 'Bearer ' + req.body.token,
                     'Content-Type': 'application/json'
                   },
                   method: 'POST',
@@ -11395,7 +11393,7 @@ module.exports =
             case 13:
               _ref = _context.sent;
               data = _ref.data;
-              return _context.abrupt('return', _react2.default.createElement(_Order2.default, { podcastId: podcastId, coupon: state.coupon, podcast: data.podcast }));
+              return _context.abrupt('return', _react2.default.createElement(_Order2.default, { podcastId: podcastId, coupon: state.coupon, podcast: data.podcast, token: token }));
   
             case 16:
               return _context.abrupt('return', _react2.default.createElement('div', null));
@@ -11503,12 +11501,14 @@ module.exports =
   
         var podcastId = this.props.podcast.podcastId;
         var coupon = this.props.coupon;
+        var token = this.props.token;
         if (coupon) {
           (0, _fetch2.default)('/paymentByCoupon', {
             method: 'POST',
             body: (0, _stringify2.default)({
               podcastId: podcastId,
-              couponCode: coupon
+              couponCode: coupon,
+              token: token
             })
           }).then(function (response) {
             return response.json();
