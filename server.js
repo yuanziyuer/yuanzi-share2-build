@@ -328,7 +328,6 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
-    console.log("podcastdetail");
     try {
       var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
       console.log(decoded);
@@ -11881,6 +11880,13 @@ module.exports =
         _Location2.default.push({ pathname: '/podcastdetail/' + this.props.podcastId + '/order', state: { coupon: coupon.coupon, podcast: this.props.podcast } });
       }
     }, {
+      key: 'addMore',
+      value: function addMore() {
+        _Location2.default.push({
+          pathname: '/podcastdetail/' + this.props.podcastId + '/coupons/add'
+        });
+      }
+    }, {
       key: 'render',
       value: function render() {
         var self = this;
@@ -11924,7 +11930,7 @@ module.exports =
           ),
           _react2.default.createElement(
             'div',
-            { className: _Coupons2.default.addMore },
+            { className: _Coupons2.default.addMore, onClick: this.addMore.bind(this) },
             _react2.default.createElement('img', { className: _Coupons2.default.logo, src: '../../icon_plus@2x.png', alt: '' }),
             _react2.default.createElement(
               'p',
@@ -12065,6 +12071,10 @@ module.exports =
     value: true
   });
   
+  var _stringify = __webpack_require__(2);
+  
+  var _stringify2 = _interopRequireDefault(_stringify);
+  
   var _getPrototypeOf = __webpack_require__(95);
   
   var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -12101,6 +12111,10 @@ module.exports =
   
   var _bind2 = _interopRequireDefault(_bind);
   
+  var _fetch = __webpack_require__(24);
+  
+  var _fetch2 = _interopRequireDefault(_fetch);
+  
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
   /**
@@ -12122,31 +12136,43 @@ module.exports =
   
       var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Coupons).call(this, props, context));
   
-      _this.state = {
-        price: 0
-      };
+      _this.state = {};
       return _this;
     }
   
     (0, _createClass3.default)(Coupons, [{
       key: 'getCoupon',
       value: function getCoupon() {
-        console.log(this.refs.couponInput);
+        var self = this;
+        var coupon = this.ref.couponInput.value;
+        (0, _fetch2.default)('/addCoupon', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: (0, _stringify2.default)({
+            coupon: coupon,
+            token: token
+          })
+        }).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          console.log('sccuess');
+          console.log(json);
+          self.props.context.window.location = '/podcasts/' + podcastId + '/view';
+        });
       }
     }, {
       key: 'render',
       value: function render() {
-        var btnClass = cx({
-          'coupon': true,
-          'couponPressed': true
-        });
         return _react2.default.createElement(
           'div',
           { className: _Coupon2.default.coupons },
           _react2.default.createElement('input', { type: 'text', name: '', id: '', style: { width: '100%', height: '44', textAlign: 'center' }, placeholder: '请输入优惠券', ref: 'couponInput' }),
           _react2.default.createElement(
             'div',
-            { className: _Coupon2.default.addMore, onClick: this.getCoupon },
+            { className: _Coupon2.default.addMore, onClick: this.getCoupon.bind(this) },
             _react2.default.createElement(
               'p',
               { className: _Coupon2.default.title },
