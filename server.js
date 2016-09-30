@@ -280,12 +280,54 @@ module.exports =
     };
   }());
   
-  server.post('/paymentByCoupon', function () {
+  server.post('/coupons', function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, next) {
       var token;
       return _regenerator2.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
+            case 0:
+              try {
+                token = req.body.token.replace(/ /g, '+');
+                // var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
+  
+                (0, _fetch2.default)('http://api.iyuanzi.com/payment', {
+                  headers: {
+                    'Accept': 'application/vnd.yuanzi.v4+json',
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                  },
+                  method: 'POST',
+                  body: (0, _stringify2.default)({
+                    couponCode: req.body.couponCode
+                  })
+                }).then(function (response) {
+                  return response.json();
+                }).then(function (data) {
+                  return res.json(data);
+                });
+              } catch (err) {
+                next(err);
+              }
+  
+            case 1:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _callee3, undefined);
+    }));
+    return function (_x7, _x8, _x9) {
+      return ref.apply(this, arguments);
+    };
+  }());
+  
+  server.post('/paymentByCoupon', function () {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4(req, res, next) {
+      var token;
+      return _regenerator2.default.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               try {
                 console.log(req.body);
@@ -314,12 +356,12 @@ module.exports =
   
             case 1:
             case 'end':
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, undefined);
+      }, _callee4, undefined);
     }));
-    return function (_x7, _x8, _x9) {
+    return function (_x10, _x11, _x12) {
       return ref.apply(this, arguments);
     };
   }());
@@ -343,20 +385,20 @@ module.exports =
       })(req, res, next);
     }
   }, function () {
-    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5(req, res, next) {
-      return _regenerator2.default.wrap(function _callee5$(_context5) {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(req, res, next) {
+      return _regenerator2.default.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
   
               console.log('get cookies');
               console.log(req.cookies);
-              _context5.prev = 2;
-              return _context5.delegateYield(_regenerator2.default.mark(function _callee4() {
+              _context6.prev = 2;
+              return _context6.delegateYield(_regenerator2.default.mark(function _callee5() {
                 var statusCode, template, data, css, context, expiresIn, token;
-                return _regenerator2.default.wrap(function _callee4$(_context4) {
+                return _regenerator2.default.wrap(function _callee5$(_context5) {
                   while (1) {
-                    switch (_context4.prev = _context4.next) {
+                    switch (_context5.prev = _context5.next) {
                       case 0:
                         statusCode = 200;
                         template = __webpack_require__(229);
@@ -382,7 +424,7 @@ module.exports =
                             return statusCode = 404;
                           }
                         };
-                        _context4.next = 8;
+                        _context5.next = 8;
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
@@ -401,48 +443,48 @@ module.exports =
   
                       case 13:
                       case 'end':
-                        return _context4.stop();
+                        return _context5.stop();
                     }
                   }
-                }, _callee4, undefined);
+                }, _callee5, undefined);
               })(), 't0', 4);
   
             case 4:
-              _context5.next = 9;
+              _context6.next = 9;
               break;
   
             case 6:
-              _context5.prev = 6;
-              _context5.t1 = _context5['catch'](2);
+              _context6.prev = 6;
+              _context6.t1 = _context6['catch'](2);
   
-              next(_context5.t1);
+              next(_context6.t1);
   
             case 9:
             case 'end':
-              return _context5.stop();
+              return _context6.stop();
           }
         }
-      }, _callee5, undefined, [[2, 6]]);
+      }, _callee6, undefined, [[2, 6]]);
     }));
-    return function (_x10, _x11, _x12) {
+    return function (_x13, _x14, _x15) {
       return ref.apply(this, arguments);
     };
   }());
   
   server.get('*', function () {
-    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee7(req, res, next) {
-      return _regenerator2.default.wrap(function _callee7$(_context7) {
+    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee8(req, res, next) {
+      return _regenerator2.default.wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
               console.log('get cookies');
               console.log(req.cookies);
-              _context7.prev = 2;
-              return _context7.delegateYield(_regenerator2.default.mark(function _callee6() {
+              _context8.prev = 2;
+              return _context8.delegateYield(_regenerator2.default.mark(function _callee7() {
                 var statusCode, template, data, css, context;
-                return _regenerator2.default.wrap(function _callee6$(_context6) {
+                return _regenerator2.default.wrap(function _callee7$(_context7) {
                   while (1) {
-                    switch (_context6.prev = _context6.next) {
+                    switch (_context7.prev = _context7.next) {
                       case 0:
                         statusCode = 200;
                         template = __webpack_require__(229);
@@ -468,7 +510,7 @@ module.exports =
                             return statusCode = 404;
                           }
                         };
-                        _context6.next = 8;
+                        _context7.next = 8;
                         return _routes2.default.dispatch({ path: req.path, query: req.query, context: context }, function (state, component) {
                           data.body = _server2.default.renderToString(component);
                           data.css = css.join('');
@@ -486,30 +528,30 @@ module.exports =
   
                       case 10:
                       case 'end':
-                        return _context6.stop();
+                        return _context7.stop();
                     }
                   }
-                }, _callee6, undefined);
+                }, _callee7, undefined);
               })(), 't0', 4);
   
             case 4:
-              _context7.next = 9;
+              _context8.next = 9;
               break;
   
             case 6:
-              _context7.prev = 6;
-              _context7.t1 = _context7['catch'](2);
+              _context8.prev = 6;
+              _context8.t1 = _context8['catch'](2);
   
-              next(_context7.t1);
+              next(_context8.t1);
   
             case 9:
             case 'end':
-              return _context7.stop();
+              return _context8.stop();
           }
         }
-      }, _callee7, undefined, [[2, 6]]);
+      }, _callee8, undefined, [[2, 6]]);
     }));
-    return function (_x13, _x14, _x15) {
+    return function (_x16, _x17, _x18) {
       return ref.apply(this, arguments);
     };
   }());
@@ -12138,43 +12180,56 @@ module.exports =
   
       var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Coupons).call(this, props, context));
   
-      _this.state = {};
+      _this.state = {
+        value: ''
+      };
       return _this;
     }
   
     (0, _createClass3.default)(Coupons, [{
       key: 'getCoupon',
       value: function getCoupon() {
-        var self = this;
-        var coupon = this.ref.couponInput.value;
-        (0, _fetch2.default)('/addCoupon', {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: 'POST',
-          body: (0, _stringify2.default)({
-            coupon: coupon,
-            token: token
-          })
-        }).then(function (response) {
-          return response.json();
-        }).then(function (json) {
-          console.log('sccuess');
-          console.log(json);
-          self.props.context.window.location = '/podcasts/' + podcastId + '/view';
-        });
+        if (this.state.value.length == 10) {
+          var coupon = this.state.value;
+          console.log(coupon);
+          (0, _fetch2.default)('/coupons', {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: (0, _stringify2.default)({
+              coupon: coupon,
+              token: token
+            })
+          }).then(function (response) {
+            return response.json();
+          }).then(function (json) {
+            console.log('sccuess');
+            console.log(json);
+            Location.goBack();
+          });
+        }
+      }
+    }, {
+      key: 'handleChange',
+      value: function handleChange(event) {
+        this.setState({ value: event.target.value });
       }
     }, {
       key: 'render',
       value: function render() {
+        var style = cx({
+          'addMore': true,
+          'selected': this.state.value.length == 10
+        });
         return _react2.default.createElement(
           'div',
           { className: _Coupon2.default.coupons },
-          _react2.default.createElement('input', { type: 'text', name: '', id: '', style: { width: '100%', height: '44', textAlign: 'center' }, placeholder: '请输入优惠券', ref: 'couponInput' }),
+          _react2.default.createElement('input', { value: this.state.value, onChange: this.handleChange.bind(this), type: 'text', name: '', id: '', style: { width: '100%', height: '44', textAlign: 'center' }, placeholder: '请输入优惠券', ref: 'couponInput' }),
           _react2.default.createElement(
             'div',
-            { className: _Coupon2.default.addMore, onClick: this.getCoupon.bind(this) },
+            { className: style, onClick: this.getCoupon.bind(this) },
             _react2.default.createElement(
               'p',
               { className: _Coupon2.default.title },
@@ -12215,7 +12270,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "._1lD-{background-color:#f7f7f7;height:100vh}._1lD- img{-o-object-fit:contain;object-fit:contain}._1lD- ul{list-style:none;padding:0;background-color:#f7f7f7}._1lD- ul li{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:5px 10px 0}._1lD- ul li .Aln2{font-size:14px;color:#666}._1lD- ul ._3g-H{-webkit-box-flex:1;-ms-flex:1;flex:1;background-color:transparent;border-style:solid;height:103px;border-width:8px 100px 8px 12px;-o-border-image:url(" + __webpack_require__(221) + ") 8 100 8 12 repeat;border-image:url(" + __webpack_require__(221) + ") 8 100 8 12 fill repeat;padding:0 20px}._1lD- ul ._3g-H ._2CaM{color:#999;font-size:12px;margin-bottom:10px}._1lD- ul ._3g-H .Aln2{font-size:18px;color:#666;margin-bottom:20px}._1lD- ul ._3g-H ._1xby{color:#666;font-size:12px;text-align:end}._1lD- ul .dqHN{-o-border-image:url(" + __webpack_require__(222) + ") 8 100 8 12 repeat;border-image:url(" + __webpack_require__(222) + ") 8 100 8 12 fill repeat}._1lD- ul .dqHN ._2CaM{color:#fff;font-size:12px;margin-bottom:10px}._1lD- ul .dqHN .Aln2{font-size:18px;color:#fff;margin-bottom:20px}._1lD- ul .dqHN ._1xby{color:#fff;font-size:12px;text-align:end}._XDk{position:fixed;left:auto;display:-webkit-box;display:-ms-flexbox;display:flex;bottom:0;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;max-width:768px;height:50px;width:calc(100% - 20px);background:#cbcbcb;padding:6px 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 10px 90px;border-radius:5px}._XDk .Aln2{color:#fff;font-size:15px;text-align:left;margin-left:10px}", ""]);
+  exports.push([module.id, "._1lD-{background-color:#f7f7f7;height:100vh}._1lD- img{-o-object-fit:contain;object-fit:contain}._1lD- ul{list-style:none;padding:0;background-color:#f7f7f7}._1lD- ul li{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:5px 10px 0}._1lD- ul li .Aln2{font-size:14px;color:#666}._1lD- ul ._3g-H{-webkit-box-flex:1;-ms-flex:1;flex:1;background-color:transparent;border-style:solid;height:103px;border-width:8px 100px 8px 12px;-o-border-image:url(" + __webpack_require__(221) + ") 8 100 8 12 repeat;border-image:url(" + __webpack_require__(221) + ") 8 100 8 12 fill repeat;padding:0 20px}._1lD- ul ._3g-H ._2CaM{color:#999;font-size:12px;margin-bottom:10px}._1lD- ul ._3g-H .Aln2{font-size:18px;color:#666;margin-bottom:20px}._1lD- ul ._3g-H ._1xby{color:#666;font-size:12px;text-align:end}._1lD- ul .dqHN{-o-border-image:url(" + __webpack_require__(222) + ") 8 100 8 12 repeat;border-image:url(" + __webpack_require__(222) + ") 8 100 8 12 fill repeat}._1lD- ul .dqHN ._2CaM{color:#fff;font-size:12px;margin-bottom:10px}._1lD- ul .dqHN .Aln2{font-size:18px;color:#fff;margin-bottom:20px}._1lD- ul .dqHN ._1xby{color:#fff;font-size:12px;text-align:end}._XDk{position:fixed;left:auto;display:-webkit-box;display:-ms-flexbox;display:flex;bottom:0;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;max-width:768px;height:50px;width:calc(100% - 20px);background:#cbcbcb;padding:6px 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 10px 90px;border-radius:5px}._XDk .Aln2{color:#fff;font-size:15px;text-align:left;margin-left:10px}._1Se-{background:#ff989e}", ""]);
   
   // exports
   exports.locals = {
@@ -12225,7 +12280,8 @@ module.exports =
   	"label": "_2CaM",
   	"expired": "_1xby",
   	"couponPressed": "dqHN",
-  	"addMore": "_XDk"
+  	"addMore": "_XDk",
+  	"selected": "_1Se-"
   };
 
 /***/ },
