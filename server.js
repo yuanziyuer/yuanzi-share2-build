@@ -11470,7 +11470,7 @@ module.exports =
       var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(Order).call(this, props, context));
   
       _this.state = {
-        price: props.coupon ? 0 : props.podcast.price / 100,
+        price: 0,
         selectedCoupon: props.coupon
       };
       return _this;
