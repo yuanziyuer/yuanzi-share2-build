@@ -12248,6 +12248,8 @@ module.exports =
       value: function getCoupon() {
         if (this.state.value.length == 10) {
           var coupon = this.state.value;
+          var token = this.props.token;
+  
           console.log(coupon);
           (0, _fetch2.default)('/coupons', {
             headers: {
