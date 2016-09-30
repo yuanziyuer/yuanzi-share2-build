@@ -1155,8 +1155,10 @@ module.exports =
     },
   
     wechat: {
-      id: process.env.WECHAT_APP_ID || 'wx59c71c7bb3b9af6b',
-      secret: process.env.WECHAT_APP_SECRET || 'db89ca26684d669ce025d1e6152c2a07'
+      // id: process.env.WECHAT_APP_ID || 'wx59c71c7bb3b9af6b',
+      // secret: process.env.WECHAT_APP_SECRET || 'db89ca26684d669ce025d1e6152c2a07',
+      id: process.env.WECHAT_APP_ID || 'wx6d197b70b7d38ad6',
+      secret: process.env.WECHAT_APP_SECRET || 'abe3a67ffa3a5f6d74b625abce947e1c'
     }
   
   };
