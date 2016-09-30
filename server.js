@@ -10519,25 +10519,25 @@ module.exports =
   var path = exports.path = '/podcastdetail/*/view';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var data, appData, token, userId, openId, podcastId, query, response, _ref, _data, q, d;
+      var d, appData, token, userId, openId, podcastId, query, response, _ref, data;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 30;
+                _context.next = 19;
                 break;
               }
   
-              data = state.context.appData.replace(/&quot;/g, '"');
-              appData = JSON.parse(data);
+              d = state.context.appData.replace(/&quot;/g, '"');
+              appData = JSON.parse(d);
               token = appData.access_token;
               userId = appData.userId;
               openId = appData.openId;
   
               if (!token) {
-                _context.next = 29;
+                _context.next = 19;
                 break;
               }
   
@@ -10553,64 +10553,16 @@ module.exports =
   
             case 14:
               _ref = _context.sent;
-              _data = _ref.data;
+              data = _ref.data;
   
-              if (_data.podcast.joined) {
-                _context.next = 24;
-                break;
-              }
+              state.context.onSetMeta('title', data.podcast.title);
+              state.context.onSetMeta('og:title', data.podcast.title);
+              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-              q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
-              _context.next = 20;
-              return (0, _fetch2.default)('/graphql?query=' + q);
+            case 19:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
   
             case 20:
-              response = _context.sent;
-              _context.next = 23;
-              return response.json();
-  
-            case 23:
-              d = _context.sent;
-  
-            case 24:
-              //  response = await fetch(`/payment`, {
-              //   headers: {
-              //     'Accept': 'application/vnd.yuanzi.v4+json',
-              //     'Authorization': 'Bearer ilbKTN26hfHRy9Uhj0VqiLPc8Zk/lt5DahGMCxY1uYk=',
-              //     'Content-Type': 'application/json'
-              //   },
-              //   method: 'POST',
-              //   body: JSON.stringify({
-              //     orderId: d.data.order.orderId,
-              //     openId: openId
-              //   })
-              // });
-              // const charge = await response.json();
-              //   pingpp.createPayment(charge.charge, function(result, err){
-              //     if (result == "success") {
-              //       console.log(state)
-              //       // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-              //       state.window.location.reload()
-              //     } else if (result == "fail") {
-              //       // charge 不正确或者微信公众账号支付失败时会在此处返回
-              //       return <div></div>
-              //     } else if (result == "cancel") {
-              //       // 微信公众账号支付取消支付
-              //       return <div></div>
-              //     }
-              //   });
-  
-              state.context.onSetMeta('title', _data.podcast.title);
-              state.context.onSetMeta('og:title', _data.podcast.title);
-              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
-  
-            case 29:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
-  
-            case 30:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
-  
-            case 31:
             case 'end':
               return _context.stop();
           }
