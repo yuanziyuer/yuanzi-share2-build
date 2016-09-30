@@ -288,6 +288,7 @@ module.exports =
           switch (_context3.prev = _context3.next) {
             case 0:
               try {
+                console.log(req.body);
                 token = req.body.token.replace(/ /g, '+');
                 // var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
   
@@ -11393,7 +11394,7 @@ module.exports =
             case 13:
               _ref = _context.sent;
               data = _ref.data;
-              return _context.abrupt('return', _react2.default.createElement(_Order2.default, { podcastId: podcastId, coupon: state.coupon, podcast: data.podcast, token: token }));
+              return _context.abrupt('return', _react2.default.createElement(_Order2.default, { podcastId: podcastId, coupon: state.coupon, podcast: data.podcast, token: token, context: state }));
   
             case 16:
               return _context.abrupt('return', _react2.default.createElement('div', null));
@@ -11497,12 +11498,15 @@ module.exports =
     (0, _createClass3.default)(Order, [{
       key: 'payment',
       value: function payment() {
-        var _this2 = this;
-  
         var podcastId = this.props.podcast.podcastId;
         var coupon = this.props.coupon;
         var token = this.props.token;
-        console.log(this.props);
+        var self = this;
+        console.log((0, _stringify2.default)({
+          podcastId: podcastId,
+          couponCode: coupon,
+          token: token
+        }));
         if (coupon) {
           (0, _fetch2.default)('/paymentByCoupon', {
             method: 'POST',
@@ -11516,7 +11520,7 @@ module.exports =
           }).then(function (json) {
             console.log('sccuess');
             console.log(json);
-            _Location2.default.push({ pathname: '/podcasts/' + _this2.props.podcastId + '/view' });
+            self.props.context.window.location = '/podcasts/' + podcast.podcastId + '/view';
           });
         }
   
