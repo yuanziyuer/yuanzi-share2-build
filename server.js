@@ -336,6 +336,7 @@ module.exports =
         callbackURL: 'http://' + req.headers.host + req.path
       })(req, res, next);
     } catch (err) {
+      console.log(err);
       _passport2.default.authenticate('wechat', {
         session: true,
         callbackURL: 'http://' + req.headers.host + req.path
