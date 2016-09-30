@@ -11509,6 +11509,9 @@ module.exports =
         }));
         if (coupon) {
           (0, _fetch2.default)('/paymentByCoupon', {
+            headers: {
+              'Accept': 'application/json'
+            },
             method: 'POST',
             body: (0, _stringify2.default)({
               podcastId: podcastId,
