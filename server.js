@@ -371,7 +371,6 @@ module.exports =
   server.get('/podcastdetail*', function (req, res, next) {
     try {
       var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
-      console.log(decoded);
       _passport2.default.authenticate('wechatNo', {
         session: true,
         callbackURL: 'http://' + req.headers.host + req.path
@@ -389,10 +388,7 @@ module.exports =
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-  
-              console.log('get cookies');
-              console.log(req.cookies);
-              _context6.prev = 2;
+              _context6.prev = 0;
               return _context6.delegateYield(_regenerator2.default.mark(function _callee5() {
                 var statusCode, template, data, css, context, expiresIn, token;
                 return _regenerator2.default.wrap(function _callee5$(_context5) {
@@ -446,24 +442,24 @@ module.exports =
                     }
                   }
                 }, _callee5, undefined);
-              })(), 't0', 4);
+              })(), 't0', 2);
   
-            case 4:
-              _context6.next = 9;
+            case 2:
+              _context6.next = 7;
               break;
   
-            case 6:
-              _context6.prev = 6;
-              _context6.t1 = _context6['catch'](2);
+            case 4:
+              _context6.prev = 4;
+              _context6.t1 = _context6['catch'](0);
   
               next(_context6.t1);
   
-            case 9:
+            case 7:
             case 'end':
               return _context6.stop();
           }
         }
-      }, _callee6, undefined, [[2, 6]]);
+      }, _callee6, undefined, [[0, 4]]);
     }));
     return function (_x13, _x14, _x15) {
       return ref.apply(this, arguments);
@@ -476,9 +472,7 @@ module.exports =
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
-              console.log('get cookies');
-              console.log(req.cookies);
-              _context8.prev = 2;
+              _context8.prev = 0;
               return _context8.delegateYield(_regenerator2.default.mark(function _callee7() {
                 var statusCode, template, data, css, context;
                 return _regenerator2.default.wrap(function _callee7$(_context7) {
@@ -531,24 +525,24 @@ module.exports =
                     }
                   }
                 }, _callee7, undefined);
-              })(), 't0', 4);
+              })(), 't0', 2);
   
-            case 4:
-              _context8.next = 9;
+            case 2:
+              _context8.next = 7;
               break;
   
-            case 6:
-              _context8.prev = 6;
-              _context8.t1 = _context8['catch'](2);
+            case 4:
+              _context8.prev = 4;
+              _context8.t1 = _context8['catch'](0);
   
               next(_context8.t1);
   
-            case 9:
+            case 7:
             case 'end':
               return _context8.stop();
           }
         }
-      }, _callee8, undefined, [[2, 6]]);
+      }, _callee8, undefined, [[0, 4]]);
     }));
     return function (_x16, _x17, _x18) {
       return ref.apply(this, arguments);
