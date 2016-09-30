@@ -11510,7 +11510,8 @@ module.exports =
         if (coupon) {
           (0, _fetch2.default)('/paymentByCoupon', {
             headers: {
-              'Accept': 'application/json'
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
             },
             method: 'POST',
             body: (0, _stringify2.default)({
