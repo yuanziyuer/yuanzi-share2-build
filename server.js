@@ -12216,6 +12216,10 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
+  var _Location = __webpack_require__(113);
+  
+  var _Location2 = _interopRequireDefault(_Location);
+  
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
   /**
@@ -12258,7 +12262,7 @@ module.exports =
             },
             method: 'POST',
             body: (0, _stringify2.default)({
-              coupon: coupon,
+              couponCode: coupon,
               token: token
             })
           }).then(function (response) {
@@ -12266,7 +12270,7 @@ module.exports =
           }).then(function (json) {
             console.log('sccuess');
             console.log(json);
-            Location.goBack();
+            _Location2.default.pop();
           });
         }
       }
