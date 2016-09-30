@@ -10055,7 +10055,7 @@ module.exports =
               state.context.onSetMeta('og:title', data.podcast.title);
               state.context.onSetMeta('description', data.podcast.content);
               state.context.onSetTitle(title);
-              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: data.podcast }));
+              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: data.podcast, context: state }));
   
             case 23:
               _podcastId = state.path.replace('/podcasts/', '').replace('/view', '');
@@ -10079,7 +10079,7 @@ module.exports =
               state.context.onSetMeta('og:title', _data.podcast.title);
               state.context.onSetMeta('description', _data.podcast.content);
               state.context.onSetTitle(_title);
-              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: _data.podcast }));
+              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: _data.podcast, context: state }));
   
             case 40:
             case 'end':
@@ -10222,6 +10222,7 @@ module.exports =
     }, {
       key: 'redirectOrder',
       value: function redirectOrder(event) {
+  
         var podcast = this.props.podcast;
         if (podcast.joined) {
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
@@ -10231,9 +10232,7 @@ module.exports =
           (0, _fetch2.default)('/graphql?query=' + q);
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
         } else {
-          _Location2.default.push({
-            pathname: '/podcastdetail/' + podcast.podcastId + '/order', state: { podcast: podcast }
-          });
+          this.props.context.window.location = '/podcastdetail/' + podcast.podcastId + '/order';
         }
       }
     }, {
