@@ -239,18 +239,18 @@ module.exports =
   
   server.post('/payment', function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(req, res, next) {
-      var decoded;
+      var token;
       return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               try {
-                decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
+                token = req.body.token.replace(/ /g, '+');
   
                 (0, _fetch2.default)('http://api.iyuanzi.com/payment', {
                   headers: {
                     'Accept': 'application/vnd.yuanzi.v4+json',
-                    'Authorization': 'Bearer ' + decoded.access_token,
+                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                   },
                   method: 'POST',
@@ -330,7 +330,6 @@ module.exports =
           switch (_context4.prev = _context4.next) {
             case 0:
               try {
-                console.log(req.body);
                 token = req.body.token.replace(/ /g, '+');
                 // var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
   
@@ -10515,14 +10514,14 @@ module.exports =
   var path = exports.path = '/podcastdetail/*/view';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var data, appData, token, userId, openId, podcastId, query, response, _ref, _data;
+      var data, appData, token, userId, openId, podcastId, query, response, _ref, _data, q, d;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 22;
+                _context.next = 30;
                 break;
               }
   
@@ -10533,7 +10532,7 @@ module.exports =
               openId = appData.openId;
   
               if (!token) {
-                _context.next = 21;
+                _context.next = 29;
                 break;
               }
   
@@ -10551,17 +10550,62 @@ module.exports =
               _ref = _context.sent;
               _data = _ref.data;
   
+              if (_data.podcast.joined) {
+                _context.next = 24;
+                break;
+              }
+  
+              q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
+              _context.next = 20;
+              return (0, _fetch2.default)('/graphql?query=' + q);
+  
+            case 20:
+              response = _context.sent;
+              _context.next = 23;
+              return response.json();
+  
+            case 23:
+              d = _context.sent;
+  
+            case 24:
+              //  response = await fetch(`/payment`, {
+              //   headers: {
+              //     'Accept': 'application/vnd.yuanzi.v4+json',
+              //     'Authorization': 'Bearer ilbKTN26hfHRy9Uhj0VqiLPc8Zk/lt5DahGMCxY1uYk=',
+              //     'Content-Type': 'application/json'
+              //   },
+              //   method: 'POST',
+              //   body: JSON.stringify({
+              //     orderId: d.data.order.orderId,
+              //     openId: openId
+              //   })
+              // });
+              // const charge = await response.json();
+              //   pingpp.createPayment(charge.charge, function(result, err){
+              //     if (result == "success") {
+              //       console.log(state)
+              //       // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+              //       state.window.location.reload()
+              //     } else if (result == "fail") {
+              //       // charge 不正确或者微信公众账号支付失败时会在此处返回
+              //       return <div></div>
+              //     } else if (result == "cancel") {
+              //       // 微信公众账号支付取消支付
+              //       return <div></div>
+              //     }
+              //   });
+  
               state.context.onSetMeta('title', _data.podcast.title);
               state.context.onSetMeta('og:title', _data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: _data.podcast.roomNumber, userId: userId }));
   
-            case 21:
+            case 29:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 22:
+            case 30:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 23:
+            case 31:
             case 'end':
               return _context.stop();
           }
@@ -12084,16 +12128,29 @@ module.exports =
   var path = exports.path = '/podcastdetail/*/coupons/add';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
+      var d, appData, token;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              if (!(state.context.appData && state.context.appData.length > 0)) {
+                _context.next = 7;
+                break;
+              }
+  
+              d = state.context.appData.replace(/&quot;/g, '"');
+              appData = JSON.parse(d);
+              token = appData.access_token;
+  
   
               state.context.onSetMeta('og:title', '优惠券');
               state.context.onSetMeta('title', '优惠券');
-              return _context.abrupt('return', _react2.default.createElement(_Coupon2.default, null));
+              return _context.abrupt('return', _react2.default.createElement(_Coupon2.default, { token: token }));
   
-            case 3:
+            case 7:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 8:
             case 'end':
               return _context.stop();
           }
