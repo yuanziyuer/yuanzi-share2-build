@@ -11946,6 +11946,7 @@ module.exports =
                 'coupon': true,
                 'couponPressed': coupon == self.state.coupon
               });
+              var localTime = (0, _moment2.default)(coupon.expired).format('YYYY-MM-DD');
               return _react2.default.createElement(
                 'li',
                 { key: coupon.coupon, onClick: self.selectedCoupon.bind(self, coupon) },
@@ -11966,7 +11967,7 @@ module.exports =
                     'p',
                     { className: _Coupons2.default.expired },
                     '有效期至: ',
-                    (0, _moment2.default)(coupon.expired).format('YYYY-MM-DD')
+                    localTime
                   )
                 )
               );
