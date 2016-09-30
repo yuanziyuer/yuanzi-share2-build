@@ -11524,7 +11524,7 @@ module.exports =
           }).then(function (json) {
             console.log('sccuess');
             console.log(json);
-            self.props.context.window.location = '/podcasts/' + podcast.podcastId + '/view';
+            self.props.context.window.location = '/podcasts/' + podcastId + '/view';
           });
         }
   
