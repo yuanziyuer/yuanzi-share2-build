@@ -348,7 +348,10 @@ module.exports =
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              _context5.prev = 0;
+  
+              console.log('get cookies');
+              console.log(req.cookies);
+              _context5.prev = 2;
               return _context5.delegateYield(_regenerator2.default.mark(function _callee4() {
                 var statusCode, template, data, css, context, expiresIn, token;
                 return _regenerator2.default.wrap(function _callee4$(_context4) {
@@ -402,24 +405,24 @@ module.exports =
                     }
                   }
                 }, _callee4, undefined);
-              })(), 't0', 2);
-  
-            case 2:
-              _context5.next = 7;
-              break;
+              })(), 't0', 4);
   
             case 4:
-              _context5.prev = 4;
-              _context5.t1 = _context5['catch'](0);
+              _context5.next = 9;
+              break;
+  
+            case 6:
+              _context5.prev = 6;
+              _context5.t1 = _context5['catch'](2);
   
               next(_context5.t1);
   
-            case 7:
+            case 9:
             case 'end':
               return _context5.stop();
           }
         }
-      }, _callee5, undefined, [[0, 4]]);
+      }, _callee5, undefined, [[2, 6]]);
     }));
     return function (_x10, _x11, _x12) {
       return ref.apply(this, arguments);
@@ -432,7 +435,9 @@ module.exports =
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-              _context7.prev = 0;
+              console.log('get cookies');
+              console.log(req.cookies);
+              _context7.prev = 2;
               return _context7.delegateYield(_regenerator2.default.mark(function _callee6() {
                 var statusCode, template, data, css, context;
                 return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -485,24 +490,24 @@ module.exports =
                     }
                   }
                 }, _callee6, undefined);
-              })(), 't0', 2);
-  
-            case 2:
-              _context7.next = 7;
-              break;
+              })(), 't0', 4);
   
             case 4:
-              _context7.prev = 4;
-              _context7.t1 = _context7['catch'](0);
+              _context7.next = 9;
+              break;
+  
+            case 6:
+              _context7.prev = 6;
+              _context7.t1 = _context7['catch'](2);
   
               next(_context7.t1);
   
-            case 7:
+            case 9:
             case 'end':
               return _context7.stop();
           }
         }
-      }, _callee7, undefined, [[0, 4]]);
+      }, _callee7, undefined, [[2, 6]]);
     }));
     return function (_x13, _x14, _x15) {
       return ref.apply(this, arguments);
