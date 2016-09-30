@@ -282,16 +282,19 @@ module.exports =
   
   server.post('/paymentByCoupon', function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3(req, res, next) {
+      var token;
       return _regenerator2.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               try {
+                token = req.body.token.replace(/ /g, '+');
                 // var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
+  
                 (0, _fetch2.default)('http://api.iyuanzi.com/payment', {
                   headers: {
                     'Accept': 'application/vnd.yuanzi.v4+json',
-                    'Authorization': 'Bearer ' + req.body.token,
+                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                   },
                   method: 'POST',
@@ -307,11 +310,8 @@ module.exports =
               } catch (err) {
                 next(err);
               }
-              try {} catch (err) {
-                next(err);
-              }
   
-            case 2:
+            case 1:
             case 'end':
               return _context3.stop();
           }
