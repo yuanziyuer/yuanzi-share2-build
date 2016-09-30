@@ -330,7 +330,6 @@ module.exports =
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
     console.log("podcastdetail");
-    console.log(req);
     try {
       var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
       console.log(decoded);
