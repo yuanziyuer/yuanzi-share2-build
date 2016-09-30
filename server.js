@@ -10526,7 +10526,7 @@ module.exports =
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 19;
+                _context.next = 20;
                 break;
               }
   
@@ -10537,7 +10537,7 @@ module.exports =
               openId = appData.openId;
   
               if (!token) {
-                _context.next = 19;
+                _context.next = 20;
                 break;
               }
   
@@ -10555,14 +10555,15 @@ module.exports =
               _ref = _context.sent;
               data = _ref.data;
   
+              console.log(data.podcast.roomNumber);
               state.context.onSetMeta('title', data.podcast.title);
               state.context.onSetMeta('og:title', data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-            case 19:
+            case 20:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 20:
+            case 21:
             case 'end':
               return _context.stop();
           }
