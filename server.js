@@ -6003,16 +6003,14 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var location = (0, _useQueries2.default)( false ? _createBrowserHistory2.default : _createMemoryHistory2.default)({
-    forceRefresh: true
-  }); /**
-       * React Starter Kit (https://www.reactstarterkit.com/)
-       *
-       * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
-       *
-       * This source code is licensed under the MIT license found in the
-       * LICENSE.txt file in the root directory of this source tree.
-       */
+  var location = (0, _useQueries2.default)( false ? _createBrowserHistory2.default : _createMemoryHistory2.default)(); /**
+                                                                                                                                     * React Starter Kit (https://www.reactstarterkit.com/)
+                                                                                                                                     *
+                                                                                                                                     * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+                                                                                                                                     *
+                                                                                                                                     * This source code is licensed under the MIT license found in the
+                                                                                                                                     * LICENSE.txt file in the root directory of this source tree.
+                                                                                                                                     */
   
   exports.default = location;
 
@@ -10225,7 +10223,6 @@ module.exports =
       key: 'redirectOrder',
       value: function redirectOrder(event) {
         var podcast = this.props.podcast;
-        console.log(podcast);
         if (podcast.joined) {
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
         } else if (!podcast.joined && podcast.price == 0) {
