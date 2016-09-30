@@ -11368,33 +11368,43 @@ module.exports =
   var path = exports.path = '/podcastdetail/*/order';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var podcastId, query, response, _ref, data;
+      var d, appData, token, podcastId, query, response, _ref, data;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(state);
+              if (!(state.context.appData && state.context.appData.length > 0)) {
+                _context.next = 16;
+                break;
+              }
+  
+              d = state.context.appData.replace(/&quot;/g, '"');
+              appData = JSON.parse(d);
+              token = appData.access_token;
               podcastId = state.path.replace('/podcastdetail/', '').replace('/order', '');
   
               state.context.onSetMeta('og:title', '确认订单');
               state.context.onSetMeta('title', '确认订单');
   
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 7;
+              _context.next = 10;
               return fetch('/graphql?query=' + query);
   
-            case 7:
+            case 10:
               response = _context.sent;
-              _context.next = 10;
+              _context.next = 13;
               return response.json();
   
-            case 10:
+            case 13:
               _ref = _context.sent;
               data = _ref.data;
               return _context.abrupt('return', _react2.default.createElement(_Order2.default, { podcastId: podcastId, coupon: state.coupon, podcast: data.podcast }));
   
-            case 13:
+            case 16:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 17:
             case 'end':
               return _context.stop();
           }
