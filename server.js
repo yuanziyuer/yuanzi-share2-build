@@ -3336,7 +3336,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var routes = [__webpack_require__(138), __webpack_require__(142), __webpack_require__(146), __webpack_require__(150), __webpack_require__(170), __webpack_require__(174), __webpack_require__(178), __webpack_require__(182), __webpack_require__(186), __webpack_require__(190), __webpack_require__(195), __webpack_require__(209), __webpack_require__(213), __webpack_require__(217), __webpack_require__(224)]; /**
+  var routes = [__webpack_require__(138), __webpack_require__(142), __webpack_require__(146), __webpack_require__(150), __webpack_require__(170), __webpack_require__(174), __webpack_require__(178), __webpack_require__(182), __webpack_require__(186), __webpack_require__(190), __webpack_require__(195), __webpack_require__(208), __webpack_require__(212), __webpack_require__(217), __webpack_require__(224)]; /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * React Starter Kit (https://www.reactstarterkit.com/)
                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *
                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
@@ -10501,11 +10501,10 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
-  var pingpp = __webpack_require__(208); /**
-                                      * Created by diwu on 3/12/16.
-                                      */
+  var path = exports.path = '/podcastdetail/*/view'; /**
+                                                      * Created by diwu on 3/12/16.
+                                                      */
   
-  var path = exports.path = '/podcastdetail/*/view';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
       var d, appData, token, userId, podcastId, query, response, _ref, data;
@@ -11141,12 +11140,6 @@ module.exports =
 
 /***/ },
 /* 208 */
-/***/ function(module, exports) {
-
-  module.exports = require("pingpp-js");
-
-/***/ },
-/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -11172,7 +11165,7 @@ module.exports =
   
   var _fetch2 = _interopRequireDefault(_fetch);
   
-  var _Topics = __webpack_require__(210);
+  var _Topics = __webpack_require__(209);
   
   var _Topics2 = _interopRequireDefault(_Topics);
   
@@ -11220,7 +11213,7 @@ module.exports =
   }();
 
 /***/ },
-/* 210 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -11237,7 +11230,7 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Topics = __webpack_require__(211);
+  var _Topics = __webpack_require__(210);
   
   var _Topics2 = _interopRequireDefault(_Topics);
   
@@ -11319,11 +11312,11 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Podcasts, _Topics2.default);
 
 /***/ },
-/* 211 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(212);
+      var content = __webpack_require__(211);
       var insertCss = __webpack_require__(104);
   
       if (typeof content === 'string') {
@@ -11336,7 +11329,7 @@ module.exports =
     
 
 /***/ },
-/* 212 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(103)();
@@ -11356,7 +11349,7 @@ module.exports =
   };
 
 /***/ },
-/* 213 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -11378,7 +11371,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _Order = __webpack_require__(214);
+  var _Order = __webpack_require__(213);
   
   var _Order2 = _interopRequireDefault(_Order);
   
@@ -11444,7 +11437,7 @@ module.exports =
   }();
 
 /***/ },
-/* 214 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -11485,7 +11478,7 @@ module.exports =
   
   var _withStyles2 = _interopRequireDefault(_withStyles);
   
-  var _Order = __webpack_require__(215);
+  var _Order = __webpack_require__(214);
   
   var _Order2 = _interopRequireDefault(_Order);
   
@@ -11511,6 +11504,8 @@ module.exports =
    * This source code is licensed under the MIT license found in the
    * LICENSE.txt file in the root directory of this source tree.
    */
+  
+  var pingpp = __webpack_require__(216);
   
   var Order = function (_Component) {
     (0, _inherits3.default)(Order, _Component);
@@ -11703,11 +11698,11 @@ module.exports =
   exports.default = (0, _withStyles2.default)(Order, _Order2.default);
 
 /***/ },
-/* 215 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
   
-      var content = __webpack_require__(216);
+      var content = __webpack_require__(215);
       var insertCss = __webpack_require__(104);
   
       if (typeof content === 'string') {
@@ -11720,7 +11715,7 @@ module.exports =
     
 
 /***/ },
-/* 216 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(103)();
@@ -11744,6 +11739,12 @@ module.exports =
   	"coupon": "_3CnQ",
   	"pay": "_2vsd"
   };
+
+/***/ },
+/* 216 */
+/***/ function(module, exports) {
+
+  module.exports = require("pingpp-js");
 
 /***/ },
 /* 217 */
