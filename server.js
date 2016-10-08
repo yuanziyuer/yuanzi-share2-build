@@ -244,6 +244,11 @@ module.exports =
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              console.log((0, _stringify2.default)({
+                orderId: req.body.orderId,
+                channel: 'wx_pub',
+                openId: req.body.openId
+              }));
               try {
                 token = req.body.token.replace(/ /g, '+');
   
@@ -262,13 +267,15 @@ module.exports =
                 }).then(function (response) {
                   return response.json();
                 }).then(function (data) {
+                  console.log(data);
                   return res.json(data);
                 });
               } catch (err) {
+                console.log(err);
                 next(err);
               }
   
-            case 1:
+            case 2:
             case 'end':
               return _context2.stop();
           }
@@ -11574,8 +11581,8 @@ module.exports =
                 openId: openId,
                 token: token
               })
-            }).then(function (response) {
-              return response.json();
+            }).then(function (r) {
+              return r.json();
             }).then(function (json) {
               console.log(json);
               pingpp.createPayment(json.charge, function (result, err) {
