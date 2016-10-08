@@ -10093,7 +10093,7 @@ module.exports =
               state.context.onSetMeta('og:title', data.podcast.title);
               state.context.onSetMeta('description', data.podcast.content);
               state.context.onSetTitle(title);
-              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: data.podcast, context: state }));
+              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: data.podcast, context: state, token: token }));
   
             case 23:
               _podcastId = state.path.replace('/podcasts/', '').replace('/view', '');
@@ -10117,7 +10117,7 @@ module.exports =
               state.context.onSetMeta('og:title', _data.podcast.title);
               state.context.onSetMeta('description', _data.podcast.content);
               state.context.onSetTitle(_title);
-              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: _data.podcast, context: state }));
+              return _context.abrupt('return', _react2.default.createElement(_Podcast2.default, { podcast: _data.podcast, context: state, token: 'unsign' }));
   
             case 40:
             case 'end':
@@ -10262,12 +10262,15 @@ module.exports =
       value: function redirectOrder(event) {
   
         var podcast = this.props.podcast;
+        var token = this.props.token;
         if (podcast.joined) {
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
         } else if (!podcast.joined && podcast.price == 0) {
   
           var q = '{\n  order(podcastId: "' + podcast.podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
-          (0, _fetch2.default)('/graphql?query=' + q);
+          if (token != 'unsign') {
+            (0, _fetch2.default)('/graphql?query=' + q);
+          }
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
         } else {
           this.props.context.window.location = '/podcastdetail/' + podcast.podcastId + '/order';
