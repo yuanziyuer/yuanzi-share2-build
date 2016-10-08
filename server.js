@@ -11577,6 +11577,7 @@ module.exports =
             }).then(function (response) {
               return response.json();
             }).then(function (json) {
+              console.log(json);
               pingpp.createPayment(json.charge, function (result, err) {
                 if (result == "success") {
                   // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
