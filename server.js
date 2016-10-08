@@ -195,30 +195,30 @@ module.exports =
     };
   }));
   
-  server.post('/order', function () {
+  server.post('/orders', function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(req, res, next) {
-      var decoded;
+      var token;
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               try {
-                decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
+                token = req.body.token.replace(/ /g, '+');
   
-                (0, _fetch2.default)('http://api.iyuanzi.com/payment', {
+                (0, _fetch2.default)('http://api.iyuanzi.com/orders', {
                   headers: {
                     'Accept': 'application/vnd.yuanzi.v4+json',
-                    'Authorization': 'Bearer ' + decoded.access_token,
+                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                   },
                   method: 'POST',
                   body: (0, _stringify2.default)({
-                    podcastId: req.body.podcastId
+                    podcastId: req.body.podcastId,
+                    orderCount: 1
                   })
                 }).then(function (response) {
                   return response.json();
                 }).then(function (data) {
-                  console.log(data);
                   return res.json(data);
                 });
               } catch (err) {
@@ -376,7 +376,6 @@ module.exports =
         callbackURL: 'http://' + req.headers.host + req.path
       })(req, res, next);
     } catch (err) {
-      console.log(err);
       _passport2.default.authenticate('wechat', {
         session: true,
         callbackURL: 'http://' + req.headers.host + req.path
@@ -1149,8 +1148,10 @@ module.exports =
     },
   
     wechat: {
-      id: process.env.WECHAT_APP_ID || 'wx59c71c7bb3b9af6b',
-      secret: process.env.WECHAT_APP_SECRET || 'db89ca26684d669ce025d1e6152c2a07'
+      // id: process.env.WECHAT_APP_ID || 'wx59c71c7bb3b9af6b',
+      // secret: process.env.WECHAT_APP_SECRET || 'db89ca26684d669ce025d1e6152c2a07',
+      id: process.env.WECHAT_APP_ID || 'wx6d197b70b7d38ad6',
+      secret: process.env.WECHAT_APP_SECRET || 'abe3a67ffa3a5f6d74b625abce947e1c'
     }
   
   };
@@ -2897,10 +2898,6 @@ module.exports =
       var podcastId = _ref2.podcastId;
       var token = _ref2.token;
   
-      console.log((0, _stringify2.default)({
-        podcastId: podcastId,
-        orderCount: 1
-      }));
       token = token.replace(/ /g, '+');
       return (0, _fetch2.default)(baseUrl + '/orders', {
         headers: {
@@ -6325,7 +6322,6 @@ module.exports =
   function Footer(_ref) {
     var link = _ref.link;
   
-    console.log(link);
     return _react2.default.createElement(
       'div',
       { className: _Footer2.default.container },
@@ -8672,8 +8668,6 @@ module.exports =
             case 7:
               _ref = _context.sent;
               data = _ref.data;
-  
-              console.log(data);
               title = data.topic.title;
   
               state.context.onSetMeta('og:type', 'article');
@@ -8684,7 +8678,7 @@ module.exports =
               state.context.onSetTitle(title);
               return _context.abrupt('return', _react2.default.createElement(_Topic2.default, { topic: data.topic }));
   
-            case 18:
+            case 17:
             case 'end':
               return _context.stop();
           }
@@ -10262,7 +10256,7 @@ module.exports =
       value: function redirectOrder(event) {
   
         var podcast = this.props.podcast;
-        var token = this.props.token;
+        var token = this.props.token || 'unsign';
         if (podcast.joined) {
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
         } else if (!podcast.joined && podcast.price == 0) {
@@ -10514,14 +10508,14 @@ module.exports =
   var path = exports.path = '/podcastdetail/*/view';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var d, appData, token, userId, openId, podcastId, query, response, _ref, data;
+      var d, appData, token, userId, podcastId, query, response, _ref, data;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 20;
+                _context.next = 18;
                 break;
               }
   
@@ -10529,36 +10523,34 @@ module.exports =
               appData = JSON.parse(d);
               token = appData.access_token;
               userId = appData.userId;
-              openId = appData.openId;
   
               if (!token) {
-                _context.next = 20;
+                _context.next = 18;
                 break;
               }
   
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 11;
+              _context.next = 10;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 11:
+            case 10:
               response = _context.sent;
-              _context.next = 14;
+              _context.next = 13;
               return response.json();
   
-            case 14:
+            case 13:
               _ref = _context.sent;
               data = _ref.data;
   
-              console.log(data.podcast.roomNumber);
               state.context.onSetMeta('title', data.podcast.title);
               state.context.onSetMeta('og:title', data.podcast.title);
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-            case 20:
+            case 18:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 21:
+            case 19:
             case 'end':
               return _context.stop();
           }
@@ -10751,9 +10743,7 @@ module.exports =
         });
   
         this.refs.audio.onended = function () {
-          console.log('end');
           var messages = _lodash2.default.filter(self.state.messages, function (message) {
-            console.log(message._lcattrs.type);
             return message._lcattrs.type == 'voice';
           });
   
@@ -10771,9 +10761,7 @@ module.exports =
     }, {
       key: 'componentWillUnmount',
       value: function componentWillUnmount() {
-        this.state.chatRoom.close().then(function () {
-          console.log('Tom 退出登录');
-        }).catch(console.error.bind(console));
+        this.state.chatRoom.close().then(function () {}).catch(console.error.bind(console));
       }
     }, {
       key: 'createItems',
@@ -11403,43 +11391,47 @@ module.exports =
   var path = exports.path = '/podcastdetail/*/order';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var d, appData, token, podcastId, query, response, _ref, data;
+      var d, appData, token, openId, podcastId, query, response, _ref, data;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 16;
+                _context.next = 17;
                 break;
               }
   
               d = state.context.appData.replace(/&quot;/g, '"');
               appData = JSON.parse(d);
               token = appData.access_token;
+              openId = appData.openId;
               podcastId = state.path.replace('/podcastdetail/', '').replace('/order', '');
   
               state.context.onSetMeta('og:title', '确认订单');
               state.context.onSetMeta('title', '确认订单');
   
               query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n    title\n    cover\n    price\n    lecturer\n    lecturerIntroduction\n    lecturerAvatar\n    content\n    startDate\n    enrollCount\n    userScore\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 10;
+              _context.next = 11;
               return fetch('/graphql?query=' + query);
   
-            case 10:
+            case 11:
               response = _context.sent;
-              _context.next = 13;
+              _context.next = 14;
               return response.json();
   
-            case 13:
+            case 14:
               _ref = _context.sent;
               data = _ref.data;
-              return _context.abrupt('return', _react2.default.createElement(_Order2.default, { podcastId: podcastId, coupon: state.coupon, podcast: data.podcast, token: token, context: state }));
-  
-            case 16:
-              return _context.abrupt('return', _react2.default.createElement('div', null));
+              return _context.abrupt('return', _react2.default.createElement(_Order2.default, { podcastId: podcastId,
+                coupon: state.coupon, podcast: data.podcast,
+                openId: openId,
+                token: token, context: state }));
   
             case 17:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 18:
             case 'end':
               return _context.stop();
           }
@@ -11542,11 +11534,7 @@ module.exports =
         var coupon = this.props.coupon;
         var token = this.props.token;
         var self = this;
-        console.log((0, _stringify2.default)({
-          podcastId: podcastId,
-          couponCode: coupon,
-          token: token
-        }));
+        var openId = this.props.openId;
         if (coupon) {
           (0, _fetch2.default)('/paymentByCoupon', {
             headers: {
@@ -11562,38 +11550,53 @@ module.exports =
           }).then(function (response) {
             return response.json();
           }).then(function (json) {
-            console.log('sccuess');
-            console.log(json);
             self.props.context.window.location = '/podcasts/' + podcastId + '/view';
           });
-        }
+        } else {
   
-        // response = fetch(`/payment`, {
-        //   headers: {
-        //     'Accept': 'application/vnd.yuanzi.v4+json',
-        //     'Authorization': 'Bearer KF57CbAJPLm11476pXX66SRgRHdLUceGXcLVUzy0CLo=',
-        //     'Content-Type': 'application/json'
-        //   },
-        //   method: 'POST',
-        //   body: JSON.stringify({
-        //     orderId: d.data.order.orderId,
-        //     openId: openId
-        //   })
-        // });
-        // const charge = await response.json();
-        // pingpp.createPayment(charge.charge, function(result, err){
-        //   if (result == "success") {
-        //     console.log(state)
-        //     // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-        //     state.window.location.reload()
-        //   } else if (result == "fail") {
-        //     // charge 不正确或者微信公众账号支付失败时会在此处返回
-        //     return <div></div>
-        //   } else if (result == "cancel") {
-        //     // 微信公众账号支付取消支付
-        //     return <div></div>
-        //   }
-        // });
+          (0, _fetch2.default)('/orders', {
+            headers: {
+              'Accept': 'application/vnd.yuanzi.v4+json',
+              'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: (0, _stringify2.default)({
+              podcastId: podcastId,
+              token: token
+            })
+          }).then(function (response) {
+            return response.json();
+          }).then(function (d) {
+            console.log(d);
+            (0, _fetch2.default)('/payment', {
+              headers: {
+                'Accept': 'application/vnd.yuanzi.v4+json',
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              body: (0, _stringify2.default)({
+                orderId: d.orderId,
+                openId: openId,
+                token: token
+              })
+            }).then(function (response) {
+              return response.json();
+            }).then(function (json) {
+              pingpp.createPayment(json.charge, function (result, err) {
+                if (result == "success") {
+                  // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+                  self.props.context.window.location = '/podcasts/' + podcastId + '/view';
+                } else if (result == "fail") {
+                  // charge 不正确或者微信公众账号支付失败时会在此处返回
+                  return _react2.default.createElement('div', null);
+                } else if (result == "cancel") {
+                  // 微信公众账号支付取消支付
+                  return _react2.default.createElement('div', null);
+                }
+              });
+            });
+          });
+        }
       }
     }, {
       key: 'chooseCoupons',
@@ -12210,8 +12213,6 @@ module.exports =
         if (this.state.value.length == 10) {
           var coupon = this.state.value;
           var token = this.props.token;
-  
-          console.log(coupon);
           (0, _fetch2.default)('/coupons', {
             headers: {
               'Accept': 'application/json',
@@ -12225,8 +12226,6 @@ module.exports =
           }).then(function (response) {
             return response.json();
           }).then(function (json) {
-            console.log('sccuess');
-            console.log(json);
             _Location2.default.goBack();
           });
         }
