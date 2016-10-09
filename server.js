@@ -10272,7 +10272,7 @@ module.exports =
           }
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
         } else {
-          this.props.context.window.location = '/podcastdetail/' + podcast.podcastId + '/order';
+          this.props.context.window.location = '/podcastdetail/order/' + podcast.podcastId;
         }
       }
     }, {
@@ -11386,7 +11386,7 @@ module.exports =
    * Created by diwu on 3/12/16.
    */
   
-  var path = exports.path = '/podcastdetail/*/order';
+  var path = exports.path = '/podcastdetail/order/*';
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
       var d, appData, token, openId, podcastId, query, response, _ref, data;
@@ -11404,7 +11404,7 @@ module.exports =
               appData = JSON.parse(d);
               token = appData.access_token;
               openId = appData.openId;
-              podcastId = state.path.replace('/podcastdetail/', '').replace('/order', '');
+              podcastId = state.path.replace('/podcastdetail/order/', '');
   
               state.context.onSetMeta('og:title', '确认订单');
               state.context.onSetMeta('title', '确认订单');
@@ -11932,7 +11932,7 @@ module.exports =
         this.setState({
           coupon: coupon
         });
-        _Location2.default.push({ pathname: '/podcastdetail/' + this.props.podcastId + '/order', state: { coupon: coupon.coupon, podcast: this.props.podcast } });
+        _Location2.default.push({ pathname: '/podcastdetail/order/' + this.props.podcastId, state: { coupon: coupon.coupon, podcast: this.props.podcast } });
       }
     }, {
       key: 'addMore',
