@@ -376,18 +376,22 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
-    try {
-      var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
-      _passport2.default.authenticate('wechatNo', {
-        session: true,
-        callbackURL: 'http://' + req.headers.host + req.path
-      })(req, res, next);
-    } catch (err) {
-      _passport2.default.authenticate('wechat', {
-        session: true,
-        callbackURL: 'http://' + req.headers.host + req.path
-      })(req, res, next);
-    }
+    // try {
+    //   var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
+    //   passport.authenticate('wechatNo', {
+    //     session: true,
+    //     callbackURL: 'https://' + req.headers.host + req.path
+    //   })(req, res, next);
+    // } catch(err) {
+    //   passport.authenticate('wechat', {
+    //     session: true,
+    //     callbackURL: 'https://' + req.headers.host + req.path
+    //   })(req, res, next);
+    // }
+    _passport2.default.authenticate('wechat', {
+      session: true,
+      callbackURL: 'https://' + req.headers.host + req.path
+    })(req, res, next);
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(req, res, next) {
       return _regenerator2.default.wrap(function _callee6$(_context6) {
