@@ -10273,6 +10273,7 @@ module.exports =
           _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
         } else {
           this.props.context.window.location = '/podcastdetail/order/' + podcast.podcastId;
+          this.props.context.window.reload();
         }
       }
     }, {
