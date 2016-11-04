@@ -10263,17 +10263,17 @@ module.exports =
         var podcast = this.props.podcast;
         var token = this.props.token || 'unsign';
         if (podcast.joined) {
-          _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
+          this.props.context.window.location = '/podcastdetail/' + podcast.podcastId + '/view';
         } else if (!podcast.joined && podcast.price == 0) {
   
           var q = '{\n  order(podcastId: "' + podcast.podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
           if (token != 'unsign') {
             (0, _fetch2.default)('/graphql?query=' + q);
           }
-          _Location2.default.push('/podcastdetail/' + podcast.podcastId + '/view');
+          // Location.push('/podcastdetail/'+podcast.podcastId+'/view');
+          this.props.context.window.location = '/podcastdetail/' + podcast.podcastId + '/view';
         } else {
           this.props.context.window.location = '/podcastdetail/order/' + podcast.podcastId;
-          this.props.context.window.reload();
         }
       }
     }, {
