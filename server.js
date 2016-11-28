@@ -8285,7 +8285,7 @@ module.exports =
   	"photos": "_2nWu",
   	"AppComments": "_3-0n",
   	"AppCommentsArrow": "_2ywx",
-  	"App-comment": "_3f2U",
+  	"AppComment": "_35aa",
   	"nameWrap": "_3KEj",
   	"nickname": "_14jh",
   	"replyUser": "_3ngp",
