@@ -8454,7 +8454,7 @@ module.exports =
             'div',
             { className: _ReadMore2.default.readMore, onClick: this.toggleLines.bind(this) },
             '展开全部 ',
-            _react2.default.createElement('img', { src: '../../PullDown@2x.png', alt: '' })
+            _react2.default.createElement('img', { src: '../../pullDown@2x.png', alt: '' })
           ) : null
         );
       }
