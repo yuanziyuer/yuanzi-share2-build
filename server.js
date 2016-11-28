@@ -8018,7 +8018,6 @@ module.exports =
                             'li',
                             null,
                             m.title,
-                            ' ',
                             _react2.default.createElement(
                               'span',
                               null,
@@ -8039,7 +8038,6 @@ module.exports =
                             'li',
                             null,
                             m.title,
-                            ' ',
                             _react2.default.createElement(
                               'span',
                               null,
