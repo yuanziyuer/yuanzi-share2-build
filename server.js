@@ -8006,9 +8006,17 @@ module.exports =
                     _react2.default.createElement(
                       'video',
                       { ref: 'video', id: 'really-cool-video', className: 'video-js vjs-default-skin vjs-big-play-centered', controls: true,
-                        preload: 'auto', width: '287', height: '480', poster: _CDN2.default.videoCoverURL(strategy.cover),
+                        preload: 'auto', width: '287', height: '287', poster: _CDN2.default.videoCoverURL(strategy.cover),
                         'data-setup': '{}' },
                       _react2.default.createElement('source', { src: s.video, type: 'application/x-mpegURL' })
+                    ),
+                    _react2.default.createElement(
+                      'p',
+                      { style: {
+                          lineHeight: '120px',
+                          color: '#666'
+                        } },
+                      '(视频教程)'
                     )
                   );
                 }
