@@ -7716,23 +7716,41 @@ module.exports =
       key: 'renderPhotos',
       value: function renderPhotos(photos) {
         photos = _lodash2.default.slice(photos, 0, 3);
-        return _react2.default.createElement(
-          'ul',
-          { className: _Strategy2.default.AppPhotos, onClick: this.callPhotos.bind(this) },
-          photos.map(function (p) {
-            var photo = _CDN2.default.photoURL(p.content[0].img);
-            return _react2.default.createElement(
-              'li',
-              { key: p.photoId },
-              _react2.default.createElement('img', { src: photo, alt: '', className: _Strategy2.default.photos })
-            );
-          }),
-          _react2.default.createElement(
-            'li',
-            { className: _Strategy2.default.morePhoto },
-            _react2.default.createElement('img', { src: '../../iconStategyArrow@2x.png', alt: '', className: _Strategy2.default.arrow })
-          )
-        );
+        if (photos.length > 0) {
+          return _react2.default.createElement(
+            'section',
+            { className: _Strategy2.default.AppSection },
+            _react2.default.createElement(
+              'div',
+              { className: _Strategy2.default.AppSectionHeader },
+              _react2.default.createElement('div', { className: _Strategy2.default.line }),
+              _react2.default.createElement(
+                'span',
+                null,
+                '相关作品'
+              )
+            ),
+            _react2.default.createElement(
+              'ul',
+              { className: _Strategy2.default.AppPhotos, onClick: this.callPhotos.bind(this) },
+              photos.map(function (p) {
+                var photo = _CDN2.default.photoURL(p.content[0].img);
+                return _react2.default.createElement(
+                  'li',
+                  { key: p.photoId },
+                  _react2.default.createElement('img', { src: photo, alt: '', className: _Strategy2.default.photos })
+                );
+              }),
+              _react2.default.createElement(
+                'li',
+                { className: _Strategy2.default.morePhoto },
+                _react2.default.createElement('img', { src: '../../iconStategyArrow@2x.png', alt: '', className: _Strategy2.default.arrow })
+              )
+            )
+          );
+        } else {
+          return null;
+        }
       }
     }, {
       key: 'renderComment',
@@ -8163,35 +8181,7 @@ module.exports =
               })
             )
           ) : null,
-          _react2.default.createElement(
-            'section',
-            { className: _Strategy2.default.AppSection },
-            _react2.default.createElement(
-              'div',
-              { className: _Strategy2.default.AppSectionHeader },
-              _react2.default.createElement('div', { className: _Strategy2.default.line }),
-              _react2.default.createElement(
-                'span',
-                null,
-                '相关作品'
-              )
-            ),
-            strategy.photos.length > 0 ? this.renderPhotos(strategy.photos) : _react2.default.createElement(
-              'div',
-              { className: _Strategy2.default.AppPhotosEmpty },
-              _react2.default.createElement('img', { src: '../../worksEmpty@2x.png', alt: '' }),
-              _react2.default.createElement(
-                'p',
-                null,
-                '这里空空如也，快来创造第一个作品吧'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: _Strategy2.default.AppCenterButton, onClick: this.callComposePhotoWork.bind(this) },
-              '上传作品'
-            )
-          ),
+          this.renderPhotos(strategy.photos),
           strategy.commentCount > 0 ? _react2.default.createElement(
             'section',
             { onClick: this.callCommnet, className: _Strategy2.default.AppSection, style: {
