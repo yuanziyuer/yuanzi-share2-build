@@ -377,8 +377,8 @@ module.exports =
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
     _passport2.default.authenticate('wechat', {
-      session: true,
-      callbackURL: 'http://' + req.headers.host + req.path
+      session: false,
+      callbackURL: 'https://' + req.headers.host + req.path
     })(req, res, next);
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(req, res, next) {
@@ -901,6 +901,7 @@ module.exports =
         userId: profile._json.unionid || profile._json.openid,
         openId: profile._json.openid
       });
+      console.log('get data');
       done(null, data);
     });
   }));
@@ -909,7 +910,7 @@ module.exports =
     clientID: _config.auth.wechat.id,
     name: 'wechatNo',
     clientSecret: _config.auth.wechat.secret,
-    callbackURL: 'http://share-dev.iyuanzi.com/login/wechat/return',
+    callbackURL: 'http://share.iyuanzi.com/login/wechat/return',
     authorizationURL: 'https://open.weixin.qq.com/connect/oauth2/authorize',
     scope: 'snsapi_base',
     requireState: false
@@ -941,7 +942,7 @@ module.exports =
         openId: profile._json.openid
       });
       done(null, data);
-    });
+    }).catch(done);
   }));
   
   exports.default = _passport2.default;
