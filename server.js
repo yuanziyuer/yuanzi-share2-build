@@ -868,7 +868,7 @@ module.exports =
     clientID: _config.auth.wechat.id,
     name: 'wechat',
     clientSecret: _config.auth.wechat.secret,
-    callbackURL: 'http://share-dev.iyuanzi.com/login/wechat/return',
+    callbackURL: 'http://share.iyuanzi.com/login/wechat/return',
     authorizationURL: 'https://open.weixin.qq.com/connect/oauth2/authorize',
     scope: 'snsapi_userinfo',
     requireState: false
@@ -903,7 +903,7 @@ module.exports =
       });
       console.log('get data');
       done(null, data);
-    });
+    }).catch(done);;
   }));
   
   _passport2.default.use('wechatNo', new _passportWeixin.Strategy({
@@ -11079,20 +11079,27 @@ module.exports =
       value: function redirectOrder(event) {
   
         var podcast = this.props.podcast;
-        var token = this.props.token || 'unsign';
-        if (podcast.joined) {
-          this.props.context.window.location = '/podcastdetail/' + podcast.podcastId + '/view';
-        } else if (!podcast.joined && podcast.price == 0) {
-  
-          var q = '{\n  order(podcastId: "' + podcast.podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
-          if (token != 'unsign') {
-            (0, _fetch2.default)('/graphql?query=' + q);
-          }
-          // Location.push('/podcastdetail/'+podcast.podcastId+'/view');
-          this.props.context.window.location = '/podcastdetail/' + podcast.podcastId + '/view';
-        } else {
-          this.props.context.window.location = '/podcastdetail/order/' + podcast.podcastId;
-        }
+        //     let token = this.props.token || 'unsign';
+        //     if(podcast.joined) {
+        //       this.props.context.window.location = '/podcastdetail/'+podcast.podcastId+'/view'
+        //     }
+        //     else if(!podcast.joined && podcast.price == 0){
+        //
+        //       const q = `{
+        //   order(podcastId: "${podcast.podcastId}", token: "${token}", ) {
+        //     orderId
+        //   }
+        // }`;
+        //       if(token != 'unsign') {
+        //         fetch(`/graphql?query=${q}`);
+        //       }
+        //       // Location.push('/podcastdetail/'+podcast.podcastId+'/view');
+        //       this.props.context.window.location = '/podcastdetail/'+podcast.podcastId+'/view'
+        //     }else {
+        //       this.props.context.window.location = '/podcastdetail/order/'+podcast.podcastId;
+        //
+        //     }
+        this.props.context.window.location = '/podcastdetail/order/' + podcast.podcastId;
       }
     }, {
       key: 'render',
