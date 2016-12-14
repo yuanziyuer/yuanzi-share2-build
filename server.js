@@ -11077,36 +11077,32 @@ module.exports =
       }
     }, {
       key: 'redirectOrder',
-      value: function redirectOrder(event) {
-  
-        var podcast = this.props.podcast;
-        //     let token = this.props.token || 'unsign';
-        //     if(podcast.joined) {
-        //       this.props.context.window.location = '/podcastdetail/'+podcast.podcastId+'/view'
-        //     }
-        //     else if(!podcast.joined && podcast.price == 0){
-        //
-        //       const q = `{
-        //   order(podcastId: "${podcast.podcastId}", token: "${token}", ) {
-        //     orderId
-        //   }
-        // }`;
-        //       if(token != 'unsign') {
-        //         fetch(`/graphql?query=${q}`);
-        //       }
-        //       // Location.push('/podcastdetail/'+podcast.podcastId+'/view');
-        //       this.props.context.window.location = '/podcastdetail/'+podcast.podcastId+'/view'
-        //     }else {
-        //       this.props.context.window.location = '/podcastdetail/order/'+podcast.podcastId;
-        //
-        //     }
-        this.props.context.window.location = '/podcastdetail/order/' + podcast.podcastId;
-      }
+      value: function redirectOrder(event) {}
     }, {
       key: 'render',
       value: function render() {
-        var feature = (0, _moment2.default)(this.props.podcast.startDate) > (0, _moment2.default)();
         var podcast = this.props.podcast;
+        var token = this.props.token || 'unsign';
+        var url = '';
+        if (podcast.joined) {
+          url = '/podcastdetail/' + podcast.podcastId + '/view';
+        } else if (!podcast.joined && podcast.price == 0) {
+  
+          //       const q = `{
+          //   order(podcastId: "${podcast.podcastId}", token: "${token}", ) {
+          //     orderId
+          //   }
+          // }`;
+          //       if(token != 'unsign') {
+          //         fetch(`/graphql?query=${q}`);
+          //       }
+          // Location.push('/podcastdetail/'+podcast.podcastId+'/view');
+          url = '/podcastdetail/' + podcast.podcastId + '/view';
+        } else {
+          url = '/podcastdetail/order/' + podcast.podcastId;
+        }
+        var feature = (0, _moment2.default)(this.props.podcast.startDate) > (0, _moment2.default)();
+  
         return _react2.default.createElement(
           'div',
           { className: _Podcast2.default.container },
@@ -11136,8 +11132,8 @@ module.exports =
                   this.state.date
                 )
               ) : _react2.default.createElement(
-                'div',
-                { onClick: this.redirectOrder.bind(this), style: { height: '225px', width: '100%' } },
+                'a',
+                { href: url, style: { height: '225px' } },
                 _react2.default.createElement('img', { src: '../../btnStart@2x.png', style: { width: '50%' } })
               )
             ),
