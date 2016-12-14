@@ -11087,15 +11087,6 @@ module.exports =
         if (podcast.joined) {
           url = '/podcastdetail/' + podcast.podcastId + '/view';
         } else if (!podcast.joined && podcast.price == 0) {
-  
-          //       const q = `{
-          //   order(podcastId: "${podcast.podcastId}", token: "${token}", ) {
-          //     orderId
-          //   }
-          // }`;
-          //       if(token != 'unsign') {
-          //         fetch(`/graphql?query=${q}`);
-          //       }
           // Location.push('/podcastdetail/'+podcast.podcastId+'/view');
           url = '/podcastdetail/' + podcast.podcastId + '/view';
         } else {
@@ -11335,14 +11326,14 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var d, appData, token, userId, podcastId, query, response, _ref, data;
+      var d, appData, token, userId, podcastId, query, response, _ref, data, q;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 18;
+                _context.next = 20;
                 break;
               }
   
@@ -11352,7 +11343,7 @@ module.exports =
               userId = appData.userId;
   
               if (!token) {
-                _context.next = 18;
+                _context.next = 20;
                 break;
               }
   
@@ -11372,12 +11363,18 @@ module.exports =
   
               state.context.onSetMeta('title', data.podcast.title);
               state.context.onSetMeta('og:title', data.podcast.title);
+  
+              q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
+  
+              if (token != 'unsign') {
+                (0, _fetch2.default)('/graphql?query=' + q);
+              }
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-            case 18:
+            case 20:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 19:
+            case 21:
             case 'end':
               return _context.stop();
           }
