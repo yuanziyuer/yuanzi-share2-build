@@ -11135,8 +11135,8 @@ module.exports =
                   this.state.date
                 )
               ) : _react2.default.createElement(
-                'a',
-                { onClick: this.redirectOrder.bind(this), style: { height: '225px' } },
+                'div',
+                { onClick: this.redirectOrder.bind(this), style: { height: '225px', width: '100%' } },
                 _react2.default.createElement('img', { src: '../../btnStart@2x.png', style: { width: '50%' } })
               )
             ),
