@@ -376,7 +376,10 @@ module.exports =
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
-    fon;
+    _passport2.default.authenticate('wechat', {
+      session: true,
+      callbackURL: 'http://' + req.headers.host + req.path
+    })(req, res, next);
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(req, res, next) {
       return _regenerator2.default.wrap(function _callee6$(_context6) {
