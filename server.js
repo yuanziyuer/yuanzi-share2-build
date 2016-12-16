@@ -2743,12 +2743,14 @@ module.exports =
       content: { type: _graphql.GraphQLString },
       syllabus: { type: _graphql.GraphQLString },
       startDate: { type: _graphql.GraphQLString },
+      endDate: { type: _graphql.GraphQLString },
       enrollCount: { type: _graphql.GraphQLInt },
       userScore: { type: _graphql.GraphQLString },
       roomNumber: { type: _graphql.GraphQLString },
       joined: { type: _graphql.GraphQLBoolean },
       comments: { type: new _graphql.GraphQLList(_CommentType2.default) },
       commentCount: { type: _graphql.GraphQLInt },
+      scope: { type: _graphql.GraphQLInt },
       relevantPodcasts: { type: new _graphql.GraphQLList(new _graphql.GraphQLObjectType({
           name: 'relevantPodcast',
           fields: {
@@ -10655,7 +10657,7 @@ module.exports =
                     null,
                     _react2.default.createElement(
                       'a',
-                      { href: '#' },
+                      { href: '/podcasts/' + item.podcastId + '/view' },
                       _react2.default.createElement(_Image2.default, { src: item.cover, h: '357', w: '357' })
                     ),
                     _react2.default.createElement(
@@ -10712,7 +10714,7 @@ module.exports =
                     null,
                     _react2.default.createElement(
                       'a',
-                      { href: '#' },
+                      { href: '/podcasts/' + item.podcastId + '/view' },
                       _react2.default.createElement(_Image2.default, { src: item.cover, h: '357', w: '357' })
                     ),
                     _react2.default.createElement(
@@ -10867,7 +10869,7 @@ module.exports =
               appData = JSON.parse(d);
               token = appData.access_token || "unsign";
               podcastId = state.path.replace('/podcasts/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n    title\n    cover\n    price\n    content\n    syllabus\n    startDate\n    enrollCount\n    userScore\n    joined\n    roomNumber\n    user {\n      nickname\n      avatar\n      description\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    relevantPodcasts {\n    podcastId\n     user {\n     avatar\n      nickname\n    }\n    cover\n    price\n    startDate\n    title\n    }\n  }\n}\n';
+              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    podcastId\n    title\n    cover\n    price\n    content\n    syllabus\n    startDate\n    endDate\n    enrollCount\n    userScore\n    joined\n    roomNumber\n    scope\n    user {\n      nickname\n      avatar\n      description\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    relevantPodcasts {\n    podcastId\n     user {\n     avatar\n      nickname\n    }\n    cover\n    price\n    startDate\n    title\n    }\n  }\n}\n';
               _context.next = 8;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
@@ -10891,7 +10893,7 @@ module.exports =
   
             case 23:
               _podcastId = state.path.replace('/podcasts/', '').replace('/view', '');
-              _query = '{\n  podcast(path: "' + _podcastId + '", token: "unsign") {\n    podcastId\n    title\n    cover\n    price\n    content\n    syllabus\n    startDate\n    enrollCount\n    userScore\n    joined\n    user {\n      nickname\n      avatar\n      description\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    relevantPodcasts {\n    podcastId\n     user {\n     avatar\n      nickname\n    }\n    cover\n    price\n    startDate\n    title\n    }\n  }\n}\n';
+              _query = '{\n  podcast(path: "' + _podcastId + '", token: "unsign") {\n    podcastId\n    title\n    cover\n    price\n    content\n    syllabus\n    startDate\n        endDate\n    enrollCount\n    userScore\n    joined\n    roomNumber\n    scope\n    user {\n      nickname\n      avatar\n      description\n    }\n    comments {\n      commentUser {\n        nickname\n        avatar\n      }\n      createdAt\n      content\n      commentId\n      images\n    }\n    relevantPodcasts {\n    podcastId\n     user {\n     avatar\n      nickname\n    }\n    cover\n    price\n    startDate\n    title\n    }\n  }\n}\n';
               _context.next = 27;
               return (0, _fetch2.default)('/graphql?query=' + _query);
   
@@ -11046,6 +11048,27 @@ module.exports =
         );
       }
     }, {
+      key: 'renderScope',
+      value: function renderScope(scope) {
+        var result = '0 岁以下';
+        switch (scope) {
+          case 1:
+            result = '1-2 岁';break;
+          case 2:
+            result = '3-4 岁';break;
+          case 3:
+            result = '5 岁以上';break;
+          default:
+            result = '0 岁以下';
+        }
+  
+        return _react2.default.createElement(
+          'span',
+          null,
+          result
+        );
+      }
+    }, {
       key: 'redirectOrder',
       value: function redirectOrder(event) {}
     }, {
@@ -11129,11 +11152,7 @@ module.exports =
                 'li',
                 null,
                 _react2.default.createElement('img', { src: '/iconPodcastBaby@2x.png', alt: '' }),
-                _react2.default.createElement(
-                  'span',
-                  null,
-                  '1~2岁'
-                )
+                this.renderScope(podcast.scope)
               ),
               _react2.default.createElement(
                 'li',
@@ -11152,7 +11171,7 @@ module.exports =
                 _react2.default.createElement(
                   'span',
                   null,
-                  _dateFormat2.default.commentDate(podcast.startDate)
+                  (0, _moment2.default)(this.props.podcast.endDate).from((0, _moment2.default)(this.props.podcast.startDate), true)
                 )
               )
             )
@@ -11237,7 +11256,7 @@ module.exports =
                     null,
                     _react2.default.createElement(
                       'a',
-                      { href: '#' },
+                      { href: '/podcasts/' + item.podcastId + '/view' },
                       _react2.default.createElement(_Image2.default, { src: item.cover, h: '357', w: '357' })
                     ),
                     _react2.default.createElement(
