@@ -3317,7 +3317,7 @@ module.exports =
     name: 'Coupon',
     fields: {
       coupon: { type: _graphql.GraphQLString },
-      expired: { type: _graphql.GraphQLString }
+      expired: { type: _graphql.GraphQLInt }
     }
   }); /**
        * React Starter Kit (https://www.reactstarterkit.com/)
