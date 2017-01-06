@@ -12947,7 +12947,8 @@ module.exports =
                   _react2.default.createElement(
                     'p',
                     { className: _Coupons2.default.expired },
-                    '有效期至: 2016-10-30'
+                    '有效期至: ',
+                    localTime
                   )
                 )
               );
