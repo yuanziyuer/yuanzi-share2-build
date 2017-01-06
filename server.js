@@ -3317,7 +3317,7 @@ module.exports =
     name: 'Coupon',
     fields: {
       coupon: { type: _graphql.GraphQLString },
-      expired: { type: _graphql.GraphQLInt }
+      expired: { type: _graphql.GraphQLString }
     }
   }); /**
        * React Starter Kit (https://www.reactstarterkit.com/)
@@ -12927,7 +12927,7 @@ module.exports =
                 'coupon': true,
                 'couponPressed': coupon == self.state.coupon
               });
-              var localTime = (0, _moment2.default)(coupon.expired).format('YYYY-MM-DD');
+              var localTime = (0, _moment2.default)(parseInt(coupon.expired)).format('YYYY-MM-DD');
               return _react2.default.createElement(
                 'li',
                 { key: coupon.coupon, onClick: self.selectedCoupon.bind(self, coupon) },
