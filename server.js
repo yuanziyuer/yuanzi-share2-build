@@ -337,6 +337,7 @@ module.exports =
           switch (_context4.prev = _context4.next) {
             case 0:
               try {
+                console.log(req.body);
                 token = req.body.token.replace(/ /g, '+');
                 // var decoded = jwt.verify(req.cookies.id_token, auth.jwt.secret);
   
@@ -347,6 +348,7 @@ module.exports =
                     'Content-Type': 'application/json'
                   },
                   method: 'POST',
+  
                   body: (0, _stringify2.default)({
                     podcastId: req.body.podcastId,
                     orderId: req.body.orderId,
@@ -12531,7 +12533,8 @@ module.exports =
               body: (0, _stringify2.default)({
                 podcastId: podcastId,
                 couponCode: coupon,
-                token: token
+                token: token,
+                orderId: d.orderId
               })
             }).then(function (response) {
               return response.json();
