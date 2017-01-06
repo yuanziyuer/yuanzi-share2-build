@@ -349,6 +349,7 @@ module.exports =
                   method: 'POST',
                   body: (0, _stringify2.default)({
                     podcastId: req.body.podcastId,
+                    orderId: req.body.orderId,
                     couponCode: req.body.couponCode
                   })
                 }).then(function (response) {
@@ -12505,39 +12506,39 @@ module.exports =
         var token = this.props.token;
         var self = this;
         var openId = this.props.openId;
-        if (coupon) {
-          (0, _fetch2.default)('/paymentByCoupon', {
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            body: (0, _stringify2.default)({
-              podcastId: podcastId,
-              couponCode: coupon,
-              token: token
-            })
-          }).then(function (response) {
-            return response.json();
-          }).then(function (json) {
-            self.props.context.window.location = '/podcasts/' + podcastId + '/view';
-          });
-        } else {
   
-          (0, _fetch2.default)('/orders', {
-            headers: {
-              'Accept': 'application/vnd.yuanzi.v4+json',
-              'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            body: (0, _stringify2.default)({
-              podcastId: podcastId,
-              token: token
-            })
-          }).then(function (response) {
-            return response.json();
-          }).then(function (d) {
-            console.log(d);
+        (0, _fetch2.default)('/orders', {
+          headers: {
+            'Accept': 'application/vnd.yuanzi.v4+json',
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: (0, _stringify2.default)({
+            podcastId: podcastId,
+            token: token
+          })
+        }).then(function (response) {
+          return response.json();
+        }).then(function (d) {
+          console.log(d);
+          if (coupon) {
+            (0, _fetch2.default)('/paymentByCoupon', {
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              body: (0, _stringify2.default)({
+                podcastId: podcastId,
+                couponCode: coupon,
+                token: token
+              })
+            }).then(function (response) {
+              return response.json();
+            }).then(function (json) {
+              self.props.context.window.location = '/podcasts/' + podcastId + '/view';
+            });
+          } else {
             (0, _fetch2.default)('/payment', {
               headers: {
                 'Accept': 'application/vnd.yuanzi.v4+json',
@@ -12566,8 +12567,8 @@ module.exports =
                 }
               });
             });
-          });
-        }
+          }
+        });
       }
     }, {
       key: 'chooseCoupons',
