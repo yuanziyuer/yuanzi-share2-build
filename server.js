@@ -13195,7 +13195,7 @@ module.exports =
     (0, _createClass3.default)(Coupons, [{
       key: 'getCoupon',
       value: function getCoupon() {
-        if (this.state.value.length == 10) {
+        if (this.state.value.length == 8) {
           var coupon = this.state.value;
           var token = this.props.token;
           (0, _fetch2.default)('/coupons', {
