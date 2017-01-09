@@ -380,10 +380,19 @@ module.exports =
   // -----------------------------------------------------------------------------
   server.get('/podcastdetail*', function (req, res, next) {
     console.log(req);
-    _passport2.default.authenticate('wechat', {
-      session: false,
-      callbackURL: 'https://' + req.headers.host + req.path
-    })(req, res, next);
+    try {
+      var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
+      _passport2.default.authenticate('wechatNo', {
+        session: true,
+        callbackURL: 'http://' + req.headers.host + req.path
+      })(req, res, next);
+    } catch (err) {
+      console.log(err);
+      _passport2.default.authenticate('wechat', {
+        session: true,
+        callbackURL: 'http://' + req.headers.host + req.path
+      })(req, res, next);
+    }
   }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(req, res, next) {
       return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -12539,7 +12548,7 @@ module.exports =
             }).then(function (response) {
               return response.json();
             }).then(function (json) {
-              self.props.context.window.location = '/podcasts/' + podcastId + '/view';
+              self.props.context.window.location = '/podcastdetail/' + podcastId + '/view';
             });
           } else {
             (0, _fetch2.default)('/payment', {
@@ -12560,7 +12569,7 @@ module.exports =
               pingpp.createPayment(json.charge, function (result, err) {
                 if (result == "success") {
                   // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-                  self.props.context.window.location = '/podcasts/' + podcastId + '/view';
+                  self.props.context.window.location = '/podcastdetail/' + podcastId + '/view';
                 } else if (result == "fail") {
                   // charge 不正确或者微信公众账号支付失败时会在此处返回
                   return _react2.default.createElement('div', null);
