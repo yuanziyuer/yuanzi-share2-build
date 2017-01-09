@@ -13225,7 +13225,7 @@ module.exports =
       value: function render() {
         var style = cx({
           'addMore': true,
-          'selected': this.state.value.length == 10
+          'selected': this.state.value.length == 8
         });
         return _react2.default.createElement(
           'div',
