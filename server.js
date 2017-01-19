@@ -378,22 +378,7 @@ module.exports =
   //
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
-  server.get('/podcastdetail*', function (req, res, next) {
-    console.log(req);
-    try {
-      var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
-      _passport2.default.authenticate('wechatNo', {
-        session: true,
-        callbackURL: 'http://' + req.headers.host + req.path
-      })(req, res, next);
-    } catch (err) {
-      console.log(err);
-      _passport2.default.authenticate('wechat', {
-        session: true,
-        callbackURL: 'http://' + req.headers.host + req.path
-      })(req, res, next);
-    }
-  }, function () {
+  server.get('/podcastdetail*', function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(req, res, next) {
       return _regenerator2.default.wrap(function _callee6$(_context6) {
         while (1) {
@@ -1126,7 +1111,7 @@ module.exports =
   /* eslint-disable max-len */
   /* jscs:disable maximumLineLength */
   __webpack_require__(23).config();
-  var port = exports.port = process.env.PORT || 3000;
+  var port = exports.port = process.env.PORT || 4000;
   var host = exports.host = process.env.WEBSITE_HOSTNAME || 'localhost:' + port;
   
   var databaseUrl = exports.databaseUrl = process.env.DATABASE_URL || 'postgresql://demo:Lqk62xg6TBm5UhfR@demo.ctbl5itzitm4.us-east-1.rds.amazonaws.com:5432/membership01';
@@ -11544,14 +11529,14 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var d, appData, token, userId, podcastId, query, response, _ref, data, q;
+      var d, appData, token, userId, podcastId, query, response, _ref, data;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(state.context.appData && state.context.appData.length > 0)) {
-                _context.next = 20;
+                _context.next = 17;
                 break;
               }
   
@@ -11559,40 +11544,38 @@ module.exports =
               appData = JSON.parse(d);
               token = appData.access_token;
               userId = appData.userId;
-  
-              if (!token) {
-                _context.next = 20;
-                break;
-              }
-  
+              // if(token) {
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
-              _context.next = 10;
+              query = '{\n  podcast(path: "' + podcastId + '", token: "unsign") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
+              _context.next = 9;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 10:
+            case 9:
               response = _context.sent;
-              _context.next = 13;
+              _context.next = 12;
               return response.json();
   
-            case 13:
+            case 12:
               _ref = _context.sent;
               data = _ref.data;
   
               state.context.onSetMeta('title', data.podcast.title);
               state.context.onSetMeta('og:title', data.podcast.title);
   
-              q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
-  
-              if (token != 'unsign') {
-                (0, _fetch2.default)('/graphql?query=' + q);
-              }
+              //             const q = `{
+              //   order(podcastId: "${podcastId}", token: "${token}", ) {
+              //     orderId
+              //   }
+              // }`;
+              //       if(token != 'unsign') {
+              //         fetch(`/graphql?query=${q}`);
+              //       }
               return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
   
-            case 20:
+            case 17:
               return _context.abrupt('return', _react2.default.createElement('div', null));
   
-            case 21:
+            case 18:
             case 'end':
               return _context.stop();
           }
@@ -13756,8 +13739,8 @@ module.exports =
               _ref = _context.sent;
               data = _ref.data;
   
-              state.context.onSetMeta('og:title', '精彩课程');
-              state.context.onSetMeta('title', '精彩课程');
+              state.context.onSetMeta('og:title', '付费微课');
+              state.context.onSetMeta('title', '付费微课');
               return _context.abrupt('return', _react2.default.createElement(_Podcasts2.default, { podcasts: data.podcastsPay.podcasts }));
   
             case 11:
