@@ -11496,7 +11496,7 @@ module.exports =
   'use strict';
   
   Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
   });
   exports.action = exports.path = undefined;
   
@@ -11527,23 +11527,56 @@ module.exports =
                                                       */
   
   var action = exports.action = function () {
-    var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      return _regenerator2.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: '' }));
+        var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
+              var podcastId, query, response, _ref, data;
   
-            case 1:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-    return function action(_x) {
-      return ref.apply(this, arguments);
-    };
+              return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                          switch (_context.prev = _context.next) {
+                                case 0:
+                                      //   if(state.context.appData && state.context.appData.length>0) {
+                                      //     let d = state.context.appData.replace(/&quot;/g,'"');
+                                      //     let appData = JSON.parse(d);
+                                      //     let token = appData.access_token;
+                                      //     let userId = appData.userId;
+                                      //     // if(token) {
+                                      podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
+                                      query = '{\n//   podcast(path: "' + podcastId + '", token: "unsign") {\n//     title\n//     joined\n//     roomNumber\n//   }\n// }\n// ';
+                                      _context.next = 4;
+                                      return (0, _fetch2.default)('/graphql?query=' + query);
+  
+                                case 4:
+                                      response = _context.sent;
+                                      _context.next = 7;
+                                      return response.json();
+  
+                                case 7:
+                                      _ref = _context.sent;
+                                      data = _ref.data;
+                                      //       state.context.onSetMeta('title', data.podcast.title);
+                                      //       state.context.onSetMeta('og:title', data.podcast.title);
+  
+                                      //             const q = `{
+                                      //   order(podcastId: "${podcastId}", token: "${token}", ) {
+                                      //     orderId
+                                      //   }
+                                      // }`;
+                                      //       if(token != 'unsign') {
+                                      //         fetch(`/graphql?query=${q}`);
+                                      //       }
+  
+                                      return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: '' }));
+  
+                                case 10:
+                                case 'end':
+                                      return _context.stop();
+                          }
+                    }
+              }, _callee, undefined);
+        }));
+        return function action(_x) {
+              return ref.apply(this, arguments);
+        };
   }();
 
 /***/ },
