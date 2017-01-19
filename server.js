@@ -386,7 +386,7 @@ module.exports =
             case 0:
               _context6.prev = 0;
               return _context6.delegateYield(_regenerator2.default.mark(function _callee5() {
-                var statusCode, template, data, css, context, expiresIn, token;
+                var statusCode, template, data, css, context, expiresIn;
                 return _regenerator2.default.wrap(function _callee5$(_context5) {
                   while (1) {
                     switch (_context5.prev = _context5.next) {
@@ -426,13 +426,12 @@ module.exports =
   
                         res.status(statusCode);
                         expiresIn = 60 * 60 * 24 * 180; // 180 days
+                        // const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn: expiresIn});
+                        // res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
   
-                        token = _jsonwebtoken2.default.sign(req.user, _config.auth.jwt.secret, { expiresIn: expiresIn });
-  
-                        res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
                         res.send(template(data));
   
-                      case 13:
+                      case 11:
                       case 'end':
                         return _context5.stop();
                     }
