@@ -378,7 +378,21 @@ module.exports =
   //
   // Register server-side rendering middleware
   // -----------------------------------------------------------------------------
-  server.get('/podcastdetail*', function () {
+  server.get('/podcastdetail*', function (req, res, next) {
+    try {
+      var decoded = _jsonwebtoken2.default.verify(req.cookies.id_token, _config.auth.jwt.secret);
+      _passport2.default.authenticate('wechatNo', {
+        session: true,
+        callbackURL: 'http://' + req.headers.host + req.path
+      })(req, res, next);
+    } catch (err) {
+      console.log(err);
+      _passport2.default.authenticate('wechat', {
+        session: true,
+        callbackURL: 'http://' + req.headers.host + req.path
+      })(req, res, next);
+    }
+  }, function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6(req, res, next) {
       return _regenerator2.default.wrap(function _callee6$(_context6) {
         while (1) {
@@ -6649,7 +6663,7 @@ module.exports =
       ),
       _react2.default.createElement(
         'a',
-        { href: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.iyuanzi.app' },
+        { href: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.iyuanzi.app', id: 'deeplink' },
         _react2.default.createElement('img', { src: '../../btnDownload@2x.png', alt: '' })
       )
     );
@@ -11528,48 +11542,57 @@ module.exports =
   
   var action = exports.action = function () {
     var ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(state) {
-      var podcastId, query, response, _ref, data;
+      var d, appData, token, userId, podcastId, query, response, _ref, data, q;
   
       return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              //   if(state.context.appData && state.context.appData.length>0) {
-              //     let d = state.context.appData.replace(/&quot;/g,'"');
-              //     let appData = JSON.parse(d);
-              //     let token = appData.access_token;
-              //     let userId = appData.userId;
-              //     // if(token) {
+              if (!(state.context.appData && state.context.appData.length > 0)) {
+                _context.next = 21;
+                break;
+              }
+  
+              d = state.context.appData.replace(/&quot;/g, '"');
+              appData = JSON.parse(d);
+              token = appData.access_token;
+              userId = appData.userId;
+  
+              if (!token) {
+                _context.next = 21;
+                break;
+              }
+  
               podcastId = state.path.replace('/podcastdetail/', '').replace('/view', '');
-              query = '{\n  podcast(path: "' + podcastId + '", token: "unsign") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
+              query = '{\n  podcast(path: "' + podcastId + '", token: "' + token + '") {\n    title\n    joined\n    roomNumber\n  }\n}\n';
   
               console.log(query);
-              _context.next = 5;
+              _context.next = 11;
               return (0, _fetch2.default)('/graphql?query=' + query);
   
-            case 5:
+            case 11:
               response = _context.sent;
-              _context.next = 8;
+              _context.next = 14;
               return response.json();
   
-            case 8:
+            case 14:
               _ref = _context.sent;
               data = _ref.data;
-              //       state.context.onSetMeta('title', data.podcast.title);
-              //       state.context.onSetMeta('og:title', data.podcast.title);
   
-              //             const q = `{
-              //   order(podcastId: "${podcastId}", token: "${token}", ) {
-              //     orderId
-              //   }
-              // }`;
-              //       if(token != 'unsign') {
-              //         fetch(`/graphql?query=${q}`);
-              //       }
+              state.context.onSetMeta('title', data.podcast.title);
+              state.context.onSetMeta('og:title', data.podcast.title);
   
-              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: '' }));
+              q = '{\n  order(podcastId: "' + podcastId + '", token: "' + token + '", ) {\n    orderId\n  }\n}';
   
-            case 11:
+              if (token != 'unsign') {
+                (0, _fetch2.default)('/graphql?query=' + q);
+              }
+              return _context.abrupt('return', _react2.default.createElement(_PodcastDetail2.default, { podcastId: data.podcast.roomNumber, userId: userId }));
+  
+            case 21:
+              return _context.abrupt('return', _react2.default.createElement('div', null));
+  
+            case 22:
             case 'end':
               return _context.stop();
           }
@@ -13970,7 +13993,7 @@ module.exports =
   var jade_mixins = {};
   var jade_interp;
   ;var locals_for_with = (locals || {});(function (appData, body, css, description, entry, title, trackingId) {
-  buf.push("<!DOCTYPE html><html lang=\"\" class=\"no-js\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><title>" + (jade.escape(null == (jade_interp = title) ? "" : jade_interp)) + "</title><meta name=\"description\"" + (jade.attr("description", description, true, true)) + "><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\"><style id=\"css\">" + (null == (jade_interp = css) ? "" : jade_interp) + "</style><link href=\"https://vjs.zencdn.net/5.10.7/video-js.css\" rel=\"stylesheet\"></head><body><div id=\"app\">" + (null == (jade_interp = body) ? "" : jade_interp) + "</div><script>window.appData = '" + (jade.escape((jade_interp = appData) == null ? '' : jade_interp)) + "'</script><script" + (jade.attr("src", entry, true, true)) + "></script><script>window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;\nga('create','" + (jade.escape((jade_interp = trackingId) == null ? '' : jade_interp)) + "','auto');ga('send','pageview')</script><script src=\"https://vjs.zencdn.net/5.10.7/video.js\"></script>");
+  buf.push("<!DOCTYPE html><html lang=\"\" class=\"no-js\"><head><meta charset=\"utf-8\"><meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\"><title>" + (jade.escape(null == (jade_interp = title) ? "" : jade_interp)) + "</title><meta name=\"description\"" + (jade.attr("description", description, true, true)) + "><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\"><style id=\"css\">" + (null == (jade_interp = css) ? "" : jade_interp) + "</style><link href=\"https://vjs.zencdn.net/5.10.7/video-js.css\" rel=\"stylesheet\"></head><body><div id=\"app\">" + (null == (jade_interp = body) ? "" : jade_interp) + "</div><script>window.appData = '" + (jade.escape((jade_interp = appData) == null ? '' : jade_interp)) + "'</script><script" + (jade.attr("src", entry, true, true)) + "></script><script>window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;\nga('create','" + (jade.escape((jade_interp = trackingId) == null ? '' : jade_interp)) + "','auto');ga('send','pageview')</script><script src=\"https://vjs.zencdn.net/5.10.7/video.js\"></script><script src=\"https://lkme.cc/js/linkedme.min.js\"></script><script>linkedme.init(\"b94d75c383a1127d94d29258e8a5526e\", {type: \"live\"}, null);\nvar data = {};\ndata.type = \"live\";  //表示现在使用线上模式,如果填写\"test\", 表示测试模式.【可选】\nvar value1 = document.URL;\ndata.params = '{\"link\":\"' + value1 + '\"}'; //注意单引号和双引号的位置\n\nlinkedme.link(data, function (err, data) {\n  if (err) {\n  } else {\n    document.getElementById('deeplink').href = data.url\n  }\n}, false);</script>");
   if ( trackingId)
   {
   buf.push("<script src=\"https://www.google-analytics.com/analytics.js\" async defer></script>");
