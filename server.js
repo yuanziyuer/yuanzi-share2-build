@@ -8098,37 +8098,38 @@ module.exports =
   
         var steps = [];
   
-        if (strategy.description && strategy.description.length > 0) {} else {
-          if (strategy.labels && strategy.labels.length > 0 && (strategy.labels[0].title == '美食' || strategy.labels[0].title == '手工')) {
-            if (strategy.video) {
-              steps = _lodash2.default.concat(steps, { video: strategy.video });
-            }
-  
-            if (strategy.materials && strategy.tools && strategy.materials.length <= 7 && strategy.tools.length <= 7) {
-              steps = _lodash2.default.concat(steps, { total: {
-                  materials: strategy.materials,
-                  tools: strategy.tools
-                } });
-            } else {
-              if (strategy.materials) {
-                steps = _lodash2.default.concat(steps, { materials: strategy.materials });
-              }
-              if (strategy.tools) {
-                steps = _lodash2.default.concat(steps, { tools: strategy.tools });
-              }
-            }
-  
-            steps = _lodash2.default.concat(steps, strategy.steps);
-          } else {
-            strategy.steps.map(function (s) {
-              if (s.imgUrl) strategy.description += "<img src=" + _CDN2.default.coverURL(s.imgUrl) + " />";
-              if (s.description) strategy.description += "<p>" + s.description + "</p>";
-              return;
-            });
-            steps = [];
-            console.log(strategy.description);
+        // if(strategy.description && strategy.description.length>0) {
+        // }else {
+        if (strategy.labels && strategy.labels.length > 0) {
+          if (strategy.video) {
+            steps = _lodash2.default.concat(steps, { video: strategy.video });
           }
+  
+          if (strategy.materials && strategy.tools && strategy.materials.length <= 7 && strategy.tools.length <= 7) {
+            steps = _lodash2.default.concat(steps, { total: {
+                materials: strategy.materials,
+                tools: strategy.tools
+              } });
+          } else {
+            if (strategy.materials) {
+              steps = _lodash2.default.concat(steps, { materials: strategy.materials });
+            }
+            if (strategy.tools) {
+              steps = _lodash2.default.concat(steps, { tools: strategy.tools });
+            }
+          }
+  
+          steps = _lodash2.default.concat(steps, strategy.steps);
+        } else {
+          strategy.steps.map(function (s) {
+            if (s.imgUrl) strategy.description += "<img src=" + _CDN2.default.coverURL(s.imgUrl) + " />";
+            if (s.description) strategy.description += "<p>" + s.description + "</p>";
+            return;
+          });
+          steps = [];
+          console.log(strategy.description);
         }
+        // }
         var label = '../../label_normal@2x.png';
   
         var removedIndex = 0;
@@ -8186,7 +8187,6 @@ module.exports =
             ),
             this.renderAudio(strategy.soundStory)
           ),
-          this.renderDesc(strategy.description),
           steps.length > 0 ? _react2.default.createElement(
             'section',
             { className: _Strategy2.default.AppSection, style: {
