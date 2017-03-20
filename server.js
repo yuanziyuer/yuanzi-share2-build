@@ -8392,11 +8392,7 @@ module.exports =
                     )
                   ),
                   s.imgUrl ? _react2.default.createElement('img', { src: _CDN2.default.stepCoverURL(s.imgUrl), alt: '', className: imgClass }) : '',
-                  s.description ? _react2.default.createElement(
-                    'p',
-                    { className: descClass },
-                    s.description
-                  ) : ''
+                  s.description ? _react2.default.createElement('div', { dangerouslySetInnerHTML: _this2.createMarkup(s.description), className: descClass }) : ''
                 );
               })
             )
